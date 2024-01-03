@@ -99,7 +99,7 @@ const TransactionContainer = () => {
     // fetch rebalance confirmations if latestRebalanceEvent changes with useEffect
     useEffect(() => {
         fetchRebalanceConfirmations();
-    }, [latestRebalanceEvent]);
+    }, [latestRebalanceEvent, fetchRebalanceConfirmations]);
 
     return (
         <Flex direction='column' p='8px 16px 16px' height={'100%'}>
