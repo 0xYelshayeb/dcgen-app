@@ -6,8 +6,8 @@ import IndexModuleAbI from '../../lib/utils/abi/GeneralIndexModule.json';
 import { useWallet } from '../../lib/hooks/useWallet';
 
 const TradeContainer = () => {
-    const [components, setComponents] = useState([]);
-    const [selectedComponents, setSelectedComponents] = useState({});
+    const [components, setComponents] = useState<string[]>([]);
+    const [selectedComponents, setSelectedComponents] = useState<Record<string, boolean>>({});
     const { provider, signer } = useWallet();
 
     const setTokenAbi = SetTokenAbi.abi;
@@ -29,7 +29,7 @@ const TradeContainer = () => {
         fetchComponents();
     }, [provider]);
 
-    const handleCheckboxChange = (component) => {
+    const handleCheckboxChange = (component: string) => {
         setSelectedComponents({
             ...selectedComponents,
             [component]: !selectedComponents[component]

@@ -7,6 +7,7 @@ export class IndexApi {
    */
   async get(path: string) {
     try {
+      console.log('Fetching Index API for path', path)
       const headers = getIndexApiHeaders()
       const resp = await fetch(`${IndexApiBaseUrl}${path}`, {
         headers,
