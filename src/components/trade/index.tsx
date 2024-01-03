@@ -42,8 +42,8 @@ const QuickTradeContainer = (props: QuickTradeProps) => {
         selectedType={selectedType}
       />
       {selectedType === TradeType.swap && <Swap {...props} />}
-      {selectedType === TradeType.issue && <Issue {...props} />}
-      {selectedType === TradeType.redeem && <Redeem {...props} />}
+      {selectedType === TradeType.issue && <Issue />}
+      {selectedType === TradeType.redeem && <Redeem />}
     </Flex>
   )
 }

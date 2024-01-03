@@ -9,7 +9,6 @@ import { isValidTokenInput } from '@/lib/utils'
 import { BigNumber, ethers } from 'ethers'
 import { WETH } from '@/constants/tokens'
 import { useGetComponents } from '@/lib/hooks/useGetComponents'
-import { getTokenforAddress } from '@/lib/utils/tokens'
 import { useIndexApproval } from '@/lib/hooks/useIndexApproval'
 
 export const Issue = () => {
