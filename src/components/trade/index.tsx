@@ -100,7 +100,7 @@ const Navigation = (props: NavigationProps) => {
         <NavigationButton
           isSelected={issueIsSelected}
           onClick={() => onSelect(TradeType.issue)}
-          title='Trade Issue'
+          title='Issue'
         />
         <NavigationButton
           isSelected={redeemIsSelected}
