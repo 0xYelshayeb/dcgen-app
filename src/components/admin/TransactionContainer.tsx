@@ -4,7 +4,6 @@ import { useFetchEvents } from '@/lib/hooks/useFetchEvents';
 import { ethers } from 'ethers';
 import { useWallet } from '@/lib/hooks/useWallet';
 import MultiSigAbi from '../../lib/utils/abi/MultiSigOperator.json';
-import { use } from 'chai';
 
 const TransactionContainer = () => {
     const { rebalanceEvents, operatorEvents } = useFetchEvents();

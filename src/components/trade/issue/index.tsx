@@ -1,134 +1,123 @@
-import { useCallback, useState, useEffect } from 'react'
-import { Box, Button, Input, Text } from '@chakra-ui/react'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { useWallet } from '@/lib/hooks/useWallet'
-import { useIssue } from '@/lib/hooks/useIssue'
-import { useNavIssue } from '@/lib/hooks/useNavIssue'
-import { useApproval } from '@/lib/hooks/useApproval'
-import { isValidTokenInput } from '@/lib/utils'
-import { BigNumber, ethers } from 'ethers'
-import { WETH } from '@/constants/tokens'
-import { useGetComponents } from '@/lib/hooks/useGetComponents'
-import { useIndexApproval } from '@/lib/hooks/useIndexApproval'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-export const Issue = () => {
+import { useICColorMode } from '@/lib/styles/colors'
+
+import { Box, Flex, Input, useDisclosure } from '@chakra-ui/react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+
+import { TradeButton } from '@/components/trade-button'
+import { useApproval } from '@/lib/hooks/useApproval'
+import { useIndexApproval } from '@/lib/hooks/useIndexApproval'
+import { useNetwork } from '@/lib/hooks/useNetwork'
+import { IssuanceModuleAddres, navIssuanceModuleAddres } from '@/constants/contracts'
+import { getNativeToken } from '@/lib/utils/tokens'
+import { WETH } from '@/constants/tokens'
+import { useIssuance } from '@/lib/hooks/useIssuance'
+import { useNavIssuance } from '@/lib/hooks/useNavIssuance'
+import { useGetComponents } from '@/lib/hooks/useGetComponents'
+
+import { RethSupplyCapOverrides } from '@/components/supply'
+import {
+  TradeButtonState,
+  useTradeButtonState,
+} from './hooks/use-trade-button-state'
+import { useTradeButton } from './hooks/use-trade-button'
+import { useWallet } from '@/lib/hooks/useWallet'
+import { useNavIssue } from './hooks/use-issue'
+import { ethers } from 'ethers'
+
+// TODO: remove with new navigation
+export type QuickTradeProps = {
+  onOverrideSupplyCap?: (overrides: RethSupplyCapOverrides | undefined) => void
+  onShowSupplyCap?: (show: boolean) => void
+  switchTabs?: () => void
+}
+
+export const Issue = (props: QuickTradeProps) => {
   const { openConnectModal } = useConnectModal()
-  const { address, isConnected } = useWallet()
-  const { executeIssue, isTransacting } = useIssue()
-  const { executeNavIssue, isNavTransacting } = useNavIssue()
-  const [amount, setAmount] = useState('')
-  const [formattedAmount, setFormattedAmount] = useState('0')
-  const [navAmount, setNavAmount] = useState('') // State for NAV amount
-  const [formattedNavAmount, setFormattedNavAmount] = useState('0') // State for formatted NAV amount
+  const { isDarkMode } = useICColorMode()
+  const { chainId } = useNetwork()
+  const { address } = useWallet()
+
+  // TODO: ?
+  const [navAmountFormatted, setNavAmountFormatted] = useState('0')
+  const [navAmount, setNavAmount] = useState('')
+  const { executeNavIssue, isNavTransacting } = useNavIssuance()
+
   const { fetchComponents } = useGetComponents()
 
-  const [components, setComponents] = useState<string[]>([]);
-  const [approvals, setApprovals] = useState<{ [address: string]: boolean }>({});
+  const {
+    hasInsufficientFunds,
+    inputTokenAmountUsd,
+    inputTokenAmountWei,
+    inputTokenBalance,
+    inputTokenBalanceFormatted,
+    inputTokenPrice,
+  } = useNavIssue(WETH, navAmountFormatted)
 
-  useEffect(() => {
-    fetchComponents().then(setComponents);
-  }, []);
+  const {
+    isApproved: isNavApproved,
+    isApproving: isNavApproving,
+    approve: navApprove,
+  } = useApproval(WETH, navIssuanceModuleAddres, inputTokenAmountWei)
 
-  const contractAddress = "0x6462802576CF2a7eEf655f62fBDa48693CB36201"
+  const shouldApprove = !(getNativeToken(chainId)?.symbol === WETH.symbol);
 
-  // Use the useIndexApproval hook
-  const { approvals: tokenApprovals, approveAll, isApproving} = useIndexApproval(components, contractAddress, ethers.utils.parseEther(formattedAmount));
+  const navButtonState = useTradeButtonState(
+    false,
+    hasInsufficientFunds,
+    shouldApprove,
+    isNavApproved,
+    isNavApproving,
+    isNavTransacting,
+    navAmountFormatted
+  )
 
-  const { isApproved: isWethApproved, approve: approveWeth } = useApproval(WETH, contractAddress, ethers.utils.parseEther(formattedNavAmount));
+  const { buttonLabel: navButtonLabel, isDisabled: navIsDisabled } = useTradeButton(navButtonState)
 
-  const onIssue = useCallback(async () => {
-    if (!amount || !isValidTokenInput(amount, 18)) return
-    if(!tokenApprovals){
-      await approveAll();
-      return;
-    }
-    try {
-      // Assuming the amount is entered in Ether and needs to be converted to Wei
-      const amountInWei = ethers.utils.parseEther(amount)
-      console.log(amountInWei)
-      await executeIssue(BigNumber.from(amountInWei))
-    } catch (error) {
-      console.error('Issue operation failed:', error)
-    }
-  }, [amount, executeIssue])
-
-  const onNavIssue = useCallback(async () => {
-    if (!navAmount || !isValidTokenInput(navAmount, 18)) return
-    if (!isWethApproved) {
-      await approveWeth();
-      return;
-    }
-    try {
-      const navAmountInWei = ethers.utils.parseEther(navAmount)
-      console.log(navAmountInWei)
-      await executeNavIssue(BigNumber.from(navAmountInWei))
-    } catch (error) {
-      console.error('NAV Issue operation failed:', error)
-    }
-  }, [navAmount, executeNavIssue])
-
-  const handleInputChange = (e: any) => {
-    const value = e.target.value;
-    setAmount(value); // Set the actual input field value
-    if (/^\d*\.?\d*$/.test(value)) { // Allow only numbers and decimal points
-      // Set numericAmount to 0 if value is empty, else set to the value
-      setFormattedAmount(value === '' ? '0' : value);
-    }
-  };
-
-  const handleNavInputChange = (e: any) => {
-    const value = e.target.value;
+  const onChangeNavAmount = (value: string) => {
     setNavAmount(value); // Set the actual input field value
     if (/^\d*\.?\d*$/.test(value)) { // Allow only numbers and decimal points
-      // Same logic as above for NAV amount
-      setFormattedNavAmount(value === '' ? '0' : value);
-    }
-  };
-
-  const handleConnectWallet = () => {
-    if (openConnectModal) {
-      openConnectModal()
+      // Set numericAmount to 0 if value is empty, else set to the value
+      setNavAmountFormatted(value === '' ? '0' : value);
     }
   }
 
+  const onNavIssue = useCallback(async () => {
+    if (navButtonState === TradeButtonState.connectWallet) {
+      if (openConnectModal) {
+        openConnectModal()
+      }
+      return
+    }
+
+    if (navButtonState === TradeButtonState.insufficientFunds) return
+
+    if (!isNavApproved && shouldApprove) {
+      await navApprove()
+      return
+    }
+
+    if (navButtonState === TradeButtonState.default) {
+      await executeNavIssue(ethers.utils.parseEther(navAmountFormatted))
+    }
+  }, [navButtonState, executeNavIssue, isNavApproved, navApprove, openConnectModal, shouldApprove])
+
   return (
     <Box>
-      {!isConnected && (
-        <Button onClick={handleConnectWallet}>Connect Wallet</Button>
-      )}
-      {isConnected && (
-        <>
-          <Input
-            placeholder='0.0'
-            value={amount}
-            onChange={handleInputChange}
-            mb={3}
-          />
-          <Button
-            onClick={onIssue}
-            isLoading={isTransacting}
-            disabled={!amount || isTransacting}
-            mb={3}
-          >
-            Standard Issue
-          </Button>
-          <Input
-            placeholder='0.0'
-            value={navAmount}
-            onChange={handleNavInputChange}
-            mb={3}
-          />
-          <Button
-            onClick={onNavIssue}
-            isLoading={isNavTransacting}
-            disabled={!navAmount || isNavTransacting || !isWethApproved}
-            mb={3}
-          >
-            NAV Issue
-          </Button>
-        </>
-      )}
-      {!address && <Text>Please connect your wallet to issue tokens.</Text>}
+      <Input
+        placeholder='0.0'
+        value={navAmount}
+        onChange={(e) => onChangeNavAmount(e.target.value)}
+        marginBottom={2}
+        marginTop={2}
+      />
+      <TradeButton
+        label={navButtonLabel}
+        isDisabled={navIsDisabled}
+        isLoading={isNavApproving}
+        onClick={onNavIssue}
+      />
     </Box>
   )
 }

@@ -5,12 +5,16 @@ import { useWallet } from '@/lib/hooks/useWallet'
 import { useRedeem } from '@/lib/hooks/useRedeem'
 import { isValidTokenInput } from '@/lib/utils'
 import { BigNumber, ethers } from 'ethers'
+import { useColorStyles } from '@/lib/styles/colors'
+
 
 export const Redeem = () => {
+  const { styles } = useColorStyles()
   const { openConnectModal } = useConnectModal()
   const { address, isConnected } = useWallet()
   const { executeRedeem, isTransacting } = useRedeem()
   const [amount, setAmount] = useState('')
+  const [formattedAmount, setFormattedAmount] = useState('0.0')
 
   const onRedeem = useCallback(async () => {
     if (!amount || !isValidTokenInput(amount, 18)) return
@@ -21,12 +25,13 @@ export const Redeem = () => {
     } catch (error) {
       console.error('Issue operation failed:', error)
     }
-  }, [amount, executeRedeem])
+  }, [formattedAmount, executeRedeem])
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const value = e.target.value;
+    setAmount(value)
     if (/^\d*\.?\d*$/.test(value)) { // Allow only numbers and decimal points
-      setAmount(value);
+      setFormattedAmount(value)
     }
   }
 
@@ -44,18 +49,26 @@ export const Redeem = () => {
       {isConnected && (
         <>
           <Input
-            placeholder='Enter amount'
+            placeholder='0.0'
             value={amount}
             onChange={handleInputChange}
-            mb={3}
+            marginBottom={2}
+            marginTop={2}
           />
           <Button
-            onClick={onRedeem}
-            isLoading={isTransacting}
+            background={styles.backgroundInverted}
+            border='0'
+            borderRadius='12px'
+            color={styles.textInverted}
             disabled={!amount || isTransacting}
-            mb={3}
+            fontSize='24px'
+            fontWeight='600'
+            isLoading={isTransacting}
+            height='54px'
+            w='100%'
+            onClick={onRedeem}
           >
-            Redeem
+            {formattedAmount !== '0.0' ? 'Redeem' : 'Enter an amount'}
           </Button>
         </>
       )}

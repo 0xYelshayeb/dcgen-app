@@ -5,36 +5,34 @@ import { prepareWriteContract, writeContract} from '@wagmi/core'
 import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
-import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
+import basicIssuanceModule from "../utils/abi/BasicIssuanceModule.json"
 import { SETTOKEN } from '@/constants/tokens';
-import { WETH } from '@/constants/tokens';
-import { navIssuanceModuleAddres } from '@/constants/contracts';
+import { IssuanceModuleAddres } from '@/constants/contracts';
 
-const contractABI = navIssuanceModule.abi
-const setTokenAddress = SETTOKEN.address
-const weth = WETH.address
-
-export const useNavIssue = () => {
+export const useIssuance = () => {
   const { address } = useWallet()
   const { chainId } = useNetwork()
 
-  const [isNavTransacting, setIsTransacting] = useState(false)
+  const [isTransacting, setIsTransacting] = useState(false)
 
-  const executeNavIssue = useCallback(
+  const executeIssue = useCallback(
     async (amount: BigNumber) => {
       if (!address) return;
 
       try {
         setIsTransacting(true);
+        console.log("formatting amount")
 
         // Prepare the contract write operation
         const prepared = await prepareWriteContract({
-          abi: contractABI,
-          address: navIssuanceModuleAddres,
+          abi: basicIssuanceModule.abi,
+          address: IssuanceModuleAddres,
           functionName: 'issue',
-          args: [setTokenAddress, weth, amount, 0, address],
+          args: [SETTOKEN.address, amount, address],
           chainId: chainId,
         });
+
+        console.log("writing contract");
 
         // Execute the contract write
         const { hash } = await writeContract(prepared);
@@ -48,5 +46,5 @@ export const useNavIssue = () => {
     [address, chainId]
   );
 
-  return { executeNavIssue, isNavTransacting };
+  return { executeIssue, isTransacting };
 };

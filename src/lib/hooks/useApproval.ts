@@ -48,8 +48,8 @@ export const useApproval = (
 
   async function updateApprovalState(spenderAddress: string) {
     const allowance = await getAllowance(spenderAddress)
-    const isApproved = allowance.gte(amount)
-    setIsApproved(isApproved)
+    const isApprovedTemp = allowance.gte(amount)
+    setIsApproved(isApprovedTemp)
   }
 
   useEffect(() => {

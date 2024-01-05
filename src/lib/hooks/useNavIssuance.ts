@@ -5,35 +5,40 @@ import { prepareWriteContract, writeContract} from '@wagmi/core'
 import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
-import basicIssuanceModule from "../utils/abi/BasicIssuanceModule.json"
+import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
 import { SETTOKEN } from '@/constants/tokens';
-import { IssuanceModuleAddres } from '@/constants/contracts';
+import { WETH } from '@/constants/tokens';
+import { navIssuanceModuleAddres } from '@/constants/contracts';
 
-const contractAddress = IssuanceModuleAddres
-const contractABI = basicIssuanceModule.abi
+const contractABI = navIssuanceModule.abi
 const setTokenAddress = SETTOKEN.address
+const weth = WETH.address
 
-export const useIssue = () => {
+export const useNavIssuance = () => {
   const { address } = useWallet()
   const { chainId } = useNetwork()
 
-  const [isTransacting, setIsTransacting] = useState(false)
+  const [isNavTransacting, setIsTransacting] = useState(false)
 
-  const executeIssue = useCallback(
+  const executeNavIssue = useCallback(
     async (amount: BigNumber) => {
       if (!address) return;
+      console.log("amount", amount);
 
       try {
         setIsTransacting(true);
+        console.log("preparing");
 
         // Prepare the contract write operation
         const prepared = await prepareWriteContract({
           abi: contractABI,
-          address: contractAddress,
+          address: navIssuanceModuleAddres,
           functionName: 'issue',
-          args: [setTokenAddress, amount, address],
+          args: [setTokenAddress, weth, amount, 0, address],
           chainId: chainId,
         });
+
+        console.log("prepared", prepared);
 
         // Execute the contract write
         const { hash } = await writeContract(prepared);
@@ -47,5 +52,5 @@ export const useIssue = () => {
     [address, chainId]
   );
 
-  return { executeIssue, isTransacting };
+  return { executeNavIssue, isNavTransacting };
 };

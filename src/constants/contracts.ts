@@ -2,14 +2,12 @@ export const zeroExRouterAddress = '0xDef1C0ded9bec7F1a1670819833240f027b25EfF'
 export const zeroExRouterOptimismAddress =
   '0xdef1abe32c034e558cdd535791643c58a13acc10'
 
-export const indexModuleAddress = '0x68C628F95EBeA470447017A7F7E767D2e8Db4952'
+export const indexModuleAddress = '0x028308E54C4Ba14DBB3ae582AB21D69DBdC29665'
 
-export const multiSigOperatorAddress = "0x855081b7F177D47949C998DA7dD45471880C3894"
+export const multiSigOperatorAddress = "0x212a2EbA6545126D67f8A41A041978f495AF6D4a"
 
-export const navIssuanceModuleAddres = "0x6462802576CF2a7eEf655f62fBDa48693CB36201"
+export const navIssuanceModuleAddres = "0x4F904324B2eFA8b8F2B3e2EFa6dBef55c4ba9636"
 
-export const IssuanceModuleAddres = "0x051fd7f5404a841C52A5D66c008A2c111347C03f"
+export const IssuanceModuleAddres = "0xA4AA2cEFDd8b145c76bEb72c6f7700C838397B69"
 
-export const setTokenAddress = "0x26DE69d01fdB4DA2160777c9b8598F335D2536D4"
-
-export const multiSigAddress = "0x855081b7F177D47949C998DA7dD45471880C3894"
+export const setTokenAddress = "0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F"
