@@ -2,20 +2,18 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useICColorMode } from '@/lib/styles/colors'
 
-import { Box, Flex, Input, useDisclosure } from '@chakra-ui/react'
+import { Box, Input, Text, Flex } from '@chakra-ui/react'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { colors } from '@/lib/styles/colors'
 
 import { TradeButton } from '@/components/trade-button'
 import { useApproval } from '@/lib/hooks/useApproval'
 import { useIndexApproval } from '@/lib/hooks/useIndexApproval'
 import { useNetwork } from '@/lib/hooks/useNetwork'
-import { IssuanceModuleAddres, navIssuanceModuleAddres } from '@/constants/contracts'
+import { navIssuanceModuleAddres } from '@/constants/contracts'
 import { getNativeToken } from '@/lib/utils/tokens'
 import { WETH } from '@/constants/tokens'
-import { useIssuance } from '@/lib/hooks/useIssuance'
 import { useNavIssuance } from '@/lib/hooks/useNavIssuance'
-import { useGetComponents } from '@/lib/hooks/useGetComponents'
-
 import { RethSupplyCapOverrides } from '@/components/supply'
 import {
   TradeButtonState,
@@ -43,8 +41,6 @@ export const Issue = (props: QuickTradeProps) => {
   const [navAmountFormatted, setNavAmountFormatted] = useState('0')
   const [navAmount, setNavAmount] = useState('')
   const { executeNavIssue, isNavTransacting } = useNavIssuance()
-
-  const { fetchComponents } = useGetComponents()
 
   const {
     hasInsufficientFunds,
@@ -76,9 +72,8 @@ export const Issue = (props: QuickTradeProps) => {
   const { buttonLabel: navButtonLabel, isDisabled: navIsDisabled } = useTradeButton(navButtonState)
 
   const onChangeNavAmount = (value: string) => {
-    setNavAmount(value); // Set the actual input field value
     if (/^\d*\.?\d*$/.test(value)) { // Allow only numbers and decimal points
-      // Set numericAmount to 0 if value is empty, else set to the value
+      setNavAmount(value);
       setNavAmountFormatted(value === '' ? '0' : value);
     }
   }
@@ -105,13 +100,22 @@ export const Issue = (props: QuickTradeProps) => {
 
   return (
     <Box>
-      <Input
-        placeholder='0.0'
-        value={navAmount}
-        onChange={(e) => onChangeNavAmount(e.target.value)}
-        marginBottom={2}
-        marginTop={2}
-      />
+      <Flex
+        align='center'
+        p='10px'
+        shrink={0}
+        gap={6}>
+        <Input
+          placeholder='0.0'
+          value={navAmount}
+          onChange={(e) => onChangeNavAmount(e.target.value)}
+          marginBottom={2}
+          marginTop={2}
+        />
+        <Text color={colors.icGray2} fontSize='12px' fontWeight='500'>
+          WETH Balance: {inputTokenBalanceFormatted}
+        </Text>
+      </Flex>
       <TradeButton
         label={navButtonLabel}
         isDisabled={navIsDisabled}

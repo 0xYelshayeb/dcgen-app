@@ -12,7 +12,7 @@ import { IssuanceModuleAddres } from '@/constants/contracts';
 const contractABI = basicIssuanceModule.abi
 const setTokenAddress = SETTOKEN.address
 
-export const useRedeem = () => {
+export const useRedemption = () => {
   const { address } = useWallet()
   const { chainId } = useNetwork()
 
