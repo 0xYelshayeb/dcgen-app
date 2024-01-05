@@ -110,7 +110,6 @@ export const Redeem = () => {
         isLoading={isApproving}
         onClick={onRedeem}
       />
-      {!address && <Text>Please connect your wallet to issue tokens.</Text>}
     </Box>
   )
 }

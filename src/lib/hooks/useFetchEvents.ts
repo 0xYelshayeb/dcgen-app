@@ -8,8 +8,8 @@ const contractABI = MultiSigAbi.abi;
 
 export const useFetchEvents = () => {
     const [rebalanceEvents, setRebalanceEvents] = useState<ethers.Event[]>([]);
-const [operatorEvents, setOperatorEvents] = useState<ethers.Event[]>([]);
-    const {provider} = useWallet();
+    const [operatorEvents, setOperatorEvents] = useState<ethers.Event[]>([]);
+    const { provider } = useWallet();
 
     useEffect(() => {
         if (!provider) {
@@ -20,7 +20,7 @@ const [operatorEvents, setOperatorEvents] = useState<ethers.Event[]>([]);
 
         const fetchEvents = async () => {
             const latestBlock = await provider.getBlockNumber();
-            const fromBlock = Math.max(0, latestBlock - 10000); // Fetch last 1000 blocks, adjust as needed
+            const fromBlock = Math.max(0, latestBlock - 100000); // Fetch last 10.000 blocks, adjust as needed
 
             const rebalanceFilter = contract.filters.SubmitRebalance();
             const rebalanceLogs = await contract.queryFilter(rebalanceFilter, fromBlock, latestBlock);
