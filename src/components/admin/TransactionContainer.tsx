@@ -10,6 +10,7 @@ const TransactionContainer = () => {
     const [approveRebalance, setApproveRebalance] = useState(false);
     const [approveOperator, setApproveOperator] = useState(false);
     const [rebalanceConfirmations, setRebalanceConfirmations] = useState(0);
+    const [operatorConfirmations, setOperatorConfirmations] = useState(0);
 
     const [executeRebalance, setExecuteRebalance] = useState(false);
     const [executeOperator, setExecuteOperator] = useState(false);
@@ -26,6 +27,15 @@ const TransactionContainer = () => {
             const rebalance = await contract.getRebalance();
             console.log(rebalance);
             setRebalanceConfirmations(rebalance[5].toNumber());
+        }
+    };
+
+    const fetchOperatorConfirmations = async () => {
+        const latestEvent = operatorEvents[operatorEvents.length - 1];
+        if (latestEvent) {
+            const operator = await contract.getOperatorProposal();
+            console.log(operator);
+            setOperatorConfirmations(operator[1].toNumber());
         }
     };
 
@@ -123,6 +133,7 @@ const TransactionContainer = () => {
                 {latestOperatorEvent && (
                     <Box p={2} shadow='md' borderWidth='1px'>
                         <Text>New Operator Address: {latestOperatorEvent.args?.newOperator}</Text>
+                        <Text>Confirmations: {operatorConfirmations}</Text>
                         {/* More details of latestOperatorEvent... */}
                     </Box>
                 )}
