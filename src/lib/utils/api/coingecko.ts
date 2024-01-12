@@ -26,7 +26,7 @@ export const fetchCoingeckoTokenPrice = async (
     })
 
     console.log("aowaw");
-    console.log("data");
+    console.log(data);
 
     return data["price"];
   }
