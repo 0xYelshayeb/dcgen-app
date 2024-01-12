@@ -17,6 +17,7 @@ export const fetchCoingeckoTokenPrice = async (
   baseCurrency = 'usd'
 ): Promise<number> => {
   if (address === ETH.address) {
+    console.log("fetching eth price")
     const priceUrl =
       baseURL + `/simple/price/?ids=ethereum&vs_currencies=${baseCurrency}`
 
@@ -24,9 +25,7 @@ export const fetchCoingeckoTokenPrice = async (
       return 0
     })
 
-    if (data === 0 || !data['ethereum']) return 0
-
-    return data['ethereum'][baseCurrency]
+    return data;
   }
 
   const getPriceUrl =

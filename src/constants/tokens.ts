@@ -467,7 +467,7 @@ export const WETH: Token = {
   image:
     'https://assets.coingecko.com/coins/images/2518/large/weth.png?1628852295',
   address: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
-  polygonAddress: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+  polygonAddress: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
   optimismAddress: '0x4200000000000000000000000000000000000006',
   sepoliaAddress: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
   decimals: 18,
