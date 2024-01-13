@@ -32,10 +32,12 @@ export const fetchCoingeckoTokenPrice = async (
   }
 
   const getPriceUrl =
+    // baseURL +
+    // `/simple/token_price/${getAssetPlatform(
+    //   chainId
+    // )}/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
     baseURL +
-    `/simple/token_price/${getAssetPlatform(
-      chainId
-    )}/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
+    `/simple/token_price/?contract_addresses=${address}&vs_currencies=${baseCurrency}`
 
   const data = await indexApi.get(getPriceUrl).catch(() => {
     return 0
@@ -43,5 +45,5 @@ export const fetchCoingeckoTokenPrice = async (
 
   if (data === 0 || !data[address.toLowerCase()]) return 0
 
-  return data[address.toLowerCase()][baseCurrency]
+  return data["price"];
 }
