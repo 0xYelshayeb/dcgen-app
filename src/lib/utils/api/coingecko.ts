@@ -43,6 +43,7 @@ export const fetchCoingeckoTokenPrice = async (
     return 0
   })
 
+  console.log("token endpoint")
   console.log(data);
 
   return data["price"];
