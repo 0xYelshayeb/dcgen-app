@@ -22,12 +22,11 @@ export const fetchCoingeckoTokenPrice = async (
       baseURL + `/simple/price/?ids=ethereum&vs_currencies=${baseCurrency}`
 
     const data = await indexApi.get(priceUrl).catch(() => {
+      console.log(data);
       return 0
     })
 
     console.log("here");
-    console.log("aowaw");
-    console.log(data);
 
     return data["price"];
   }
