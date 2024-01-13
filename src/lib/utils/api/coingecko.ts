@@ -43,7 +43,5 @@ export const fetchCoingeckoTokenPrice = async (
     return 0
   })
 
-  if (data === 0 || !data[address.toLowerCase()]) return 0
-
   return data["price"];
 }
