@@ -29,7 +29,7 @@ export function useTokenPrice(token: Token): number {
       setTokenPrice(tokenPrice)
     }
     fetchTokenPrice()
-  }, [chainId, isSupportedNetwork, token])
+  }, [chainId, isSupportedNetwork, token, fetchCoingeckoTokenPrice])
 
   return tokenPrice
 }
