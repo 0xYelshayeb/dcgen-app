@@ -64,7 +64,7 @@ export function useSwap(
 
   const inputTokenAmountUsd = useMemo(
     () => formattedFiat(parseFloat(inputTokenAmount), inputTokenPrice),
-    [inputTokenAmount, inputTokenPrice]
+    [inputTokenAmount, inputTokenPrice, inputToken]
   )
 
   const inputTokenAmountWei = useMemo(
@@ -97,7 +97,7 @@ export function useSwap(
   const outputTokenAmountUsd = useMemo(
     () =>
       formattedFiat(parseFloat(outputTokenAmountFormatted), outputTokenPrice),
-    [outputTokenAmountFormatted, outputTokenPrice]
+    [outputTokenAmountFormatted, outputTokenPrice, outputToken]
   )
   const gasCostsUsd = quote0x?.gasCostsInUsd ?? 0
 
