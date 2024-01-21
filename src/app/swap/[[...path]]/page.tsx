@@ -29,13 +29,14 @@ export default function SwapPage() {
         direction={{ base: 'column', lg: 'row' }} // Stack vertically on small screens, horizontally on large
         w="full"
         justify="space-between" // This will space the children as specified
+        align={{ lg: 'flex-start' }} // Align items at the start of the cross axis
         gap={{ base: '4', lg: '8' }} // Adjust spacing between children
       >
-        <Box flex="7" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
+        <Box flex="6.5" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
           <OverviewAndPerformance />
         </Box>
 
-        <Box flex="3" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
+        <Box flex="3.5" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
           <QuickTradeContainer
             onOverrideSupplyCap={setSupplyCapOverrides}
             onShowSupplyCap={setShowSupplyCap}

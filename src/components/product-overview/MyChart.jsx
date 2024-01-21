@@ -10,12 +10,12 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
 
   let labelFormat;
   let screenWidth = 800;
-  let adjustedLineWidth = 3; // Default line width
+  let adjustedLineWidth = 2; // Default line width
 
   if (typeof window !== 'undefined') {
     screenWidth = window.innerWidth;
     if (screenWidth <= 834) {
-      adjustedLineWidth = 2; // Make the line thinner for narrow screens
+      adjustedLineWidth = 1; // Make the line thinner for narrow screens
     }
   }
   //value for reference line (dashed) in chart
@@ -64,7 +64,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
         enabled: false,
       },
       gridLineWidth: 1,
-      gridLineColor: '#333355',
+      gridLineColor: '#EEEEEE',
 
       plotLines: [{
         value: referenceValue,  // y-position of the line
@@ -80,7 +80,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
       labels: {
         format: labelFormat,
         style: {
-          color: '#FFF', // white labels
+          color: '#000',
         },
       },
       tickPositioner: function(min, max) {
@@ -100,7 +100,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
       crosshair: {
         dashStyle: 'Solid',
         width: 1,
-        color: '#FFF'
+        color: '#233DFF'
       },
       lineWidth: 0, // remove x-axis line
       tickWidth: 0,
@@ -111,7 +111,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
     series: [{
       name: 'Index', // series name
       data: chartData,
-      color: '#FFF', // white line
+      color: '#233DFF', // white line
       lineWidth: adjustedLineWidth, // set to 1 for a sharper line
       shadow: {
         width: 2,  // adjust to your preference for thickness
@@ -129,7 +129,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
     tooltip: {
       useHTML: true, // Allows the use of HTML in the tooltip
       borderRadius: 0,  // Removes rounded corners by setting the border radius to 0
-      backgroundColor: '#363F63',  // Sets the background color of the tooltip
+      backgroundColor: '#233DFF',  // Sets the background color of the tooltip
       style: {
           color: '#FFFFFF'  // Sets the text color in the tooltip
       },
