@@ -4,30 +4,64 @@ import { Box } from '@chakra-ui/react';
 
 const PieChart = ({ tokens }) => {
 
-    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+    const CustomLabel = ({ x, y, dx, dy, dataEntry }) => {
+        if (dataEntry.value <= 8) {
+            return null;
+        }
 
-    // Function to get random color from the array
-    const getRandomColor = () => {
-        return colors[Math.floor(Math.random() * colors.length)];
+        // Calculate the width of the box based on the length of the text.
+        // This is an approximation and may need adjusting.
+        const text = `${dataEntry.value.toFixed(2)}%`;
+        const textLength = text.length * 8; // Approximate width of each character
+        const rectWidth = textLength / 1.5; // Add some padding
+
+        return (
+            <g>
+                <rect
+                    x={x + dx - rectWidth / 2} // Center the rectangle on the x coordinate
+                    y={y + dy - 10} // Center the rectangle on the y coordinate
+                    width={rectWidth} // Width of the rectangle based on text length
+                    height="15" // Height of the rectangle
+                    rx="10" // Border radius on x-axis for rounded corners
+                    ry="10" // Border radius on y-axis for rounded corners
+                    fill={dataEntry.color} // Background color
+                />
+                <text
+                    x={x + dx}
+                    y={y + dy}
+                    fill="#fff" // Text color
+                    textAnchor="middle" // Horizontally center the text
+                    dominantBaseline="middle" // Vertically center the text
+                    fontSize="5" // Font size
+                    fontWeight="bold"
+                >
+                    {text}
+                </text>
+            </g>
+        );
     };
 
-    const chartData = tokens.map((token) => ({
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+
+    const chartData = tokens.map((token, index) => ({
         title: token.Name,
         value: token['Allocation %'],
-        color: getRandomColor(), // Assign a random color
+        color: colors[index % colors.length], // Ensures colors are assigned consistently based on index
+        label: token['Allocation %'] > 8 ? `${token['Allocation %'].toFixed(2)}%` : null // Only label tokens above 8%
     }));
 
     return (
-        <Box width="70%" height="auto">
+        <Box width="80%" height="auto">
             <MinimalPieChart
                 data={chartData}
-                lineWidth={15} // This should be adjusted to match the thickness of the pie chart in your image
-                paddingAngle={0} // Adjust the space between segments if necessary
-                // rounded // If you want rounded edges on the segments
-                label={({ dataEntry }) => dataEntry.value.toFixed(2) + '%'}
-                labelStyle={{
-                    fontSize: '5px',
-                }} />
+                lineWidth={15} // Adjust to the desired thickness
+                paddingAngle={0.3} // Adjust the space between segments if necessary
+                label={({ x, y, dx, dy, dataEntry }) => (
+                    <CustomLabel x={x} y={y} dx={dx} dy={dy} dataEntry={dataEntry} />
+                )}
+                labelPosition={80}
+                animate
+            />
         </Box>
     );
 };
