@@ -3,20 +3,20 @@ import Image from 'next/image'
 import { Link } from '@chakra-ui/react'
 
 import { useICColorMode } from '@/lib/styles/colors'
-import { IndexLogoBlack, IndexLogoWhite } from '@/lib/utils/assets'
+import { LogoBlack, LogoWhite } from '@/lib/utils/assets'
 
 export const Logo = () => {
   const { isDarkMode } = useICColorMode()
-  const logo = isDarkMode ? IndexLogoWhite : IndexLogoBlack
+  const logo = isDarkMode ? LogoWhite : LogoBlack
   return (
     <Link
-      href='https://indexcoop.com/'
+      href='https://dcgen.finance/'
       _hover={{
         textDecoration: 'none',
       }}
       flexGrow={1}
     >
-      <Image alt='Index Coop Logo' src={logo} height={32} width={32} />
+      <Image alt='Index Coop Logo' src={logo} height={32} width={90} />
     </Link>
   )
 }

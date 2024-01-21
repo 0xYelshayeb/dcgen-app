@@ -6,19 +6,19 @@ const gtcEthLogo = '/assets/gtceth_logo.svg'
 const ic21Logo = '/assets/ic21_logo.svg'
 const icethLogo = '/assets/icethlogo.png'
 const icrethLogo = '/assets/icreth-logo.svg'
-const IndexLogoBlack = '/assets/index-logo-black.svg'
+const LogoBlack = '/assets/logo-black.png'
 const IndexLogoFullBlack = '/assets/index-logo-full-black.svg'
 const IndexLogoFullWhite = '/assets/index-logo-full-white.svg'
-const IndexLogoWhite = '/assets/index-logo-white.svg'
+const LogoWhite = '/assets/logo-white.png'
 const indexLogo = '/assets/index-token.png'
 const wseth2Logo = '/assets/wseth2_logo.svg'
 
 // Index logo
 export {
-  IndexLogoBlack,
+  LogoBlack,
   IndexLogoFullBlack,
   IndexLogoFullWhite,
-  IndexLogoWhite,
+  LogoWhite,
 }
 
 // Indices logos
