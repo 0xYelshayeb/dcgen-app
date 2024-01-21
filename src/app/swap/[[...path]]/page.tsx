@@ -1,34 +1,48 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-
-import { Box, Flex } from '@chakra-ui/react'
+import { useState } from 'react';
+import { Box, Flex, Stack } from '@chakra-ui/react';
 
 import {
   RethSupplyCapContainer,
   RethSupplyCapOverrides,
   SupplyCapState,
-} from '@/components/supply'
-import QuickTradeContainer from '@/components/trade'
+} from '@/components/supply';
+import QuickTradeContainer from '@/components/trade';
+import ProductInfo from '@/components/product-info';
+import OverviewAndPerformance from '@/components/product-overview';
 
 export default function SwapPage() {
-  const [supplyCapOverrides, setSupplyCapOverrides] = useState<
-    RethSupplyCapOverrides | undefined
-  >(undefined)
-  const [showSupplyCap, setShowSupplyCap] = useState(false)
+  const [supplyCapOverrides, setSupplyCapOverrides] = useState<RethSupplyCapOverrides>();
+  const [showSupplyCap, setShowSupplyCap] = useState(false);
 
   return (
-    <Flex
-      direction={['column', 'column', 'column', 'row']}
-      mx='auto'
-      height='inherit'
+    <Stack
+      spacing={4} // Adjust spacing between stack items
+      align="center"
+      w="full"
     >
-      <Box mb={[4, 4, 4, 12]} mr={4} w={['inherit', '500px']}>
-        <QuickTradeContainer
-          onOverrideSupplyCap={(overrides) => setSupplyCapOverrides(overrides)}
-          onShowSupplyCap={(show) => setShowSupplyCap(show)}
-        />
+      <Box w="full">
+        <ProductInfo />
       </Box>
+      <Flex
+        direction={{ base: 'column', lg: 'row' }} // Stack vertically on small screens, horizontally on large
+        w="full"
+        justify="space-between" // This will space the children as specified
+        gap={{ base: '4', lg: '8' }} // Adjust spacing between children
+      >
+        <Box flex="7" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
+          <OverviewAndPerformance />
+        </Box>
+
+        <Box flex="3" borderRadius="lg" mb={{ base: '4', lg: '0' }}>
+          <QuickTradeContainer
+            onOverrideSupplyCap={setSupplyCapOverrides}
+            onShowSupplyCap={setShowSupplyCap}
+          />
+        </Box>
+      </Flex>
+
       {showSupplyCap && (
         <Box h='100%' w={['100%', '100%', '500px', '360px']}>
           <RethSupplyCapContainer
@@ -37,6 +51,6 @@ export default function SwapPage() {
           />
         </Box>
       )}
-    </Flex>
-  )
+    </Stack>
+  );
 }

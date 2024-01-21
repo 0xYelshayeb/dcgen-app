@@ -31,6 +31,8 @@
     "eslint-config-next": "^13.5.4",
     "ethers": "^5.7.2",
     "framer-motion": "^10.12.16",
+    "highcharts": "^11.3.0",
+    "highcharts-react-official": "^3.2.1",
     "lodash.merge": "^4.6.2",
     "next": "^13.5.4",
     "react": "^18.2.0",
