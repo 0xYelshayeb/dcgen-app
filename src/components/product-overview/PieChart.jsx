@@ -13,17 +13,17 @@ const PieChart = ({ tokens }) => {
         // This is an approximation and may need adjusting.
         const text = `${dataEntry.value.toFixed(2)}%`;
         const textLength = text.length * 8; // Approximate width of each character
-        const rectWidth = textLength / 1.5; // Add some padding
+        const rectWidth = textLength / 2; // Add some padding
 
         return (
             <g>
                 <rect
                     x={x + dx - rectWidth / 2} // Center the rectangle on the x coordinate
-                    y={y + dy - 10} // Center the rectangle on the y coordinate
+                    y={y + dy - 5} // Center the rectangle on the y coordinate
                     width={rectWidth} // Width of the rectangle based on text length
-                    height="15" // Height of the rectangle
-                    rx="10" // Border radius on x-axis for rounded corners
-                    ry="10" // Border radius on y-axis for rounded corners
+                    height="10" // Height of the rectangle
+                    rx="5" // Border radius on x-axis for rounded corners
+                    ry="5" // Border radius on y-axis for rounded corners
                     fill={dataEntry.color} // Background color
                 />
                 <text
@@ -32,7 +32,7 @@ const PieChart = ({ tokens }) => {
                     fill="#fff" // Text color
                     textAnchor="middle" // Horizontally center the text
                     dominantBaseline="middle" // Vertically center the text
-                    fontSize="5" // Font size
+                    fontSize="4" // Font size
                     fontWeight="bold"
                 >
                     {text}
