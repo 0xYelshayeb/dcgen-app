@@ -25,6 +25,8 @@ const PieChart = ({ tokens }) => {
                     rx="5" // Border radius on x-axis for rounded corners
                     ry="5" // Border radius on y-axis for rounded corners
                     fill={dataEntry.color} // Background color
+                    stroke="#fff"
+                    strokeWidth="0.3"
                 />
                 <text
                     x={x + dx}
@@ -59,7 +61,7 @@ const PieChart = ({ tokens }) => {
                 label={({ x, y, dx, dy, dataEntry }) => (
                     <CustomLabel x={x} y={y} dx={dx} dy={dy} dataEntry={dataEntry} />
                 )}
-                labelPosition={80}
+                labelPosition={85}
                 animate
             />
         </Box>
