@@ -3,11 +3,12 @@ import {
     Box,
     Text,
     Image,
-    SimpleGrid,
+    HStack,
     VStack,
     Heading,
     Divider,
-    useColorModeValue
+    useColorModeValue,
+    Flex
 } from '@chakra-ui/react';
 import axios from 'axios';
 import PieChart from './PieChart'; // Assume this is your custom pie chart component
@@ -16,12 +17,19 @@ const TokenDetail = ({ name, image, price, constituency }) => {
     const bg = useColorModeValue('gray.100', 'gray.700');
 
     return (
-        <VStack bg={bg} p={4} borderRadius="md" alignItems="start" direction="column">
-            <Image boxSize="50px" objectFit="cover" src={image} alt={name} />
-            <Text fontWeight="bold">{name}</Text>
-            <Text>Price: ${price}</Text>
-            <Text>Constituency: {constituency}</Text>
-        </VStack>
+        <HStack bg={bg} borderRadius="md" alignItems="center" p={3} width="full" justify="space-between">
+            <HStack spacing={2}>
+                <Image boxSize="45px" objectFit="cover" src={image} alt={name} />
+                <VStack alignItems="start" spacing={1}>
+                    <Text fontWeight="bold" fontSize="sm">{name}</Text>
+                    <Text fontSize="sm">${price}</Text>
+                </VStack>
+            </HStack >
+            <VStack alignItems="start" spacing={1}>
+                <Text fontWeight="bold" fontSize="sm">Constituency: </Text>
+                <Text fontSize="sm">{constituency}</Text>
+            </VStack>
+        </HStack>
     );
 };
 
@@ -42,24 +50,24 @@ const InfoSection = () => {
     }, []);
     return (
         <VStack spacing={8} align="stretch">
-            <Box>
-                <Heading size="sm" mb={4}>Asset Allocation</Heading>
-                <PieChart tokens={tokens} />
-            </Box>
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={5}>
-                {tokens.slice(0, 3).map((token, index) => (
-                    <TokenDetail
-                        key={index}
-                        name={token.Name}
-                        image={token.logoURI}
-                        price={token.Price.toFixed(2)}
-                        constituency={`${token['Allocation %'].toFixed(2)}%`} // Accessing Allocation % with bracket notation
-                    />
-                ))}
-            </SimpleGrid>
-
+            <Heading size="sm" mb={4}>Asset Allocation</Heading>
+            <Flex>
+                <Box flex="5.5" bas>
+                    <PieChart tokens={tokens} />
+                </Box>
+                <VStack flex="4.5" align="stretch" spacing={5}>
+                    {tokens.slice(0, 3).map((token, index) => (
+                        <TokenDetail
+                            key={index}
+                            name={token.Name}
+                            image={token.logoURI}
+                            price={token.Price.toFixed(2)}
+                            constituency={`${token['Allocation %'].toFixed(2)}%`} // Accessing Allocation % with bracket notation
+                        />
+                    ))}
+                </VStack>
+            </Flex>
             <Divider />
-
             <Box>
                 <Heading size="sm" mb={2}>Methodology</Heading>
                 <Text fontSize="sm">The DCgen Governance Core ($DCG) epitomizes precision in tracking the Ethereum ecosystem, focusing on the top 30 governance tokens through a market capitalization-weighted approach. Rebalanced bi-monthly, it employs the Laspeyres index model for accurate market representation, ensuring each token&apos;s inclusion adheres to stringent international token classification standards. This methodology not only guarantees a real-time reflection of market dynamics but also upholds the highest safety and compliance standards, providing investors with a reliable and comprehensive market benchmark.</Text>

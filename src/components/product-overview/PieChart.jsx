@@ -62,7 +62,6 @@ const PieChart = ({ tokens }) => {
                     <CustomLabel x={x} y={y} dx={dx} dy={dy} dataEntry={dataEntry} />
                 )}
                 labelPosition={85}
-                animate
             />
         </Box>
     );
