@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react';
 const PieChart = ({ tokens }) => {
 
     const CustomLabel = ({ x, y, dx, dy, dataEntry }) => {
-        if (dataEntry.value <= 8) {
+        if (dataEntry.value <= 7) {
             return null;
         }
 
