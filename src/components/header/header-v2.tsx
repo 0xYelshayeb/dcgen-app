@@ -54,9 +54,9 @@ const HeaderV2 = () => {
           ))}
         </HStack>
         <Spacer />
-        {/* <Flex align='center' justifyContent={'flex-end'}>
+        <Flex align='center' justifyContent={'flex-end'}>
           <Connect />
-        </Flex> */}
+        </Flex>
       </Flex>
     </Flex>
   )
