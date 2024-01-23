@@ -17,7 +17,7 @@ const TokenDetail = ({ name, image, price, constituency }) => {
     const bg = useColorModeValue('gray.100', 'gray.700');
 
     return (
-        <HStack bg={bg} borderRadius="md" alignItems="center" p={3} width="full" justify="space-between">
+        <HStack bg={bg} borderRadius="12" alignItems="center" p={3} width="full" justify="space-between">
             <HStack spacing={2}>
                 <Image boxSize="45px" objectFit="cover" src={image} alt={name} />
                 <VStack alignItems="start" spacing={1}>
@@ -52,7 +52,7 @@ const InfoSection = () => {
         <VStack spacing={8} align="stretch">
             <Heading size="sm" mb={4}>Asset Allocation</Heading>
             <Flex>
-                <Box flex="5.5" bas>
+                <Box flex="5.5">
                     <PieChart tokens={tokens} />
                 </Box>
                 <VStack flex="4.5" align="stretch" spacing={5}>

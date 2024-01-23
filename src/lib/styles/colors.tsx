@@ -24,6 +24,7 @@ export const colors = {
   icGray3: '#627171',
   icGray4: '#2C3333',
   icWhite: '#FCFFFF',
+  dcBlue: "#233DFF",
   // not verified with designer (will be replaced soon)
   icGrayLightMode: '#aaa',
   icGrayDarkMode: '#777',
@@ -41,6 +42,7 @@ export const colorStyles = (isDarkMode: boolean) => {
     text2: isDarkMode ? colors.icGray2 : colors.icGray4,
     text3: colors.icGray3,
     textInverted: isDarkMode ? colors.icBlack : colors.icWhite,
+    dcBlue: colors.dcBlue,
   }
 }
 

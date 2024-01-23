@@ -13,9 +13,9 @@ export const TradeButton = (props: TradeButtonProps) => {
   const { styles } = useColorStyles()
   return (
     <Button
-      background={styles.backgroundInverted}
+      background={styles.dcBlue}
       border='0'
-      borderRadius='12px'
+      borderRadius='0px'
       color={styles.textInverted}
       disabled={props.isDisabled}
       fontSize='24px'

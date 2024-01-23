@@ -5,7 +5,7 @@ import InfoSection from './InfoSection.jsx';
 
 const OverviewAndPerformance = () => {
   return (
-    <Box background="white" borderRadius="12px" boxShadow="sm" p="24px" mb="24px">
+    <Box background="#FCFCFC" p="24px" mb="24px">
       <Text fontSize="lg" fontWeight="bold" mb="4">
         Overview
       </Text>

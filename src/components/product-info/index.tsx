@@ -8,12 +8,7 @@ const ProductInfo = () => {
             align="center"
             justify="space-between"
             p="16px"
-            background="white"
-            border="1px solid"
-            borderColor={colors.icGray1}
-            borderRadius="12px"
-            boxShadow="0.5px 1px 2px 0px rgba(44, 51, 51, 0.25)"
-            minW="320px" // Minimum width, adjust as needed
+            minW="220px" // Minimum width, adjust as needed
         >
             <Image src={blueLogo} alt="DC Logo" boxSize="50px" />
             <InfoBox title="Product" value="DCgen Governance Core" isLast={false} />

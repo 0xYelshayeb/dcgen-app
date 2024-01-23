@@ -42,9 +42,6 @@ export const TradeInputSelector = (props: TradeInputSelectorProps) => {
   return (
     <Flex
       bg={colors.icWhite}
-      border={'1px solid'}
-      borderColor={colors.icGray1}
-      borderRadius={12}
       direction={'column'}
       p={'16px 20px'}
     >
