@@ -1,8 +1,30 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { colors } from '../../lib/styles/colors';
-import {blueLogo} from '@/lib/utils/assets';
+import { blueLogo } from '@/lib/utils/assets';
+import { useState, useEffect } from 'react';
+
+interface TokenData {
+    name: string;
+    image: string;
+    price: number;
+    market_cap: number;
+    streamingfee: number;
+    token_address: string;
+}
 
 const ProductInfo = () => {
+
+    const [data, setData] = useState<TokenData | null>(null);
+
+    useEffect(() => {
+        // Fetch data from API
+        fetch("https://api.dcgen.finance/overview/?product=dcg")
+            .then(res => res.json())
+            .then(data => {
+                setData(data);
+            });
+    }, []);
+
     return (
         <Flex
             align="center"
@@ -11,11 +33,11 @@ const ProductInfo = () => {
             minW="220px" // Minimum width, adjust as needed
         >
             <Image src={blueLogo} alt="DC Logo" boxSize="50px" />
-            <InfoBox title="Product" value="DCgen Governance Core" isLast={false} />
-            <InfoBox title="Price" value="$32.56" isLast={false} />
-            <InfoBox title="Mcap" value="$673,332,353" isLast={false} />
-            <InfoBox title="Streaming Fee" value="0%" isLast={false} />
-            <InfoBox title="Token Address" value="0xF17A...9caE8D" isLast={true} />
+            <InfoBox title="Product" value={data?.name || 'N/A'} isLast={false} />
+            <InfoBox title="Price" value={`$${data?.price.toFixed(2) || 'N/A'}`} isLast={false} />
+            <InfoBox title="Mcap" value={`$${data?.market_cap.toLocaleString() || 'N/A'}`} isLast={false} />
+            <InfoBox title="Streaming Fee" value={`${data?.streamingfee * 100}%` || 'N/A'} isLast={false} />
+            <InfoBox title="Token Address" value={`${data?.token_address.slice(0, 9)}...` || 'N/A'} isLast={true} />
         </Flex>
     );
 };
