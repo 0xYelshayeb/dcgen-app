@@ -1,5 +1,5 @@
 import indexNames from '@/constants/tokenlists'
-import { ETH, MetaverseIndex, USDC } from '@/constants/tokens'
+import { ETH } from '@/constants/tokens'
 import { PathResolver } from './path-resolver'
 
 describe('PathResolver', () => {
