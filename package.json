@@ -40,7 +40,7 @@
     "react-minimal-pie-chart": "^8.4.0",
     "use-debounce": "^10.0.0",
     "viem": "^1.10.8",
-    "wagmi": "1.4.12"
+    "wagmi": "1.4.13"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
