@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { Box, Input, Text, Flex } from '@chakra-ui/react'
+import { Box, Input, Text, Flex, Heading, Divider } from '@chakra-ui/react'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { useRedemption } from '@/lib/hooks/useRedemption'
@@ -89,20 +89,24 @@ export const Redeem = () => {
   return (
     <Box>
       <Flex
-        align='center'
-        p='10px'
         shrink={0}
-        gap={6}>
+        direction="column">
+        <Heading fontSize='16px' padding={3}>
+          SET Balance:
+        </Heading>
+        <Text padding={3} paddingTop={0}>
+          {inputTokenBalanceFormatted}
+        </Text>
         <Input
+          marginTop={0}
           placeholder='0.0'
           value={amount}
           onChange={(e) => handleInputChange(e.target.value)}
-          marginBottom={2}
-          marginTop={2}
+          mb={2}
+          border="none"
+          background="white"
+          borderRadius={0}
         />
-         <Text color={colors.icGray2} fontSize='12px' fontWeight='500'>
-          SET Balance: {inputTokenBalanceFormatted}
-        </Text>
       </Flex>
       <TradeButton
         label={navButtonLabel}

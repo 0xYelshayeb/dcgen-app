@@ -2,13 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useICColorMode } from '@/lib/styles/colors'
 
-import { Box, Input, Text, Flex } from '@chakra-ui/react'
+import { Box, Input, Text, Flex, Heading } from '@chakra-ui/react'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { colors } from '@/lib/styles/colors'
 
 import { TradeButton } from '@/components/trade-button'
 import { useApproval } from '@/lib/hooks/useApproval'
-import { useIndexApproval } from '@/lib/hooks/useIndexApproval'
 import { useNetwork } from '@/lib/hooks/useNetwork'
 import { navIssuanceModuleAddres } from '@/constants/contracts'
 import { getNativeToken } from '@/lib/utils/tokens'
@@ -101,20 +99,24 @@ export const Issue = (props: QuickTradeProps) => {
   return (
     <Box>
       <Flex
-        align='center'
-        p='10px'
         shrink={0}
-        gap={6}>
+        direction="column">
+        <Heading fontSize='16px' padding={3}>
+          WETH Balance:
+        </Heading>
+        <Text padding={3} paddingTop={0}>
+          {inputTokenBalanceFormatted}
+        </Text>
         <Input
+          marginTop={0}
           placeholder='0.0'
           value={navAmount}
           onChange={(e) => onChangeNavAmount(e.target.value)}
-          marginBottom={2}
-          marginTop={2}
+          mb={2}
+          border="none"
+          background="white"
+          borderRadius={0}
         />
-        <Text color={colors.icGray2} fontSize='12px' fontWeight='500'>
-          WETH Balance: {inputTokenBalanceFormatted}
-        </Text>
       </Flex>
       <TradeButton
         label={navButtonLabel}
