@@ -26,7 +26,7 @@ export const useTradeButton = (buttonState: TradeButtonState) => {
       case TradeButtonState.wrongNetwork:
         return 'Wrong Network'
       default:
-        return 'Issue'
+        return 'Redeem'
     }
   }, [buttonState])
 
