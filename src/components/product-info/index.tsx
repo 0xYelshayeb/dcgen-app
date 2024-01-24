@@ -36,7 +36,7 @@ const ProductInfo = () => {
             <InfoBox title="Product" value={data?.name || 'N/A'} isLast={false} />
             <InfoBox title="Price" value={`$${data?.price.toFixed(2) || 'N/A'}`} isLast={false} />
             <InfoBox title="Mcap" value={`$${data?.market_cap.toLocaleString() || 'N/A'}`} isLast={false} />
-            <InfoBox title="Streaming Fee" value={`${data?.streamingfee * 100}%` || 'N/A'} isLast={false} />
+            <InfoBox title="Streaming Fee" value={`${data?.streamingfee}%` || 'N/A'} isLast={false} />
             <InfoBox title="Token Address" value={`${data?.token_address.slice(0, 9)}...` || 'N/A'} isLast={true} />
         </Flex>
     );
