@@ -19,7 +19,13 @@ const TokenDetail = ({ name, image, constituency, color }) => {
     return (
         <HStack borderRadius="12" alignItems="center" p={2} width="full" justify="space-between">
             <HStack spacing={2}>
-                <Image boxSize="45px" objectFit="cover" src={image} alt={name} borderRadius="50%" />
+                <Image
+                    boxSize="45px"
+                    objectFit="cover"
+                    src={image}
+                    alt={name}
+                    borderRadius="50%"
+                    boxShadow="2px 2px 4px rgba(0, 0, 0, 0.2)" />
                 <VStack alignItems="start" spacing={1}>
                     <Text fontWeight="bold" fontSize="sm" color={color}>{name}</Text>
                 </VStack>
