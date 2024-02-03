@@ -9,8 +9,6 @@ const PieChart = ({ tokens }) => {
             return null;
         }
 
-        // Calculate the width of the box based on the length of the text.
-        // This is an approximation and may need adjusting.
         const text = `${dataEntry.value.toFixed(2)}%`;
         const textLength = text.length * 8; // Approximate width of each character
         const rectWidth = textLength / 2; // Add some padding
@@ -43,13 +41,12 @@ const PieChart = ({ tokens }) => {
         );
     };
 
-    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
-
-    const chartData = tokens.map((token, index) => ({
+    // Generate chart data with colors and labels
+    const chartData = tokens.map((token) => ({
         title: token.Name,
         value: token['Allocation %'],
-        color: colors[index % colors.length], // Ensures colors are assigned consistently based on index
-        label: token['Allocation %'] > 8 ? `${token['Allocation %'].toFixed(2)}%` : null // Only label tokens above 8%
+        color: token['Color'],
+        label: token.Name === 'Others' || `${token['Allocation %'].toFixed(2)}%`
     }));
 
     return (
