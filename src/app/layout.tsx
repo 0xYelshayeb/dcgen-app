@@ -6,9 +6,9 @@ import { Providers } from './providers'
 export const metadata = {
   manifest: '/manifest.json',
   themeColor: '#000000',
-  title: 'Index App | Buy & Sell Our Tokens',
+  title: 'DCgen.finance',
   description:
-    'Use the Index Coop Trading App to buy and sell our sector, leveraged and yield generating tokens.',
+    'Buy investment product with zero fees.',
   type: 'website',
 }
 

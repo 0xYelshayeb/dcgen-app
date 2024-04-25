@@ -16,7 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <RainbowKitProvider chains={[]} theme={darkTheme({
               accentColor: colors.dcBlue,
               accentColorForeground: 'white',
-              borderRadius: 'none',
+              borderRadius: 'medium',
               fontStack: 'system',
               overlayBlur: 'small',
             })}>

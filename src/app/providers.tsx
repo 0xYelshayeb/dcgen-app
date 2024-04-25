@@ -14,8 +14,8 @@ import '@rainbow-me/rainbowkit/styles.css'
 import '@/lib/styles/fonts'
 
 const rainbowKitAppInfo = {
-  appName: 'Index Coop',
-  learnMoreUrl: 'https://indexcoop.com',
+  appName: 'DCgen',
+  learnMoreUrl: 'https://dcgen.finance',
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
