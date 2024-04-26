@@ -9,7 +9,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 import ConstituentDetail from './ConstituentDetail';
-import '../../styles/MingCute.css';
+import '../../lib/styles/icons/MingCute.css';
 
 const MotionBox = motion(Box);
 
@@ -56,9 +56,9 @@ const ConstituentWeights = () => {
 
     return (
         <VStack spacing={8} align="stretch">
-            <Box width="100%" mb="32">
-                <Heading fontSize="xl" mb={4}>Constituent Weights</Heading>
-                <VStack align="left" pr="24" spacing="4">
+            <Box width="100%">
+                <Heading size="sm" mb={4}>Constituent Weights</Heading>
+                <VStack align="left" spacing="4">
                     {tokens.map((token, index) => (
                         <ConstituentDetail
                             key={index}
@@ -67,7 +67,7 @@ const ConstituentWeights = () => {
                         />
                     ))}
                 </VStack>
-                <Button pl="16px" mt={4} onClick={onOpen} color="#276EF1" backgroundColor="white" _hover={{ backgroundColor: 'white' }}>
+                <Button fontSize='12px' pl="16px" mt={4} onClick={onOpen} color="#276EF1" borderColor='transparent' backgroundColor="inherit" _hover={{ backgroundColor: 'inherit' }}>
                     Show All
                 </Button>
             </Box>
