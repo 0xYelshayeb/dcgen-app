@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, VStack, Divider, Text } from '@chakra-ui/react';
+import { Box, Heading, VStack, Text } from '@chakra-ui/react';
 import ConstituentWeights from './ConstituentWeights'; // Import ConstituentWeights
 
 const InfoSection = () => {

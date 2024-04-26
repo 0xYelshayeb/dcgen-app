@@ -1,30 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Box, Text, VStack, Heading,
+    Box, VStack, Heading,
     Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody,
     Button, useDisclosure
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { motion, useAnimation } from 'framer-motion';
+import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 import ConstituentDetail from './ConstituentDetail';
 import '../../lib/styles/icons/MingCute.css';
-
-const MotionBox = motion(Box);
-
-const boxVariants = {
-    hidden: { x: 100, opacity: 0 },
-    visible: {
-        x: 0,
-        opacity: 1,
-        transition: { type: "tween", ease: "anticipate", duration: 1.2 }
-    },
-    hover: {
-        scale: 1.03,
-        transition: { type: "tween", ease: "easeInOut", duration: 0.2 },
-    },
-};
 
 const ConstituentWeights = () => {
     const [tokens, setTokens] = useState([]);
@@ -46,7 +31,7 @@ const ConstituentWeights = () => {
     }, []);
 
     const controls = useAnimation();
-    const { ref, inView } = useInView({ threshold: 0.8 });
+    const { inView } = useInView({ threshold: 0.8 });
 
     useEffect(() => {
         if (inView) {

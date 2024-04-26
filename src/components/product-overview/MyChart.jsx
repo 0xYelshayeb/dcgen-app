@@ -2,9 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-// import AccessibilityModule from 'highcharts/modules/accessibility';
 
-// AccessibilityModule(Highcharts);
 
 const options = (chartData, timeFrame, onUpdateValues) => { // Make options a function that takes chartData and timeFrame
 
