@@ -35,7 +35,7 @@ const SimulationDefaultView = ({ isLoading }: { isLoading: boolean }) => {
     <Flex
       border='1px solid'
       borderColor={styles.border}
-      borderRadius='16px'
+      borderRadius='8px'
       p='16px'
       w='100%'
     >
@@ -62,7 +62,7 @@ const SimulationStateView = ({ success }: { success: boolean }) => {
     <Flex
       border='1px solid'
       borderColor={color}
-      borderRadius='16px'
+      borderRadius='8px'
       p='16px'
       w='100%'
     >

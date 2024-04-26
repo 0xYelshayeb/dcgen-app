@@ -10,7 +10,7 @@ export const ProtectionWarning = (props: { isDarkMode: boolean }) => {
       background={colors.icBlue}
       border='1px solid #000'
       borderColor={borderColor}
-      borderRadius={10}
+      borderRadius={'8px'}
       direction='row'
       textAlign={'center'}
     >

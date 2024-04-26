@@ -15,13 +15,13 @@ export const TradeButton = (props: TradeButtonProps) => {
     <Button
       background={styles.dcBlue}
       border='0'
-      borderRadius='0px'
+      borderRadius='8px'
       color={styles.textInverted}
       disabled={props.isDisabled}
-      fontSize='24px'
+      fontSize='14px'
       fontWeight='600'
       isLoading={props.isLoading}
-      height='54px'
+      height='48px'
       w='100%'
       onClick={props.onClick}
     >

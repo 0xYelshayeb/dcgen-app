@@ -105,7 +105,7 @@ export const Redeem = () => {
           mb={2}
           border="none"
           background="white"
-          borderRadius={0}
+          borderRadius={'8px'}
         />
       </Flex>
       <TradeButton

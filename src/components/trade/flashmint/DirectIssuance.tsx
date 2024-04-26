@@ -98,7 +98,7 @@ const DirectIssuance = ({
             bg={colors.icGray1}
             border='1px solid'
             borderColor={colorStyles(isDarkMode).border}
-            borderRadius='16'
+            borderRadius='8px'
             boxShadow='sm'
             cursor='pointer'
             p='12px'
@@ -144,7 +144,7 @@ const NavigationButton = (props: NavigationButtonProps) => {
   return (
     <Text
       background={props.isSelected ? backgroundSelectedColor : backgroundColor}
-      borderRadius={13}
+      borderRadius={'8px'}
       color={props.isSelected ? selectedColor : backgroundSelectedColor}
       cursor='pointer'
       fontSize='21px'

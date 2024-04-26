@@ -108,7 +108,7 @@ const Balance = ({ balance, onClick }: BalanceProps) => {
         <Flex
           align='center'
           bg={colors.icBlue1}
-          borderRadius='12px'
+          borderRadius='8px'
           justify='center'
           py='2px'
           px='8px'
@@ -159,7 +159,7 @@ const SelectorButton = ({ image, symbol, onClick }: SelectorProps) => (
   <Flex
     align='center'
     bg={colors.icGray1}
-    borderRadius='32'
+    borderRadius='8px'
     cursor='pointer'
     onClick={onClick}
     p='10px'

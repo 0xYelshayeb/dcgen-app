@@ -26,7 +26,7 @@ export const BetterQuoteView = (props: BetterQuoteViewProps) => {
       bg={colors.icWhite}
       border='1px solid'
       borderColor={colors.icGray1}
-      borderRadius='16px'
+      borderRadius='8px'
       color={colors.icGray4}
       cursor='pointer'
       direction='column'

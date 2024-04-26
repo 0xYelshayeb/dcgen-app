@@ -15,7 +15,7 @@ export const NetworkBadge = () => {
       </Text>
       <Box
         bg={styles.backgroundInverted}
-        borderRadius='16px'
+        borderRadius='8px'
         px='8px'
         py='2px'
         ml='4px'

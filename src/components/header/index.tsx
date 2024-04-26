@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Flex
       as='header'
-      backdropFilter='saturate(120%) blur(5px)'
+      backdropFilter='saturate(120%) blur(20px)'
       // boxShadow='0px 2px 3px 0px rgba(0, 0, 0, 0.17);'
       p={['24px 32px']}
       position='fixed'
