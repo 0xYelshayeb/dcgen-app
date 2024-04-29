@@ -3,7 +3,7 @@ import { colors } from './colors'
 export const Button = {
   baseStyle: {
     border: '1px solid',
-    borderRadius: 8,
+    borderRadius: '8px',
     fontSize: 'md',
     fontWeight: 'bold',
     px: 6,

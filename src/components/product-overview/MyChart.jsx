@@ -2,9 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-// import AccessibilityModule from 'highcharts/modules/accessibility';
 
-// AccessibilityModule(Highcharts);
 
 const options = (chartData, timeFrame, onUpdateValues) => { // Make options a function that takes chartData and timeFrame
 
@@ -128,7 +126,7 @@ const options = (chartData, timeFrame, onUpdateValues) => { // Make options a fu
     },
     tooltip: {
       useHTML: true, // Allows the use of HTML in the tooltip
-      borderRadius: 0,  // Removes rounded corners by setting the border radius to 0
+      borderRadius: 4,  // Removes rounded corners by setting the border radius to 0
       backgroundColor: '#233DFF',  // Sets the background color of the tooltip
       style: {
           color: '#FFFFFF'  // Sets the text color in the tooltip

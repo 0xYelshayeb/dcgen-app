@@ -16,7 +16,7 @@ const FlashbotsRpcMessage = () => {
   return (
     <Flex
       background={backgroundColor}
-      borderRadius='10'
+      borderRadius='8px'
       cursor={'pointer'}
       my='16px'
       p='16px'

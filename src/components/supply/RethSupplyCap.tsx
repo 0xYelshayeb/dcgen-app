@@ -28,7 +28,7 @@ export const RethSupplyCap = (props: RethSupplyCapProps) => {
       align='center'
       border='1px solid'
       borderColor={styles.border}
-      borderRadius={'16px'}
+      borderRadius={'8px'}
       direction='row'
       p={'8px'}
       w='100%'

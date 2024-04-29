@@ -8,7 +8,7 @@ export const Checkbox = {
     control: {
       border: '1px',
       borderColor: colorMode === 'dark' ? colors.icWhite : colors.black,
-      borderRadius: 'base',
+      borderRadius: '8px',
     },
     label: {
       color: colorMode === 'dark' ? colors.icWhite : colors.black,

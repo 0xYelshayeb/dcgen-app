@@ -23,7 +23,7 @@ export const FromTo = (props: FromToProps) => {
       />
       <Flex
         bg={styles.backgroundInverted}
-        borderRadius={'16px'}
+        borderRadius={'8px'}
         p='8px'
         my='-20px'
         zIndex={1}
@@ -55,14 +55,14 @@ const FromToItem = ({ amount, icon, symbol }: FromToItemProps) => {
       my='8px'
       border='1px solid'
       borderColor={styles.border}
-      borderRadius='16px'
+      borderRadius='8px'
       p='12px 16px'
       w='100%'
     >
       <Flex align='center'>
         <Flex mx='8px'>
           <Image
-            borderRadius='full'
+            borderRadius='8px'
             boxSize='32px'
             src={icon}
             alt={'token icon'}

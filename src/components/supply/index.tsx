@@ -43,7 +43,7 @@ export const RethSupplyCapContainer = (props: RethSupplyCapContainerProps) => {
   return (
     <Flex
       bg='linear-gradient(218deg, #FAFCFC 0%, #F8FAFA 25.23%, #FFF 56.34%, #F9FAFA 89.45%)'
-      borderRadius='24px'
+      borderRadius='8px'
       boxShadow='0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.17), -1px -1px 4px 0px rgba(255, 255, 255, 0.88) inset'
       direction='column'
       p='16px'

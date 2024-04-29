@@ -116,7 +116,7 @@ export const TransactionReviewModal = (props: TransactionReviewModalProps) => {
       <ModalContent
         backgroundColor={backgroundColor}
         borderColor={styles.border}
-        borderRadius='10'
+        borderRadius='8px'
         borderStyle='solid'
         borderWidth='2px'
         m={['16px', 0]}
@@ -171,7 +171,7 @@ const ContractSection = ({
     <Flex
       border='1px solid'
       borderColor={styles.border}
-      borderRadius='16px'
+      borderRadius='8px'
       p='16px'
       w='100%'
     >
