@@ -1,7 +1,7 @@
 import {
   ETH,
   WETH,
-  SET,
+  DCA,
   COMPONENT,
   COMPONENT1,
   COMPONENT2,
@@ -37,11 +37,11 @@ const isDevEnv =
 // indices that have not been released yet.
 const indexNames = isDevEnv
   ? [
-      SET,
+      DCA,
       COMPONENT
     ]
   : [
-      SET,
+      DCA,
       COMPONENT
     ]
 

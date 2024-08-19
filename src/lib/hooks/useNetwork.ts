@@ -20,6 +20,8 @@ function getNetworkName(chainId: number | undefined): string | null {
       return 'Polygon'
     case 11155111:
       return 'Sepolia';
+    case 42161:
+      return 'Arbitrum'
     default:
       return null
   }

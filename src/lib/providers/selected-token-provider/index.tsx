@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 
 import { PathResolver } from '@/app/swap/[[...path]]/path-resolver'
-import { ETH, Token, SET } from '@/constants/tokens'
+import { ETH, Token, DCA } from '@/constants/tokens'
 
 export interface TokenContext {
   inputToken: Token | null
@@ -23,7 +23,7 @@ export const useSelectedToken = () => useContext(SelectedTokenContext)
 
 export const SelectedTokenProvider = (props: { children: any }) => {
   const [inputToken, setInputToken] = useState<Token>(ETH)
-  const [outputToken, setOutputToken] = useState<Token>(SET)
+  const [outputToken, setOutputToken] = useState<Token>(DCA)
 
   const params = useParams()
   const router = useRouter()
