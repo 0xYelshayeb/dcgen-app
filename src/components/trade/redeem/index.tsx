@@ -5,9 +5,9 @@ import { useWallet } from '@/lib/hooks/useWallet'
 import { useRedemption } from '@/lib/hooks/useRedemption'
 import { BigNumber, ethers } from 'ethers'
 import { useColorStyles } from '@/lib/styles/colors'
-import { SETTOKEN } from '@/constants/tokens'
+import { DCA } from '@/constants/tokens'
 import { useApproval } from '@/lib/hooks/useApproval'
-import { IssuanceModuleAddres } from '@/constants/contracts'
+import { navIssuanceModuleAddres } from '@/constants/contracts'
 import { useRedeem } from './hooks/use-redeem'
 import { TradeButton } from '@/components/trade-button'
 import { useTradeButton } from './hooks/use-trade-button'
@@ -33,13 +33,13 @@ export const Redeem = () => {
     inputTokenBalance,
     inputTokenBalanceFormatted,
     inputTokenPrice,
-  } = useRedeem(SETTOKEN, formattedAmount)
+  } = useRedeem(DCA, formattedAmount)
 
   const {
     isApproved,
     isApproving,
     approve: approve,
-  } = useApproval(SETTOKEN, IssuanceModuleAddres, inputTokenAmountWei)
+  } = useApproval(DCA, navIssuanceModuleAddres, inputTokenAmountWei)
 
   const navButtonState = useTradeButtonState(
     false,
@@ -92,7 +92,7 @@ export const Redeem = () => {
         shrink={0}
         direction="column">
         <Heading fontSize='16px' padding={3}>
-          SET Balance:
+          DCA Balance:
         </Heading>
         <Text padding={3} paddingTop={0}>
           {inputTokenBalanceFormatted}

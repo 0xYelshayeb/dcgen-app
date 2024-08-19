@@ -55,7 +55,7 @@ export function formattedBalance(
 ) {
   const zero = '0.00'
   return tokenBalance
-    ? displayFromWei(tokenBalance, 2, token.decimals) || zero
+    ? displayFromWei(tokenBalance, 3, token.decimals) || zero
     : zero
 }
 

@@ -6,11 +6,13 @@ import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
 import basicIssuanceModule from "../utils/abi/BasicIssuanceModule.json"
-import { SETTOKEN } from '@/constants/tokens';
-import { IssuanceModuleAddres } from '@/constants/contracts';
+import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
+import { DCA } from '@/constants/tokens';
+import { navIssuanceModuleAddres } from '@/constants/contracts';
+import { WETH } from '@/constants/tokens';
 
-const contractABI = basicIssuanceModule.abi
-const setTokenAddress = SETTOKEN.address
+const contractABI = navIssuanceModule.abi
+const setTokenAddress = DCA.address
 
 export const useRedemption = () => {
   const { address } = useWallet()
@@ -28,9 +30,9 @@ export const useRedemption = () => {
         // Prepare the contract write operation
         const prepared = await prepareWriteContract({
           abi: contractABI,
-          address: IssuanceModuleAddres,
+          address: navIssuanceModuleAddres,
           functionName: 'redeem',
-          args: [setTokenAddress, amount, address],
+          args: [setTokenAddress, WETH.address, amount, 0, address],
           chainId: chainId,
         });
 

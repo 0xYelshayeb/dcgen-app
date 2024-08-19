@@ -1,7 +1,7 @@
-import { MAINNET, OPTIMISM, POLYGON, SEPOLIA } from '@/constants/chains'
+import { ARBITRUM, MAINNET, OPTIMISM, POLYGON, SEPOLIA } from '@/constants/chains'
 import { CurrencyTokens } from '@/constants/tokenlists'
 import {
-  SET,
+  DCA,
   ETH,
   Token,
   WETH,
@@ -21,6 +21,8 @@ export function getAddressForToken(
       return token.polygonAddress
     case SEPOLIA.chainId:
       return token.sepoliaAddress
+    case ARBITRUM.chainId:
+      return token.arbitrumAddress
     default:
       return undefined
   }
@@ -68,6 +70,8 @@ export function getNativeToken(chainId: number | undefined): Token | null {
     case POLYGON.chainId:
       return MATIC
     case SEPOLIA.chainId:
+      return ETH
+    case ARBITRUM.chainId:
       return ETH
     default:
       return null

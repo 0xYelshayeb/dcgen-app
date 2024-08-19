@@ -6,12 +6,12 @@ import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
 import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
-import { SETTOKEN } from '@/constants/tokens';
+import { DCA } from '@/constants/tokens';
 import { WETH } from '@/constants/tokens';
 import { navIssuanceModuleAddres } from '@/constants/contracts';
 
 const contractABI = navIssuanceModule.abi
-const setTokenAddress = SETTOKEN.address
+const setTokenAddress = DCA.address
 const weth = WETH.address
 
 export const useNavIssuance = () => {

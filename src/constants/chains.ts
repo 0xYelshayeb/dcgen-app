@@ -72,3 +72,18 @@ export const SEPOLIA: ChainData = {
     decimals: 18,
   },
 }
+
+export const ARBITRUM: ChainData = {
+  name: 'Arbitrum',
+  chainId: 42161,
+  chainId0x: '0xA4B1',
+  rpcUrl: 'https://arb1.arbitrum.io/rpc',
+  icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/arbitrum.jpg',
+  coingeckoId: 'ethereum',
+  blockExplorerUrl: 'https://arbiscan.io/',
+  nativeCurrency: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18,
+  },
+}

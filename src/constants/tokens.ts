@@ -1,16 +1,3 @@
-import {
-  bedBorderLogo,
-  dsethLogo,
-  fixedDaiLogo,
-  fixedUsdcLogo,
-  gtcEthLogo,
-  ic21Logo,
-  icethLogo,
-  icrethLogo,
-  indexLogo,
-  wseth2Logo,
-} from '@/lib/utils/assets'
-
 import { MAINNET } from './chains'
 
 export enum IndexType {
@@ -26,14 +13,15 @@ export interface Token {
   polygonAddress: string | undefined
   optimismAddress: string | undefined
   sepoliaAddress: string | undefined
+  arbitrumAddress: string | undefined
   decimals: number
   // Url path for the token
   url: string
   image: string
   coingeckoId: string
   fees:
-    | { streamingFee: string; mintFee?: string; redeemFee?: string }
-    | undefined
+  | { streamingFee: string; mintFee?: string; redeemFee?: string }
+  | undefined
   isDangerous: boolean
   indexTypes: IndexType[]
   defaultChain?: number
@@ -344,6 +332,7 @@ export const MATIC: Token = {
   polygonAddress: '0x0000000000000000000000000000000000001010',
   optimismAddress: undefined,
   sepoliaAddress: "0x0000000000000000000000000000000000001010",
+  arbitrumAddress: undefined,
   decimals: 18,
   url: '',
   coingeckoId: 'matic-network',
@@ -453,6 +442,7 @@ export const ETH: Token = {
   polygonAddress: '',
   optimismAddress: '',
   sepoliaAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+  arbitrumAddress: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
   decimals: 18,
   url: '',
   coingeckoId: 'ethereum',
@@ -466,10 +456,11 @@ export const WETH: Token = {
   symbol: 'WETH',
   image:
     'https://assets.coingecko.com/coins/images/2518/large/weth.png?1628852295',
-  address: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
+  address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
   polygonAddress: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
   optimismAddress: '0x4200000000000000000000000000000000000006',
   sepoliaAddress: '0xa5768A45A51d3525c345BD23F88fCFFcdFE5Cc55',
+  arbitrumAddress: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
   decimals: 18,
   url: '',
   coingeckoId: 'weth',
@@ -478,14 +469,15 @@ export const WETH: Token = {
   indexTypes: [],
 }
 
-export const SET: Token = {
-  name: 'SET Token',
-  symbol: 'SET',
+export const DCA: Token = {
+  name: 'DCgen Governance Token',
+  symbol: 'DCA',
   image: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-  address: '0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F',
+  address: '0x5F51bD1e8e2D7981C42DC09cC3879dB949386B33',
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F",
+  arbitrumAddress: '0x5F51bD1e8e2D7981C42DC09cC3879dB949386B33',
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -505,6 +497,8 @@ export const COMPONENT1: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x2c9b532D891194C68F3a220554aB2ba2B7a2f42d",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -524,6 +518,8 @@ export const COMPONENT: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x42F789fE31AEfe11A2538de7B7380062CC809722",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -543,6 +539,8 @@ export const COMPONENT2: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x2Cf54171E9c6212F988619371826C06b04cC5600",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -562,6 +560,8 @@ export const COMPONENT3: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x0109F4E85cB958Ad97B60Fdd0a10d4C9a5a43aBa",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -581,6 +581,8 @@ export const COMPONENT4: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x3F7c49FC778015394e3265Ee3A8b41ed7794316a",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -600,6 +602,8 @@ export const COMPONENT5: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0xe2B4800675Fdec116C201F5F6f2cCCe38bc48d29",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -619,6 +623,8 @@ export const COMPONENT6: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x8E8883977C2E494bC100ECa08552d5EEF8C5cE09",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -638,6 +644,8 @@ export const COMPONENT7: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0x6BBDA4CC6c54c866Ed9A87580DD7018b6C17d27D",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -657,6 +665,8 @@ export const COMPONENT8: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0xCC046101B79F2D71d5a5CAe097e38a12504D8a8c",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -676,6 +686,8 @@ export const COMPONENT9: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0xC84dbbAf10F8aC6a25dD5B67d67A53a9E35244cE",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -695,6 +707,8 @@ export const COMPONENT10: Token = {
   polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
   optimismAddress: undefined,
   sepoliaAddress: "0xC84dbbAf10F8aC6a25dD5B67d67A53a9E35244cE",
+  arbitrumAddress: undefined,
+
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
@@ -703,22 +717,5 @@ export const COMPONENT10: Token = {
   },
   isDangerous: true,
   indexTypes: [IndexType.thematic],
-  defaultChain: MAINNET.chainId,
-}
-
-export const SETTOKEN: Token = {
-  name: 'Set Token',
-  symbol: 'SET',
-  image: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-  address: '0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F',
-  polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
-  sepoliaAddress: '0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F',
-  optimismAddress: undefined,
-  decimals: 18,
-  url: 'set',
-  coingeckoId: 'set-protocol',
-  fees: undefined,
-  isDangerous: false,
-  indexTypes: [],
   defaultChain: MAINNET.chainId,
 }
