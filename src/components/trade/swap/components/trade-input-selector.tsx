@@ -169,6 +169,6 @@ const SelectorButton = ({ image, symbol, onClick }: SelectorProps) => (
     <Text color={colors.icBlack} fontSize={'14px'} fontWeight={500} mx='8px'>
       {symbol}
     </Text>
-    <ChevronDownIcon w={6} h={6} color={colors.icGray4} />
+    {/* <ChevronDownIcon w={6} h={6} color={colors.icGray4} /> */}
   </Flex>
 )

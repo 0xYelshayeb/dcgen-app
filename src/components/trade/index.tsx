@@ -91,26 +91,9 @@ const Navigation = (props: NavigationProps) => {
         <NavigationButton
           isSelected={swapIsSelected}
           onClick={() => onSelect(TradeType.swap)}
-          title='Swap'
-        />
-        <NavigationButton
-          isSelected={issueIsSelected}
-          onClick={() => onSelect(TradeType.issue)}
-          title='Issue'
-        />
-        <NavigationButton
-          isSelected={redeemIsSelected}
-          onClick={() => onSelect(TradeType.redeem)}
-          title='Redeem'
+          title='Invest'
         />
       </Flex>
-      <Settings
-        isAuto={isAutoSlippage}
-        isDarkMode={isDarkMode}
-        onChangeSlippage={setSlippage}
-        onClickAuto={autoSlippage}
-        slippage={slippage}
-      />
     </Flex>
   )
 }

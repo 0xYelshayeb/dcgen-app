@@ -3,37 +3,29 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { colors, useICColorMode } from '@/lib/styles/colors'
 
 import { UpDownIcon } from '@chakra-ui/icons'
-import { Box, Flex, IconButton, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Flex, IconButton } from '@chakra-ui/react'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { TradeButton } from '@/components/trade-button'
-import { ETH, Token } from '@/constants/tokens'
+import { Token, DCA, WETH } from '@/constants/tokens'
 import { useApproval } from '@/lib/hooks/useApproval'
-import { useBestQuote } from '@/lib/hooks/useBestQuote'
 import { useNetwork } from '@/lib/hooks/useNetwork'
-import { useTrade } from '@/lib/hooks/useTrade'
-import { useTradeTokenLists } from '@/lib/hooks/useTradeTokenLists'
-import { useProtection } from '@/lib/providers/protection'
-import { useSlippage } from '@/lib/providers/slippage'
-import { isValidTokenInput, toWei } from '@/lib/utils'
-import { getZeroExRouterAddress } from '@/lib/utils/contracts'
+import { useTradeButton } from './hooks/use-trade-button'
+import { useWallet } from '@/lib/hooks/useWallet'
+import { useRedemption } from '@/lib/hooks/useRedemption'
+import { useNavIssue } from '../issue/hooks/use-issue'
+import { useRedeem } from '../redeem/hooks/use-redeem'
+import { useNavIssuance } from '@/lib/hooks/useNavIssuance'
+import { navIssuanceModuleAddres } from '@/constants/contracts'
 import { getNativeToken } from '@/lib/utils/tokens'
+import { isValidTokenInput } from '@/lib/utils'
 
-import { getFormattedPriceImpact } from '../_shared/QuickTradeFormatter'
-
-import { BetterQuoteState, BetterQuoteView } from './components/BetterQuoteView'
-import { ProtectionWarning } from './components/protection-warning'
-import { SelectTokenModal } from './components/select-token-modal'
 import { RethSupplyCapOverrides } from '@/components/supply'
-import { TradeDetails } from './components/trade-details'
 import { TradeInputSelector } from './components/trade-input-selector'
-import { useSwap } from './hooks/use-swap'
 import {
   TradeButtonState,
   useTradeButtonState,
 } from './hooks/use-trade-button-state'
-import { useTradeButton } from './hooks/use-trade-button'
-import { useWallet } from '@/lib/hooks/useWallet'
 
 // TODO: remove with new navigation
 export type QuickTradeProps = {
@@ -45,86 +37,57 @@ export type QuickTradeProps = {
 export const Swap = (props: QuickTradeProps) => {
   const { openConnectModal } = useConnectModal()
   const { isDarkMode } = useICColorMode()
-  const requiresProtection = useProtection()
   const { chainId } = useNetwork()
-  const { slippage } = useSlippage()
-  const { executeTrade, isTransacting } = useTrade()
   const { address } = useWallet()
 
-  const {
-    isOpen: isSelectInputTokenOpen,
-    onOpen: onOpenSelectInputToken,
-    onClose: onCloseSelectInputToken,
-  } = useDisclosure()
-  const {
-    isOpen: isSelectOutputTokenOpen,
-    onOpen: onOpenSelectOutputToken,
-    onClose: onCloseSelectOutputToken,
-  } = useDisclosure()
+  const [sellToken, setSellToken] = useState<Token>(WETH)
+  const [buyToken, setBuyToken] = useState<Token>(DCA)
 
-  const {
-    isBuying,
-    buyToken,
-    buyTokenList,
-    nativeTokenPrice,
-    sellToken,
-    sellTokenList,
-    changeBuyToken,
-    changeSellToken,
-    swapTokenLists,
-  } = useTradeTokenLists()
+  const { executeRedeem, isTransacting: isRedeeming } = useRedemption()
+  const { executeNavIssue, isNavTransacting: isIssuing } = useNavIssuance()
 
-  const {
-    isFetchingZeroEx,
-    isFetchingMoreOptions,
-    fetchAndCompareOptions,
-    quoteResult,
-    quoteResultOptions,
-  } = useBestQuote()
-
-  // TODO: ?
-  const [inputTokenAmountFormatted, setInputTokenAmountFormatted] = useState('')
+  const [isTransacting, setIsTransacting] = useState(false)
+  const [inputTokenAmount, setInputTokenAmount] = useState('')
+  const [inputTokenAmountFormatted, setInputTokenAmountFormatted] = useState('0')
   const [sellTokenAmount, setSellTokenAmount] = useState('0')
+  const [outputTokenAmountFormatted, setOutputTokenAmountFormatted] = useState('0')
 
-  const hasFetchingError = quoteResult.error !== null && !isFetchingZeroEx
+  // State variables for balances and other data
+  const [isApproved, setIsApproved] = useState(false)
+  const [isApproving, setIsApproving] = useState(false)
+  const [hasInsufficientFunds, setHasInsufficientFunds] = useState(false)
+  const [inputTokenBalanceFormatted, setInputTokenBalanceFormatted] = useState('0')
+  const [outputTokenBalanceFormatted, setOutputTokenBalanceFormatted] = useState('0')
+  const [inputTokenAmountUsd, setInputTokenAmountUsd] = useState('0')
+
+  // Fetch data for WETH
+  const {
+    hasInsufficientFunds: hasInsufficientFundsWeth,
+    inputTokenAmountUsd: inputTokenAmountUsdWeth,
+    inputTokenAmountWei: inputTokenAmountWeiWeth,
+    inputTokenBalanceFormatted: inputTokenBalanceFormattedWeth,
+  } = useNavIssue(WETH, inputTokenAmountFormatted)
+
+  // Fetch data for DCA
+  const {
+    hasInsufficientFunds: hasInsufficientFundsDca,
+    inputTokenAmountUsd: inputTokenAmountUsdDca,
+    inputTokenAmountWei: inputTokenAmountWeiDca,
+    inputTokenBalanceFormatted: inputTokenBalanceFormattedDca,
+  } = useRedeem(DCA, inputTokenAmountFormatted)
+
+  // Approval hooks
+  const {
+    isApproved: isApprovedWeth,
+    isApproving: isApprovingWeth,
+    approve: onApproveWeth,
+  } = useApproval(WETH, navIssuanceModuleAddres, inputTokenAmountWeiWeth)
 
   const {
-    hasInsufficientFunds,
-    gasCostsUsd,
-    inputTokenAmountUsd,
-    inputTokenAmountWei,
-    inputTokenBalance,
-    inputTokenBalanceFormatted,
-    inputTokenPrice,
-    outputTokenAmountFormatted,
-    outputTokenAmountUsd,
-    outputTokenBalanceFormatted,
-    outputTokenPrice,
-    showWarning,
-    tokenPrices,
-    tradeData,
-  } = useSwap(sellToken, buyToken, sellTokenAmount, quoteResult?.quotes.zeroEx)
-
-  const priceImpact = isFetchingZeroEx
-    ? null
-    : getFormattedPriceImpact(
-        parseFloat(sellTokenAmount),
-        inputTokenPrice,
-        parseFloat(outputTokenAmountFormatted),
-        outputTokenPrice,
-        isDarkMode
-      )
-
-  const zeroExAddress = useMemo(
-    () => getZeroExRouterAddress(chainId),
-    [chainId]
-  )
-  
-  const {
-    isApproved: isApprovedForSwap,
-    isApproving: isApprovingForSwap,
-    approve: onApproveForSwap,
-  } = useApproval(sellToken, zeroExAddress, inputTokenAmountWei)
+    isApproved: isApprovedDca,
+    isApproving: isApprovingDca,
+    approve: onApproveDca,
+  } = useApproval(DCA, navIssuanceModuleAddres, inputTokenAmountWeiDca)
 
   const shouldApprove = useMemo(() => {
     const nativeToken = getNativeToken(chainId)
@@ -133,11 +96,11 @@ export const Swap = (props: QuickTradeProps) => {
   }, [chainId, sellToken])
 
   const buttonState = useTradeButtonState(
-    hasFetchingError,
+    false,
     hasInsufficientFunds,
     shouldApprove,
-    isApprovedForSwap,
-    isApprovingForSwap,
+    isApproved,
+    isApproving,
     isTransacting,
     sellTokenAmount
   )
@@ -145,64 +108,64 @@ export const Swap = (props: QuickTradeProps) => {
   const { buttonLabel, isDisabled } = useTradeButton(buttonState)
 
   const resetTradeData = () => {
-    setInputTokenAmountFormatted('')
+    setInputTokenAmountFormatted('0')
+    setInputTokenAmountUsd('0')
     setSellTokenAmount('0')
+    setOutputTokenAmountFormatted('0')
   }
 
   useEffect(() => {
-    resetTradeData()
-  }, [chainId])
-
-  const fetchOptions = useCallback(() => {
-    if (requiresProtection) return
-    fetchAndCompareOptions(
-      sellToken,
-      sellTokenAmount,
-      inputTokenPrice,
-      buyToken,
-      outputTokenPrice,
-      nativeTokenPrice,
-      isBuying,
-      slippage
-    )
+    // Update state variables based on the current sellToken and buyToken
+    if (sellToken.symbol === WETH.symbol) {
+      // We are selling WETH to buy DCA
+      setIsApproved(isApprovedWeth)
+      setIsApproving(isApprovingWeth)
+      setHasInsufficientFunds(hasInsufficientFundsWeth)
+      setInputTokenBalanceFormatted(inputTokenBalanceFormattedWeth)
+      setOutputTokenBalanceFormatted(inputTokenBalanceFormattedDca)
+      setInputTokenAmountUsd(inputTokenAmountUsdWeth)
+    } else if (sellToken.symbol === DCA.symbol) {
+      // We are selling DCA to buy WETH
+      setIsApproved(isApprovedDca)
+      setIsApproving(isApprovingDca)
+      setHasInsufficientFunds(hasInsufficientFundsDca)
+      setInputTokenBalanceFormatted(inputTokenBalanceFormattedDca)
+      setOutputTokenBalanceFormatted(inputTokenBalanceFormattedWeth)
+      setInputTokenAmountUsd(inputTokenAmountUsdDca)
+    }
+    // Update sellTokenAmount and outputTokenAmountFormatted
+    setSellTokenAmount(inputTokenAmountFormatted)
+    setOutputTokenAmountFormatted(inputTokenAmountFormatted) // Assuming 1:1 rate
   }, [
-    isBuying,
-    buyToken,
-    inputTokenPrice,
-    nativeTokenPrice,
-    outputTokenPrice,
-    requiresProtection,
     sellToken,
-    sellTokenAmount,
-    slippage,
+    buyToken,
+    inputTokenAmountFormatted,
+    isApprovedWeth,
+    isApprovingWeth,
+    hasInsufficientFundsWeth,
+    inputTokenBalanceFormattedWeth,
+    inputTokenAmountUsdWeth,
+    isApprovedDca,
+    isApprovingDca,
+    hasInsufficientFundsDca,
+    inputTokenBalanceFormattedDca,
+    inputTokenAmountUsdDca,
   ])
 
   useEffect(() => {
-    fetchOptions()
-  }, [fetchOptions])
+    setIsTransacting(isRedeeming || isIssuing)
+  }, [isRedeeming, isIssuing])
 
-  // Delete: with better quote view
-  const onClickBetterQuote = () => {
-    if (!quoteResultOptions.hasBetterQuote) return
-    if (props.switchTabs) {
-      props.switchTabs()
+
+  const onChangeInputTokenAmount = (token: Token, value: string) => {
+    if (/^\d*\.?\d*$/.test(value)) { // Allow only numbers and decimal points
+      setInputTokenAmount(value);
+      setInputTokenAmountFormatted(value === '' ? '0' : value);
     }
+    setSellTokenAmount(value || '')
+    // Assuming a 1:1 exchange rate for simplicity
+    setOutputTokenAmountFormatted(value || '0')
   }
-
-  const onChangeInputTokenAmount = (token: Token, input: string) => {
-    if (input === '') {
-      resetTradeData()
-    }
-    setInputTokenAmountFormatted(input || '')
-    if (!isValidTokenInput(input, token.decimals)) return
-    setSellTokenAmount(input || '')
-  }
-
-  const onClickInputBalance = useCallback(() => {
-    if (!inputTokenBalance) return
-    setInputTokenAmountFormatted(inputTokenBalance)
-    setSellTokenAmount(inputTokenBalance)
-  }, [inputTokenBalance])
 
   const onClickTradeButton = useCallback(async () => {
     if (buttonState === TradeButtonState.connectWallet) {
@@ -212,46 +175,44 @@ export const Swap = (props: QuickTradeProps) => {
       return
     }
 
-    if (buttonState === TradeButtonState.fetchingError) {
-      fetchOptions()
-      return
-    }
-
     if (buttonState === TradeButtonState.insufficientFunds) return
 
-    if (!isApprovedForSwap && shouldApprove) {
-      await onApproveForSwap()
+    if (!isApproved && shouldApprove) {
+      if (sellToken.symbol === WETH.symbol) {
+        await onApproveWeth()
+      } else if (sellToken.symbol === DCA.symbol) {
+        await onApproveDca()
+      }
       return
     }
 
     if (buttonState === TradeButtonState.default) {
-      await executeTrade(quoteResult.quotes.zeroEx)
+      if (sellToken.symbol === WETH.symbol) {
+        await executeNavIssue(inputTokenAmountWeiWeth)
+      } else if (sellToken.symbol === DCA.symbol) {
+        await executeRedeem(inputTokenAmountWeiDca)
+      }
     }
-  }, [buttonState, executeTrade, fetchOptions, isApprovedForSwap, onApproveForSwap, openConnectModal, quoteResult.quotes.zeroEx, shouldApprove])
+  }, [
+    buttonState,
+    isApproved,
+    onApproveWeth,
+    onApproveDca,
+    shouldApprove,
+    sellToken,
+    executeNavIssue,
+    executeRedeem,
+    inputTokenAmountWeiWeth,
+    inputTokenAmountWeiDca,
+    openConnectModal,
+  ])
 
   const onSwitchTokens = () => {
-    swapTokenLists()
+    const temp = sellToken
+    setSellToken(buyToken)
+    setBuyToken(temp)
     resetTradeData()
   }
-
-  // Delete: when removing better quote view
-  const betterQuoteState = useMemo(() => {
-    if (isFetchingMoreOptions) {
-      return BetterQuoteState.fetchingQuote
-    }
-
-    if (quoteResultOptions.hasBetterQuote) {
-      return quoteResultOptions.isReasonPriceImpact
-        ? BetterQuoteState.betterQuotePriceImpact
-        : BetterQuoteState.betterQuote
-    }
-
-    return BetterQuoteState.noBetterQuote
-  }, [
-    isFetchingMoreOptions,
-    quoteResultOptions.hasBetterQuote,
-    quoteResultOptions.isReasonPriceImpact,
-  ])
 
   return (
     <Box>
@@ -262,12 +223,10 @@ export const Swap = (props: QuickTradeProps) => {
           caption='You pay'
           formattedFiat={inputTokenAmountUsd}
           selectedToken={sellToken}
-          selectedTokenAmount={inputTokenAmountFormatted}
+          selectedTokenAmount={inputTokenAmount}
           onChangeInput={onChangeInputTokenAmount}
-          onClickBalance={onClickInputBalance}
-          onSelectToken={() => {
-            if (sellTokenList.length > 1) onOpenSelectInputToken()
-          }}
+          onClickBalance={() => {}}
+          onSelectToken={() => {}}
         />
         <Box h='6px' alignSelf={'center'}>
           <IconButton
@@ -289,73 +248,18 @@ export const Swap = (props: QuickTradeProps) => {
           selectedToken={buyToken}
           selectedTokenAmount={outputTokenAmountFormatted}
           balance={outputTokenBalanceFormatted}
-          formattedFiat={outputTokenAmountUsd}
-          priceImpact={
-            priceImpact
-              ? {
-                  value: priceImpact.priceImpact,
-                  colorCoding: priceImpact.colorCoding,
-                }
-              : undefined
-          }
-          onSelectToken={() => {
-            if (buyTokenList.length > 1) onOpenSelectOutputToken()
-          }}
+          formattedFiat={'0.0'} // Adjust as needed, possibly calculate based on output amount
+          onSelectToken={() => {}}
         />
       </Flex>
       <>
-        {tradeData.length > 0 && (
-          <TradeDetails
-            data={tradeData}
-            gasPriceInUsd={gasCostsUsd}
-            prices={tokenPrices}
-            showWarning={showWarning}
-          />
-        )}
-        {tradeData.length > 0 && (
-          <Box my='16px'>
-            <BetterQuoteView
-              onClick={onClickBetterQuote}
-              state={betterQuoteState}
-              savingsUsd={quoteResultOptions.savingsUsd}
-            />
-          </Box>
-        )}
-        {hasFetchingError && (
-          <Text align='center' color={colors.icRed} p='16px'>
-            {quoteResult.error?.message ?? 'Error fetching quote'}
-          </Text>
-        )}
-        {requiresProtection && <ProtectionWarning isDarkMode={isDarkMode} />}
-        {!requiresProtection && (
-          <TradeButton
-            label={buttonLabel}
-            isDisabled={isDisabled}
-            isLoading={isApprovingForSwap || isFetchingZeroEx}
-            onClick={onClickTradeButton}
-          />
-        )}
+        <TradeButton
+          label={buttonLabel}
+          isDisabled={isDisabled}
+          isLoading={isApproving}
+          onClick={onClickTradeButton}
+        />
       </>
-      <SelectTokenModal
-        isOpen={isSelectInputTokenOpen}
-        onClose={onCloseSelectInputToken}
-        onSelectedToken={(tokenSymbol) => {
-          changeSellToken(tokenSymbol)
-          onCloseSelectInputToken()
-        }}
-        address={address}
-        tokens={sellTokenList}
-      />
-      <SelectTokenModal
-        isOpen={isSelectOutputTokenOpen}
-        onClose={onCloseSelectOutputToken}
-        onSelectedToken={(tokenSymbol) => {
-          changeBuyToken(tokenSymbol)
-          onCloseSelectOutputToken()
-        }}
-        address={address}
-        tokens={buyTokenList}
-      />
     </Box>
   )
 }
