@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { ETH, Token } from '@/constants/tokens'
+import { ETH, Token, WETH } from '@/constants/tokens'
 import { fetchCoingeckoTokenPrice } from '@/lib/utils/api/coingecko'
 import { getAddressForToken, getNativeToken } from '@/lib/utils/tokens'
 
@@ -23,6 +23,7 @@ export function useTokenPrice(token: Token): number {
   const [tokenPrice, setTokenPrice] = useState<number>(0)
 
   useEffect(() => {
+    if(token = WETH) token = ETH;
     if (chainId === undefined || !isSupportedNetwork) return
     const fetchTokenPrice = async () => {
       const tokenPrice = await getTokenPrice(token, chainId)

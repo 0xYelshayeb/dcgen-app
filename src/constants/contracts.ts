@@ -11,3 +11,5 @@ export const navIssuanceModuleAddres = "0x2761b53EB2DFD7729F79286D6AefB12ED5aA3f
 export const IssuanceModuleAddres = "0x399770B176654c7FfbBA741fC9fE65BD93716AeB"
 
 export const setTokenAddress = "0x5F51bD1e8e2D7981C42DC09cC3879dB949386B33"
+
+export const setValuerAddress = "0xf12b323f733b9d99391ecf7fed20210ce6c8ab18"
