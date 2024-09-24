@@ -214,10 +214,7 @@ export const Swap = (props: QuickTradeProps) => {
         // We are issuing DCA tokens with WETH
         const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
         const outputAmount = amountInput.mul(ethers.constants.WeiPerEther).div(priceInWei)
-        const outputAmountFormatted = ethers.utils.formatUnits(
-          outputAmount,
-          buyToken.decimals
-        )
+        const outputAmountFormatted = parseFloat(ethers.utils.formatUnits(outputAmount, buyToken.decimals)).toFixed(3)
         setOutputTokenAmountFormatted(outputAmountFormatted)
 
         // Calculate USD amounts
@@ -228,10 +225,7 @@ export const Swap = (props: QuickTradeProps) => {
         // We are redeeming DCA tokens for WETH
         const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
         const outputAmount = amountInput.mul(priceInWei).div(ethers.constants.WeiPerEther)
-        const outputAmountFormatted = ethers.utils.formatUnits(
-          outputAmount,
-          buyToken.decimals
-        )
+        const outputAmountFormatted = parseFloat(ethers.utils.formatUnits(outputAmount, buyToken.decimals)).toFixed(5)
         setOutputTokenAmountFormatted(outputAmountFormatted)
 
         // Calculate USD amounts
@@ -327,7 +321,7 @@ export const Swap = (props: QuickTradeProps) => {
           selectedTokenAmount={inputTokenAmount}
           onChangeInput={onChangeInputTokenAmount}
           onClickBalance={() => setMaxBalance()}
-          onSelectToken={() => {}}
+          onSelectToken={() => { }}
         />
         <Box h='6px' alignSelf={'center'}>
           <IconButton
@@ -350,7 +344,7 @@ export const Swap = (props: QuickTradeProps) => {
           selectedTokenAmount={outputTokenAmountFormatted}
           balance={outputTokenBalanceFormatted}
           formattedFiat={`$${outputTokenAmountUsd}`} // Display output USD amount
-          onSelectToken={() => {}}
+          onSelectToken={() => { }}
         />
       </Flex>
       <>
