@@ -4,6 +4,8 @@ import { ethers } from 'ethers';
 import SetTokenAbi from '../../lib/utils/abi/SetToken.json';
 import IndexModuleAbI from '../../lib/utils/abi/GeneralIndexModule.json';
 import { useWallet } from '../../lib/hooks/useWallet';
+import { setTokenAddress } from '@/constants/contracts';
+import { indexModuleAddress } from '@/constants/contracts';
 
 const TradeContainer = () => {
     const [components, setComponents] = useState<string[]>([]);
@@ -12,8 +14,6 @@ const TradeContainer = () => {
 
     const setTokenAbi = SetTokenAbi.abi;
     const indexModuleAbI = IndexModuleAbI.abi;
-    const setTokenAddress = "0x26DE69d01fdB4DA2160777c9b8598F335D2536D4"; // Replace with your SetToken address
-    const indexModuleAddress = "0x68C628F95EBeA470447017A7F7E767D2e8Db4952";
 
     const fetchComponents = async () => {
         const contract = new ethers.Contract(setTokenAddress, setTokenAbi, provider);
