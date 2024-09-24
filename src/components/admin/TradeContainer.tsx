@@ -27,7 +27,7 @@ const TradeContainer = () => {
 
     useEffect(() => {
         fetchComponents();
-    }, [provider, fetchComponents]);
+    }, [provider]);
 
     const handleCheckboxChange = (component: string) => {
         setSelectedComponents({
