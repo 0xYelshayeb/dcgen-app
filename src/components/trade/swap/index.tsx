@@ -67,12 +67,14 @@ export const Swap = (props: QuickTradeProps) => {
   const {
     hasInsufficientFunds: hasInsufficientFundsWeth,
     inputTokenBalanceFormatted: inputTokenBalanceFormattedWeth,
+    inputTokenAmountWei: inputTokenAmountWeiWeth,
   } = useNavIssue(WETH, inputTokenAmountFormatted)
 
   // Fetch data for DCA
   const {
     hasInsufficientFunds: hasInsufficientFundsDca,
     inputTokenBalanceFormatted: inputTokenBalanceFormattedDca,
+    inputTokenAmountWei: inputTokenAmountWeiDca,
   } = useRedeem(DCA, inputTokenAmountFormatted)
 
   // Approval hooks
@@ -80,13 +82,13 @@ export const Swap = (props: QuickTradeProps) => {
     isApproved: isApprovedWeth,
     isApproving: isApprovingWeth,
     approve: onApproveWeth,
-  } = useApproval(WETH, navIssuanceModuleAddres)
+  } = useApproval(WETH, navIssuanceModuleAddres, inputTokenAmountWeiWeth)
 
   const {
     isApproved: isApprovedDca,
     isApproving: isApprovingDca,
     approve: onApproveDca,
-  } = useApproval(DCA, navIssuanceModuleAddres)
+  } = useApproval(DCA, navIssuanceModuleAddres, inputTokenAmountWeiDca)
 
   const shouldApprove = useMemo(() => {
     const nativeToken = getNativeToken(chainId)

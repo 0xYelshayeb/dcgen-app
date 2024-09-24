@@ -48,6 +48,7 @@ export const useApproval = (
 
   async function updateApprovalState(spenderAddress: string) {
     const allowance = await getAllowance(spenderAddress)
+    console.log("allowance", allowance, "amount", amount)
     const isApprovedTemp = allowance.gte(amount)
     setIsApproved(isApprovedTemp)
   }
