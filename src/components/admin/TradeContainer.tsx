@@ -6,6 +6,7 @@ import IndexModuleAbI from '../../lib/utils/abi/GeneralIndexModule.json';
 import { useWallet } from '../../lib/hooks/useWallet';
 import { setTokenAddress } from '@/constants/contracts';
 import { indexModuleAddress } from '@/constants/contracts';
+import { maxUint256 } from 'viem';
 
 const TradeContainer = () => {
     const [components, setComponents] = useState<string[]>([]);
@@ -42,7 +43,7 @@ const TradeContainer = () => {
         for (const address of selectedAddresses) {
             try {
                 const contract = new ethers.Contract(indexModuleAddress, indexModuleAbI, signer);
-                const tx = await contract.trade(setTokenAddress, address, ethers.utils.parseEther("0")); // Replace with actual trade function and parametersq
+                const tx = await contract.trade(setTokenAddress, address, maxUint256);
                 await tx.wait();
                 console.log(`Trade executed for ${address}`);
             } catch (error) {
