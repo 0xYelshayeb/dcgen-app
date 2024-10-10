@@ -3,6 +3,7 @@ import { Box, Flex, Heading, VStack, Text, Icon, IconButton, useClipboard } from
 import { MdOutlineAccessTime, MdOutlineAccountBalanceWallet, MdOutlineInsertLink, MdOutlineSecurity, MdOutlineSwapHorizontalCircle, MdOutlineCalendarToday, MdContentCopy } from 'react-icons/md'; // New icons from Material Design Icons
 import ConstituentWeights from './ConstituentWeights';
 import { setTokenAddress } from '@/constants/contracts';
+import { blueLogo } from '@/lib/utils/assets';
 
 const InfoSection = () => {
 
@@ -49,11 +50,16 @@ const InfoSection = () => {
                             </Text>
                         </Box>
                         <IconButton
-                            outline="none"
                             icon={<MdContentCopy />}
                             aria-label="Copy Contract Address"
                             onClick={onCopy}
-                            variant="ghost"
+                            variant="ghost" // Use 'ghost' for transparency
+                            _focus={{ boxShadow: 'none' }} // Remove focus outline
+                            _hover={{ background: 'transparent' }} // Remove hover background
+                            _active={{ boxShadow: 'none' }} // Remove active state outline
+                            border="none" // No border
+                            p="0" // Remove padding for a more compact appearance
+                            colorScheme="blue"
                         />
                     </Flex>
 
@@ -69,7 +75,7 @@ const InfoSection = () => {
                         <Icon as={MdOutlineInsertLink} boxSize={6} mr={4} />
                         <Box>
                             <Text mb={2}>Direct Smart Contract Interaction</Text>
-                            <Text fontSize="sm" color={'GrayText'}>Interact seamlessly with the index through DCgen's secure, on-chain smart contracts.</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Interact seamlessly with the index through DCgen&apos;s secure, on-chain smart contracts.</Text>
                         </Box>
                     </Flex>
                 </Flex>
