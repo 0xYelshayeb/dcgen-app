@@ -1,18 +1,105 @@
 import React from 'react';
-import { Box, Heading, VStack, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, VStack, Text, Icon, IconButton, useClipboard } from '@chakra-ui/react';
+import { MdOutlineAccessTime, MdOutlineAccountBalanceWallet, MdOutlineInsertLink, MdOutlineSecurity, MdOutlineSwapHorizontalCircle, MdOutlineCalendarToday, MdContentCopy } from 'react-icons/md'; // New icons from Material Design Icons
 import ConstituentWeights from './ConstituentWeights';
+import { setTokenAddress } from '@/constants/contracts';
 
 const InfoSection = () => {
+
+    const contractAddress = setTokenAddress;
+    const { onCopy } = useClipboard(contractAddress);
+
     return (
         <VStack mt='20' spacing={20} align="stretch">
-            <ConstituentWeights /> 
+            <ConstituentWeights />
+
             <Box>
-                <Heading size="sm" mb={4}>Methodology</Heading>
-                <Text fontSize="sm">The DCgen Governance Core ($DCG) epitomizes precision in tracking the Ethereum ecosystem, focusing on the top 30 governance tokens through a market capitalization-weighted approach. Rebalanced bi-monthly, it employs the Laspeyres index model for accurate market representation, ensuring each token&apos;s inclusion adheres to stringent international token classification standards. This methodology not only guarantees a real-time reflection of market dynamics but also upholds the highest safety and compliance standards, providing investors with a reliable and comprehensive market benchmark.</Text>
+                <Heading size="sm" mb={6}>Index Characteristics</Heading>
+                <Flex wrap="wrap" gap={5} justify="space-between">
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineAccessTime} boxSize={6} mr={4} />
+                        <Box>
+                            <Text mb={2}>Capitalization-weighted</Text>
+                            <Text fontSize="sm" color={'GrayText'}>The index allocates assets based on market capitalization.</Text>
+                        </Box>
+                    </Flex>
+
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineCalendarToday} boxSize={6} mr={4} />
+                        <Box>
+                            <Text mb={2}>Quarterly Rebalancing</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Assets are rebalanced every quarter to maintain optimal allocation.</Text>
+                        </Box>
+                    </Flex>
+
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineAccountBalanceWallet} boxSize={6} mr={4} />
+                        <Box>
+                            <Text mb={2}>Arbitrum Network</Text>
+                            <Text fontSize="sm" color={'GrayText'}>The index operates on the Arbitrum Layer 2 blockchain.</Text>
+                        </Box>
+                    </Flex>
+
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineSwapHorizontalCircle} boxSize={6} mr={4} />
+                        <Box flex="1">
+                            <Text mb={2}>{`${contractAddress.slice(0, 7)}...`}</Text>
+                            <Text fontSize="sm" color={'GrayText'}>
+                                Smart contract address for direct on-chain interaction.
+                            </Text>
+                        </Box>
+                        <IconButton
+                            outline="none"
+                            icon={<MdContentCopy />}
+                            aria-label="Copy Contract Address"
+                            onClick={onCopy}
+                            variant="ghost"
+                        />
+                    </Flex>
+
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineSecurity} boxSize={6} mr={4} />
+                        <Box>
+                            <Text mb={2}>Zero Fees</Text>
+                            <Text fontSize="sm" color={'GrayText'}>No platform fees; only standard network gas fees apply.</Text>
+                        </Box>
+                    </Flex>
+
+                    <Flex align="center" w={{ base: '100%', md: '48%', lg: '48%' }}>
+                        <Icon as={MdOutlineInsertLink} boxSize={6} mr={4} />
+                        <Box>
+                            <Text mb={2}>Direct Smart Contract Interaction</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Interact seamlessly with the index through DCgen's secure, on-chain smart contracts.</Text>
+                        </Box>
+                    </Flex>
+                </Flex>
             </Box>
+
             <Box>
-                <Heading size="sm" mb={4}>Security</Heading>
-                <Text fontSize="sm">The DCgen Governance Core ($DCG) is anchored in security, built upon the rigorously audited SetProtocol to ensure utmost safety in smart contract execution (details at SetProtocol&apos;s Security Documentation). While we are committed to security and precision, it&apos;s important for investors to recognize that all financial products, including $DCG, are subject to market risks and potential losses. We advise investors to carefully consider their risk appetite and investment goals when engaging with the index.</Text>
+                <Heading size="sm" mb={6}>How to Invest</Heading>
+                <VStack align="stretch" spacing={6}>
+                    <Flex align="center">
+                        <Box fontWeight="bold" fontSize="lg" mr={4}>1</Box>
+                        <Box>
+                            <Text mb={2}>Connect Your Wallet</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Link your Arbitrum-compatible wallet to get started.</Text>
+                        </Box>
+                    </Flex>
+                    <Flex align="center">
+                        <Box fontWeight="bold" fontSize="lg" mr={4}>2</Box>
+                        <Box>
+                            <Text mb={2}>Issue $DCA with $WETH</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Issue $DCA tokens directly through our smart contracts with $WETH. No DEX interaction necessary.</Text>
+                        </Box>
+                    </Flex>
+                    <Flex align="center">
+                        <Box fontWeight="bold" fontSize="lg" mr={4}>3</Box>
+                        <Box>
+                            <Text mb={2}>Receive $DCA in Your Wallet</Text>
+                            <Text fontSize="sm" color={'GrayText'}>Once the transaction is complete, your $DCA tokens will appear in your wallet. You can track your assets value on our application interface.</Text>
+                        </Box>
+                    </Flex>
+                </VStack>
             </Box>
         </VStack>
     );

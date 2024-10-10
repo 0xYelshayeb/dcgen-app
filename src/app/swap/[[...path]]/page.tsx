@@ -43,15 +43,6 @@ export default function SwapPage() {
           />
         </Box>
       </Flex>
-
-      {showSupplyCap && (
-        <Box h='100%' w={['100%', '100%', '500px', '360px']}>
-          <RethSupplyCapContainer
-            state={SupplyCapState.capWillExceed}
-            overrides={supplyCapOverrides}
-          />
-        </Box>
-      )}
     </Stack>
   );
 }
