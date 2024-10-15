@@ -10,7 +10,7 @@ const OverviewAndPerformance = () => {
         DCgen Governance Core ($DCA)
       </Text>
       <Text fontSize="md" color="gray.600" mb="8">
-        DCG is a structured product that tracks the performance of the leading governance tokens on Ethereum. There are no fees to the product besides potential gas fees. The product is built upon conducted research and uses SetProtocol&apos;s smart contract infrastructure. Buy on Arbitrum.
+        DCgen Governance Core tracks top governance tokens in the Ethereum ecosystem. Built on Arbitrum for lower fees and efficient trading.
       </Text>
       <ChartSection />
       <InfoSection />
