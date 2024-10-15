@@ -106,7 +106,7 @@ export const Swap = (props: QuickTradeProps) => {
     sellTokenAmount
   )
 
-  const { buttonLabel, isDisabled } = useTradeButton(buttonState)
+  const { buttonLabel, isDisabled } = useTradeButton(buttonState, sellToken, buyToken)
 
   const resetTradeData = () => {
     setInputTokenAmount('')
@@ -290,6 +290,7 @@ export const Swap = (props: QuickTradeProps) => {
       } else if (sellToken.symbol === DCA.symbol) {
         await executeRedeem(ethers.utils.parseUnits(inputTokenAmountFormatted, DCA.decimals))
       }
+      resetTradeData()
     }
   }, [
     buttonState,

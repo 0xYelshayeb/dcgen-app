@@ -1,12 +1,21 @@
 import { useMemo } from 'react'
+import { Token, DCA, WETH } from '@/constants/tokens'
 
 import { TradeButtonState } from './use-trade-button-state'
 
-export const useTradeButton = (buttonState: TradeButtonState) => {
+export const useTradeButton = (
+  buttonState: TradeButtonState,
+  sellToken: Token,
+  buyToken: Token
+) => {
   /**
    * Returns the correct trade button label according to different states.
    * @returns string label for trade button
    */
+
+  const isIssuing = sellToken.symbol === WETH.symbol && buyToken.symbol === DCA.symbol
+  const isRedeeming = sellToken.symbol === DCA.symbol && buyToken.symbol === WETH.symbol
+
   const buttonLabel = useMemo(() => {
     switch (buttonState) {
       case TradeButtonState.approve:
@@ -21,11 +30,15 @@ export const useTradeButton = (buttonState: TradeButtonState) => {
         return 'Try again'
       case TradeButtonState.insufficientFunds:
         return 'Insufficient funds'
-      case TradeButtonState.loading:
-        return 'Swapping...'
       case TradeButtonState.wrongNetwork:
         return 'Wrong Network'
+      case TradeButtonState.loading:
+        if (isIssuing) return 'Issuing...'
+        if (isRedeeming) return 'Redeeming...'
+        return 'Swapping...'
       default:
+        if (isIssuing) return 'Issue'
+        if (isRedeeming) return 'Redeem'
         return 'Swap'
     }
   }, [buttonState])
