@@ -16,9 +16,10 @@ const Header = () => {
       w='100%'
       zIndex='2'
     >
-      <Box w='100%' bg={colors.dcBlue} color='white' textAlign='center' p='8px' textDecoration={"italic"}>
-        This product is currently in its beta phase. Use at your own risk.
-      </Box>
+<Box w='100%' bg={colors.dcBlue} color='white' textAlign='center' p='8px' fontStyle='italic'>
+  This product is currently in its beta phase. Use at your own risk.
+</Box>
+
       <Flex align='center' justifyContent='space-between' w='100%' padding={"32px"}>
         <Flex marginRight={['', '', '', '20px']}>
           <Logo />
