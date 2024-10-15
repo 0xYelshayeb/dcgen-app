@@ -1,21 +1,25 @@
-import { Flex, Spacer } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Text } from '@chakra-ui/react'
 
 import { Connect } from './connect'
 import { Logo } from './logo'
+import { colors } from '@/lib/styles/colors'
 
 const Header = () => {
   return (
     <Flex
       as='header'
+      direction='column'  // Add this line to stack items vertically
       backdropFilter='saturate(120%) blur(20px)'
-      // boxShadow='0px 2px 3px 0px rgba(0, 0, 0, 0.17);'
-      p={['24px 32px']}
+      p="0"
       position='fixed'
       top='0px'
-      w='100vw'
+      w='100%'
       zIndex='2'
     >
-      <Flex align='center' justifyContent='space-between' w='100%'>
+      <Box w='100%' bg={colors.dcBlue} color='white' textAlign='center' p='8px' textDecoration={"italic"}>
+        This product is currently in its beta phase. Use at your own risk.
+      </Box>
+      <Flex align='center' justifyContent='space-between' w='100%' padding={"32px"}>
         <Flex marginRight={['', '', '', '20px']}>
           <Logo />
         </Flex>

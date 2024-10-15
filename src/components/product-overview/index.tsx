@@ -6,7 +6,7 @@ import InfoSection from './InfoSection.jsx';
 const OverviewAndPerformance = () => {
   return (
     <Box background="#FCFCFC" p="24px" mb="24px">
-      <Text fontSize="lg" fontWeight="bold" mb="4">
+      <Text fontSize="xl" fontWeight="bold" mb="4">
         DCgen Governance Core ($DCA)
       </Text>
       <Text fontSize="md" color="gray.600" mb="8">
