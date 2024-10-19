@@ -15,7 +15,7 @@ export default function LegalPage() {
           Disclaimer: The information provided here is solely for informational purposes and does not constitute legal, tax, investment, financial, or other advice. Actions should not be taken or withheld based on the content here or any other information we provide at any time, including but not limited to blog posts, data, articles, third-party links, Discord interactions, news feeds, tutorials, tweets, and videos. It is recommended that you consult with a licensed and qualified professional for independent advice relevant to financial, legal, technical, or other decisions. This content does not fully encompass all elements related to DCgen or its offerings. Additional information about the operations of DCgen, along with its ecosystem and community, is available on DCgens website.
         </Text>
         <Text>
-          You are prohibited from purchasing or otherwise acquiring our restricted token products if you are a U.S. person, which includes being a citizen, tax resident, green card holder, or someone incorporated, owned, or controlled by, located in, or operating from a registered office or principal business location within the United States. Additionally, this restriction applies if you are located in any jurisdiction where the offering, sale, or purchase of our token products is considered unlawful, prohibited, or unauthorized. The term "Restricted Person" extends to any individual or entity such as a firm, company, partnership, trust, corporation, governmental body, or any other incorporated or unincorporated organization existing under the laws of a jurisdiction where engaging with our token products is unlawful, prohibited, or unauthorized.
+          You are prohibited from purchasing or otherwise acquiring our restricted token products if you are a U.S. person, which includes being a citizen, tax resident, green card holder, or someone incorporated, owned, or controlled by, located in, or operating from a registered office or principal business location within the United States. Additionally, this restriction applies if you are located in any jurisdiction where the offering, sale, or purchase of our token products is considered unlawful, prohibited, or unauthorized. The term &quot;Restricted Person&quot; extends to any individual or entity such as a firm, company, partnership, trust, corporation, governmental body, or any other incorporated or unincorporated organization existing under the laws of a jurisdiction where engaging with our token products is unlawful, prohibited, or unauthorized.
         </Text>
 
         {/* Privacy Policy Section */}
@@ -101,7 +101,7 @@ export default function LegalPage() {
           Updated May 1st, 2024
         </Text>
         <Text>
-          Welcome to the DCgen Marketing and App Sites (the "Website"), managed by DCgen and its affiliates ("we", "us"). The Website enables users to explore and exchange various digital tokens across blockchain networks including, but not limited to, Ethereum and Polygon.
+          Welcome to the DCgen Marketing and App Sites (the &quot;Website&quot;), managed by DCgen and its affiliates (&quot;we&quot;, &quot;us&quot;). The Website enables users to explore and exchange various digital tokens across blockchain networks including, but not limited to, Ethereum and Polygon.
         </Text>
 
         <Text fontWeight="bold">1. Eligibility</Text>
@@ -147,7 +147,7 @@ export default function LegalPage() {
         <Text>
           You are prohibited from purchasing or acquiring our restricted token products if you are a U.S. person, defined as a citizen, resident (tax-related or otherwise), green card holder, someone incorporated in, owned or controlled by, located in, or with a registered office or principal place of business within the United States. Additionally, if you reside in any jurisdiction where the offer, sale, or purchase of our token products is unlawful, prohibited, or unauthorized, you must refrain from acquiring these tokens.</Text>
         <Text>
-          The designation "Restricted Person" encompasses not only any individual residing in such restrictive jurisdictions but also any entity, firm, company, partnership, trust, corporation, governmental body, or other entity, either incorporated or unincorporated, that operates under the legal framework where these transactions are forbidden.</Text>
+          The designation &quot;Restricted Person&quot; encompasses not only any individual residing in such restrictive jurisdictions but also any entity, firm, company, partnership, trust, corporation, governmental body, or other entity, either incorporated or unincorporated, that operates under the legal framework where these transactions are forbidden.</Text>
         <Text>
           None of our tokens are registered under the U.S. Securities Act of 1933, as amended, nor with any securities regulatory authority in any state or jurisdiction of the U.S. Therefore, our restricted tokens must not be offered, sold, or delivered within the United States, nor to or for the benefit of any Restricted Persons.</Text>
         <Text>
