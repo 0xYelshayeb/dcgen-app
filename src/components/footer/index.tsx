@@ -149,12 +149,12 @@ const Disclaimer = () => (
     <Link
       href='/license'
       color='white'
-      _hover={{ textDecoration: 'underline' }}
+      textDecoration='underline'
       mt={4}
       textAlign='left'
-      >
-      Read more about our license
-      </Link>
+    >
+      Read more about our Disclaimer, Privacy Policy, Terms of Service and Tokens Restricted for Restricted Persons
+    </Link>
   </Flex>
 );
 
