@@ -151,6 +151,23 @@ export default function LegalPage() {
           We depend on third-party sources for information about the digital tokens listed on our Website, such as coingecko.com, and reserve the right to change or remove these sources at our discretion. We do not guarantee the quality, accuracy, completeness, timeliness, or reliability of this information. You are responsible for gathering adequate information and staying informed before engaging in digital token trading through the Website.
         </Text>
 
+        <Text fontWeight="bold">6. Disclaimer about Tokens</Text>
+        <Text>
+          You must review and keep updated with the list of Tokens Restricted for Restricted Persons before transacting on the Website. You are prohibited from purchasing or transacting in our restricted tokens if you are a U.S. person or located in any jurisdiction where such transactions are illegal. The term "Restricted Person" includes anyone under jurisdictions where the purchase or sale of these tokens is prohibited. You must not resell or transfer these restricted tokens to any Restricted Person.
+        </Text>
+        <Text>
+          DCgen is not regulated by any financial regulatory authority, and we do not act as an investment adviser or offer securities services in the U.S. or to U.S. persons. Content on the Website should not be taken as investment advice.
+
+        </Text>
+        <Text>
+        Third parties promoting DCgen products must comply with all applicable regulations and undertake due diligence. DCgen is not liable for their regulatory compliance failures.
+
+        </Text>
+        <Text>
+        No person may acquire DCgen products unless they comply with our restrictions on Restricted Persons, specifically not being a U.S. Person as defined under relevant regulations.
+
+        </Text>
+
         {/* Tokens Restricted for Restricted Persons */}
         <Text fontSize="2xl" fontWeight="bold" textAlign="center">
           Tokens Restricted for Restricted Persons
