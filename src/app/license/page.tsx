@@ -119,12 +119,12 @@ export default function LegalPage() {
         <Text>
           We may suspend, limit, or terminate your access to the Website or block your transactions if required by legal orders, if you breach this Agreement, or for any legal or regulatory reasons at our discretion.</Text>
         <Text>
-          Some tokens on the Website have specific eligibility requirements. You must review and monitor the list of Tokens Restricted for Restricted Persons ("Restricted Tokens") to ensure your transactions comply with this Agreement and applicable laws.</Text>
+          Some tokens on the Website have specific eligibility requirements. You must review and monitor the list of Tokens Restricted for Restricted Persons (&quot;Restricted Tokens&quot;) to ensure your transactions comply with this Agreement and applicable laws.</Text>
         <Text fontWeight="bold">
           Prohibited Users
         </Text>
         <Text>
-          You are prohibited from purchasing or acquiring Restricted Tokens if you are a U.S. person or located in a jurisdiction where such transactions are illegal. "Restricted Person" refers to anyone in a jurisdiction where transactions with Restricted Tokens are illegal. You must not resell or transfer Restricted Tokens to any Restricted Person.</Text>
+          You are prohibited from purchasing or acquiring Restricted Tokens if you are a U.S. person or located in a jurisdiction where such transactions are illegal. &quot;Restricted Person&quot; refers to anyone in a jurisdiction where transactions with Restricted Tokens are illegal. You must not resell or transfer Restricted Tokens to any Restricted Person.</Text>
 
         {/* Modifications */}
         <Text fontWeight="bold">2. Modifications to These Terms</Text>
@@ -142,7 +142,7 @@ export default function LegalPage() {
         {/* Disclaimer about Tokens */}
         <Text fontWeight="bold">4. Warranty Disclaimer</Text>
         <Text>
-          Under the maximum extent allowed by applicable law, the Website and all its content or functionality are provided on an "AS IS" and "AS AVAILABLE" basis. We explicitly disclaim, and you relinquish, any representations, warranties, or conditions of any kind, whether express, implied, statutory, or otherwise, including, but not limited to, warranties of merchantability, quality, fitness for a particular purpose, non-infringement, reliability, availability, or accuracy. We do not guarantee that the Website will be uninterrupted, timely, secure, or error-free, nor do we guarantee that errors will be corrected.
+          Under the maximum extent allowed by applicable law, the Website and all its content or functionality are provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. We explicitly disclaim, and you relinquish, any representations, warranties, or conditions of any kind, whether express, implied, statutory, or otherwise, including, but not limited to, warranties of merchantability, quality, fitness for a particular purpose, non-infringement, reliability, availability, or accuracy. We do not guarantee that the Website will be uninterrupted, timely, secure, or error-free, nor do we guarantee that errors will be corrected.
         </Text>
 
         {/* Risks Associated with Digital Tokens */}
@@ -153,19 +153,30 @@ export default function LegalPage() {
 
         <Text fontWeight="bold">6. Disclaimer about Tokens</Text>
         <Text>
-          You must review and keep updated with the list of Tokens Restricted for Restricted Persons before transacting on the Website. You are prohibited from purchasing or transacting in our restricted tokens if you are a U.S. person or located in any jurisdiction where such transactions are illegal. The term "Restricted Person" includes anyone under jurisdictions where the purchase or sale of these tokens is prohibited. You must not resell or transfer these restricted tokens to any Restricted Person.
+          You must review and keep updated with the list of Tokens Restricted for Restricted Persons before transacting on the Website. You are prohibited from purchasing or transacting in our restricted tokens if you are a U.S. person or located in any jurisdiction where such transactions are illegal. The term &quot;Restricted Person&quot; includes anyone under jurisdictions where the purchase or sale of these tokens is prohibited. You must not resell or transfer these restricted tokens to any Restricted Person.
         </Text>
         <Text>
           DCgen is not regulated by any financial regulatory authority, and we do not act as an investment adviser or offer securities services in the U.S. or to U.S. persons. Content on the Website should not be taken as investment advice.
 
         </Text>
         <Text>
-        Third parties promoting DCgen products must comply with all applicable regulations and undertake due diligence. DCgen is not liable for their regulatory compliance failures.
+          Third parties promoting DCgen products must comply with all applicable regulations and undertake due diligence. DCgen is not liable for their regulatory compliance failures.
 
         </Text>
         <Text>
-        No person may acquire DCgen products unless they comply with our restrictions on Restricted Persons, specifically not being a U.S. Person as defined under relevant regulations.
+          No person may acquire DCgen products unless they comply with our restrictions on Restricted Persons, specifically not being a U.S. Person as defined under relevant regulations.
 
+        </Text>
+
+        <Text fontWeight="bold">7. Payments and Fees
+        </Text>
+        <Text>
+          The Website uses the 0x API and smart contracts to facilitate transactions on blockchain networks like Ethereum. You are responsible for all transaction fees, known as &quot;Charges,&quot; required by the blockchain used for your transaction.
+        </Text>
+
+        <Text fontWeight="bold">8. Ownership of Digital Tokens</Text>
+        <Text>
+          You maintain full custody and control over your digital tokens stored in your digital wallets at all times. We do not have access to, nor do we retain, the private keys of your digital wallet. You bear all risks associated with the ownership and potential loss of your tokens.
         </Text>
 
         {/* Tokens Restricted for Restricted Persons */}
