@@ -106,31 +106,49 @@ export default function LegalPage() {
 
         <Text fontWeight="bold">1. Eligibility</Text>
         <Text>
-          To access and use the Website, you must be at least 18 years old or the age of majority in your jurisdiction, whichever is greater, and you must not be legally prohibited from using the Website.
+          To access and use the Website, you must be at least 18 years old or the age of majority in your jurisdiction, whichever is greater, and you must not be legally prohibited from using the Website. You also need to be capable of forming a legally binding contract, either personally or on behalf of an organization.
         </Text>
         <Text>
-          If you accept this Agreement on behalf of a business or other legal entity, you confirm that you have the authority to bind that entity to this Agreement.
+          If you accept this Agreement on behalf of a business or other legal entity, you confirm that you have the authority to bind that entity to this Agreement, can legally form contracts online, and have the authority to fulfill and adhere to the terms of this Agreement.
         </Text>
         <Text>
-          Furthermore, by using the Website, you affirm that you are not under any U.S. sanctions or a resident of any country embargoed by the U.S., and that your use of the Website does not violate any local or international laws.
+          Furthermore, by using the Website, you affirm that you are not under any U.S. sanctions or a resident of any country embargoed by the U.S., and that your use of the Website does not violate any local or international laws. </Text>
+        <Text fontWeight="bold">
+          Access Restrictions
         </Text>
+        <Text>
+          We may suspend, limit, or terminate your access to the Website or block your transactions if required by legal orders, if you breach this Agreement, or for any legal or regulatory reasons at our discretion.</Text>
+        <Text>
+          Some tokens on the Website have specific eligibility requirements. You must review and monitor the list of Tokens Restricted for Restricted Persons ("Restricted Tokens") to ensure your transactions comply with this Agreement and applicable laws.</Text>
+        <Text fontWeight="bold">
+          Prohibited Users
+        </Text>
+        <Text>
+          You are prohibited from purchasing or acquiring Restricted Tokens if you are a U.S. person or located in a jurisdiction where such transactions are illegal. "Restricted Person" refers to anyone in a jurisdiction where transactions with Restricted Tokens are illegal. You must not resell or transfer Restricted Tokens to any Restricted Person.</Text>
 
         {/* Modifications */}
         <Text fontWeight="bold">2. Modifications to These Terms</Text>
         <Text>
-          We reserve the right to modify this Agreement at our discretion. Any changes will be communicated by updating the date at the top of this Agreement.
+          We reserve the right to modify this Agreement at our discretion. Any changes will be communicated by updating the date at the top of this Agreement. Modifications become effective immediately upon posting, and your continued use of the Website indicates acceptance of those changes. If you disagree with the revised Agreement, you must cease using the Website.
+        </Text>
+        <Text fontWeight="bold">3. Proprietary Rights</Text>
+        <Text>
+          DCgen holds all intellectual property rights in the Website and its contents. You are granted a personal, limited, and revocable license to access the Website, contingent on your eligibility and compliance with this Agreement. This license is non-transferable and can be revoked by us at any time. You are not permitted to use the Website or its contents beyond what is allowed by this Agreement.
+        </Text>
+        <Text>
+          The underlying smart contract protocols used on the Ethereum Blockchain for trading through the Website are open source, not proprietary to DCgen.
         </Text>
 
         {/* Disclaimer about Tokens */}
-        <Text fontWeight="bold">6. Disclaimer about Tokens</Text>
+        <Text fontWeight="bold">4. Warranty Disclaimer</Text>
         <Text>
-          You must review and keep updated with the list of Tokens Restricted for Restricted Persons before transacting on the Website. You are prohibited from purchasing or transacting in our restricted tokens if you are a U.S. person or located in any jurisdiction where such transactions are illegal.
+          Under the maximum extent allowed by applicable law, the Website and all its content or functionality are provided on an "AS IS" and "AS AVAILABLE" basis. We explicitly disclaim, and you relinquish, any representations, warranties, or conditions of any kind, whether express, implied, statutory, or otherwise, including, but not limited to, warranties of merchantability, quality, fitness for a particular purpose, non-infringement, reliability, availability, or accuracy. We do not guarantee that the Website will be uninterrupted, timely, secure, or error-free, nor do we guarantee that errors will be corrected.
         </Text>
 
         {/* Risks Associated with Digital Tokens */}
-        <Text fontWeight="bold">9. Risks Associated with Digital Tokens</Text>
+        <Text fontWeight="bold">5. Disclaimer about Information Accuracy</Text>
         <Text>
-          By using the Website, you acknowledge your understanding of the inherent risks associated with cryptographic and blockchain-based systems.
+          We depend on third-party sources for information about the digital tokens listed on our Website, such as coingecko.com, and reserve the right to change or remove these sources at our discretion. We do not guarantee the quality, accuracy, completeness, timeliness, or reliability of this information. You are responsible for gathering adequate information and staying informed before engaging in digital token trading through the Website.
         </Text>
 
         {/* Tokens Restricted for Restricted Persons */}
