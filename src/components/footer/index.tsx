@@ -24,36 +24,6 @@ const Footer = () => {
       >
         <Flex justifyContent='center' w={['100%', '100%', 'auto']}>
           <IconButton
-            aria-label='Discord'
-            as='a'
-            href='#'
-            icon={<FaDiscord />}
-            fontSize='24px'  // Set the desired font size for larger icons
-            bg='transparent'
-            _focus={{ boxShadow: 'none', outline: 'none' }}
-            _hover={{ background: 'transparent' }}
-            _active={{ boxShadow: 'none', outline: 'none' }}
-            border='none'
-            outline='none'
-            mr={2}
-            color='white'
-          />
-          <IconButton
-            aria-label='Telegram'
-            as='a'
-            href='#'
-            icon={<FaTelegram />}
-            fontSize='24px'  // Set the desired font size for larger icons
-            bg='transparent'
-            _focus={{ boxShadow: 'none', outline: 'none' }}
-            _hover={{ background: 'transparent' }}
-            _active={{ boxShadow: 'none', outline: 'none' }}
-            border='none'
-            outline='none'
-            mr={2}
-            color='white'
-          />
-          <IconButton
             aria-label='Twitter'
             as='a'
             href='#'
@@ -99,6 +69,7 @@ const Footer = () => {
           />
         </Flex>
         <Flex
+          flexBasis={['100%', '100%', '50%']}
           direction={['column', 'row']}
           w={['100%', 'auto']}
           justifyContent='space-around'
