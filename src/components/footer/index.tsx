@@ -1,5 +1,5 @@
 import { Flex, Link, Text, IconButton } from '@chakra-ui/react';
-import { FaDiscord, FaTelegram, FaTwitter, FaGithub, FaBook } from 'react-icons/fa';
+import { FaTwitter, FaGithub, FaBook } from 'react-icons/fa';
 import { colors } from '@/lib/styles/colors';
 
 const Footer = () => {
@@ -80,11 +80,9 @@ const Footer = () => {
           <Flex direction='column' alignItems='flex-start' mr={[0, 16]} color={"white"} textAlign={'left'}>
             <Text fontWeight='bold' mb={2} color={'white'}>Community</Text>
             <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
-              textDecoration='none'>Twitter</Link>
+              textDecoration='none'>X (Twitter)</Link>
             <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
-              textDecoration='none'>Telegram</Link>
-            <Link href='#' textDecor='underline' _hover={{ textDecoration: 'underline' }}
-              textDecoration='none'>Discord</Link>
+              textDecoration='none'>Contact Us</Link>
           </Flex>
           <Flex direction='column' alignItems='flex-start' color={"white"} textAlign={'left'}>
             <Text fontWeight='bold' mb={2} color={"white"}>Resources</Text>
