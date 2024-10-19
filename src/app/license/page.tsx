@@ -145,7 +145,16 @@ export default function LegalPage() {
         </Text>
 
         <Text>
-          You are prohibited from purchasing or acquiring our restricted token products if you are a U.S. person, defined as a citizen, resident (tax-related or otherwise), green card holder, someone incorporated in, owned or controlled by, located in, or with a registered office or principal place of business within the United States.
+          You are prohibited from purchasing or acquiring our restricted token products if you are a U.S. person, defined as a citizen, resident (tax-related or otherwise), green card holder, someone incorporated in, owned or controlled by, located in, or with a registered office or principal place of business within the United States. Additionally, if you reside in any jurisdiction where the offer, sale, or purchase of our token products is unlawful, prohibited, or unauthorized, you must refrain from acquiring these tokens.</Text>
+        <Text>
+          The designation "Restricted Person" encompasses not only any individual residing in such restrictive jurisdictions but also any entity, firm, company, partnership, trust, corporation, governmental body, or other entity, either incorporated or unincorporated, that operates under the legal framework where these transactions are forbidden.</Text>
+        <Text>
+          None of our tokens are registered under the U.S. Securities Act of 1933, as amended, nor with any securities regulatory authority in any state or jurisdiction of the U.S. Therefore, our restricted tokens must not be offered, sold, or delivered within the United States, nor to or for the benefit of any Restricted Persons.</Text>
+        <Text>
+          Our tokens may be listed on secondary markets or other platforms but are not intended for distribution to any Restricted Person. Any dealings with our tokens must comply with applicable laws and regulations and must not obligate DCgen in any jurisdiction, including the U.S.
+        </Text>
+        <Text>
+          Individuals acquiring our tokens must ensure they understand and comply with all relevant restrictions. DCgen reserves the right to implement additional restrictions at any time, which will be communicated either through updates to the terms of service or directly on our website.
         </Text>
 
       </Stack>
