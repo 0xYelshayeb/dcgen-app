@@ -1,8 +1,10 @@
-import { Flex, Link, Text, IconButton } from '@chakra-ui/react';
+import { Flex, Link, Text, IconButton, VStack, Image } from '@chakra-ui/react';
 import { FaTwitter, FaGithub, FaBook } from 'react-icons/fa';
 import { colors } from '@/lib/styles/colors';
+import { LogoWhite } from '@/lib/utils/assets'
 
 const Footer = () => {
+  const logo = LogoWhite;
   return (
     <Flex
       flexDir={'column'}
@@ -22,52 +24,56 @@ const Footer = () => {
         px={[4, 4, 4]}
         flexWrap="wrap"
       >
-        <Flex justifyContent='center' w={['100%', '100%', 'auto']}>
-          <IconButton
-            aria-label='Twitter'
-            as='a'
-            href='#'
-            icon={<FaTwitter />}
-            fontSize='24px'  // Set the desired font size for larger icons
-            bg='none'
-            _focus={{ boxShadow: 'none', outline: 'none' }}
-            _hover={{ background: 'transparent' }}
-            _active={{ boxShadow: 'none', outline: 'none' }}
-            border='none'
-            outline='none'
-            mr={2}
-            color='white'
-          />
-          <IconButton
-            aria-label='GitHub'
-            as='a'
-            href='#'
-            icon={<FaGithub />}
-            fontSize='24px'  // Set the desired font size for larger icons
-            bg='transparent'
-            _focus={{ boxShadow: 'none', outline: 'none' }}
-            _hover={{ background: 'transparent' }}
-            _active={{ boxShadow: 'none', outline: 'none' }}
-            border='none'
-            outline='none'
-            mr={2}
-            color='white'
-          />
-          <IconButton
-            aria-label='Research'
-            as='a'
-            href='#'
-            icon={<FaBook />}
-            fontSize='24px'  // Set the desired font size for larger icons
-            bg='transparent'
-            _focus={{ boxShadow: 'none', outline: 'none' }}
-            _hover={{ background: 'transparent' }}
-            _active={{ boxShadow: 'none', outline: 'none' }}
-            border='none'
-            outline='none'
-            color='white'
-          />
-        </Flex>
+        <VStack>
+          <Image alt='Index Coop Logo' src={logo} height={16} width={"auto"} />
+          <Flex justifyContent='center' w={['100%', '100%', 'auto']}>
+            <IconButton
+              aria-label='Twitter'
+              as='a'
+              href='#'
+              icon={<FaTwitter />}
+              fontSize='24px'
+              bg='none'
+              _focus={{ boxShadow: 'none', outline: 'none' }}
+              _hover={{ background: 'transparent' }}
+              _active={{ boxShadow: 'none', outline: 'none' }}
+              border='none'
+              outline='none'
+              mr={2}
+              color='white'
+            />
+            <IconButton
+              aria-label='GitHub'
+              as='a'
+              href='#'
+              icon={<FaGithub />}
+              fontSize='24px'
+              bg='transparent'
+              _focus={{ boxShadow: 'none', outline: 'none' }}
+              _hover={{ background: 'transparent' }}
+              _active={{ boxShadow: 'none', outline: 'none' }}
+              border='none'
+              outline='none'
+              mr={2}
+              color='white'
+            />
+            <IconButton
+              aria-label='Research'
+              as='a'
+              href='#'
+              icon={<FaBook />}
+              fontSize='24px'
+              bg='transparent'
+              _focus={{ boxShadow: 'none', outline: 'none' }}
+              _hover={{ background: 'transparent' }}
+              _active={{ boxShadow: 'none', outline: 'none' }}
+              border='none'
+              outline='none'
+              color='white'
+            />
+          </Flex>
+        </VStack>
+
         <Flex
           flexBasis={['100%', '100%', '50%']}
           direction={['column', 'row']}
