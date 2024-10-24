@@ -1,4 +1,4 @@
-import { MAINNET } from './chains'
+import { MAINNET, ARBITRUM } from './chains'
 
 export enum IndexType {
   thematic = 'thematic',
@@ -472,21 +472,19 @@ export const WETH: Token = {
 export const DCA: Token = {
   name: 'DCgen Governance Token',
   symbol: 'DCA',
-  image: 'https://index-dao.s3.amazonaws.com/defi_pulse_index_set.svg',
-  address: '0x5F51bD1e8e2D7981C42DC09cC3879dB949386B33',
-  polygonAddress: '0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369',
+  image: 'https://dcgen.finance/dcgen.jpeg',
+  address: '0x7c470657Ea8F6776A553837514a66d46dd306CDD',
+  polygonAddress: '0x7c470657Ea8F6776A553837514a66d46dd306CDD',
   optimismAddress: undefined,
-  sepoliaAddress: "0xB937AaB3027996C9F756E6C2Cd4f1f69d556e28F",
-  arbitrumAddress: '0x5F51bD1e8e2D7981C42DC09cC3879dB949386B33',
+  sepoliaAddress: "0x7c470657Ea8F6776A553837514a66d46dd306CDD",
+  arbitrumAddress: '0x7c470657Ea8F6776A553837514a66d46dd306CDD',
   decimals: 18,
   url: 'dpi',
   coingeckoId: 'defipulse-index',
-  fees: {
-    streamingFee: '0.95%',
-  },
-  isDangerous: true,
+  fees: undefined,
+  isDangerous: false,
   indexTypes: [IndexType.thematic],
-  defaultChain: MAINNET.chainId,
+  defaultChain: ARBITRUM.chainId,
 }
 
 export const COMPONENT1: Token = {
