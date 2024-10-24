@@ -472,7 +472,7 @@ export const WETH: Token = {
 export const DCA: Token = {
   name: 'DCgen Governance Token',
   symbol: 'DCA',
-  image: 'https://dcgen.finance/dcgen.jpeg',
+  image: 'https://dcgen.finance/dcgen.png',
   address: '0x7c470657Ea8F6776A553837514a66d46dd306CDD',
   polygonAddress: '0x7c470657Ea8F6776A553837514a66d46dd306CDD',
   optimismAddress: undefined,

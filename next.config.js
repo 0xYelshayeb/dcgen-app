@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'assets.coingecko.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'dcgen.finance',
+      },
     ],
   },
   async redirects() {
