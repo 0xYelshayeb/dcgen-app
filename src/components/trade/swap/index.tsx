@@ -51,8 +51,9 @@ export const Swap = (props: QuickTradeProps) => {
   const [isTransacting, setIsTransacting] = useState(false)
   const [inputTokenAmount, setInputTokenAmount] = useState('')
   const [inputTokenAmountFormatted, setInputTokenAmountFormatted] = useState('0')
-  const [sellTokenAmount, setSellTokenAmount] = useState('0')
+  const [outputTokenAmount, setOutputTokenAmount] = useState('')
   const [outputTokenAmountFormatted, setOutputTokenAmountFormatted] = useState('0')
+  const [sellTokenAmount, setSellTokenAmount] = useState('0')
 
   // State variables for balances and other data
   const [isApproved, setIsApproved] = useState(false)
@@ -62,6 +63,9 @@ export const Swap = (props: QuickTradeProps) => {
   const [outputTokenBalanceFormatted, setOutputTokenBalanceFormatted] = useState('0')
   const [inputTokenAmountUsd, setInputTokenAmountUsd] = useState('0')
   const [outputTokenAmountUsd, setOutputTokenAmountUsd] = useState('0') // New state variable
+
+  const [isInputAmountChanging, setIsInputAmountChanging] = useState(false)
+  const [isOutputAmountChanging, setIsOutputAmountChanging] = useState(false)
 
   // Fetch data for WETH
   const {
@@ -115,6 +119,9 @@ export const Swap = (props: QuickTradeProps) => {
     setOutputTokenAmountUsd('0')
     setSellTokenAmount('0')
     setOutputTokenAmountFormatted('0')
+    setOutputTokenAmount('')
+    setIsInputAmountChanging(false)
+    setIsOutputAmountChanging(false)
   }
 
   useEffect(() => {
@@ -192,77 +199,164 @@ export const Swap = (props: QuickTradeProps) => {
     // return () => clearInterval(intervalId)
   }, [])
 
-  // Calculate the output amount and USD values based on the fetched indexPrice and WETH USD price
-  useEffect(() => {
-    const calculateOutputAndUsdAmount = () => {
-      if (
-        !inputTokenAmountFormatted ||
-        inputTokenAmountFormatted === '0' ||
-        indexPrice === null ||
-        wethUsdPrice === null
-      ) {
-        setOutputTokenAmountFormatted('0')
-        setInputTokenAmountUsd('0')
-        setOutputTokenAmountUsd('0')
-        return
-      }
-
-      const amountInput = ethers.utils.parseUnits(
-        inputTokenAmountFormatted,
-        sellToken.decimals
-      )
-
-      if (sellToken.symbol === WETH.symbol && indexPrice > 0) {
-        // We are issuing DCA tokens with WETH
-        const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
-        const outputAmount = amountInput.mul(ethers.constants.WeiPerEther).div(priceInWei)
-        const outputAmountFormatted = parseFloat(ethers.utils.formatUnits(outputAmount, buyToken.decimals)).toFixed(3)
-        setOutputTokenAmountFormatted(outputAmountFormatted)
-
-        // Calculate USD amounts
-        const inputUsd = parseFloat(inputTokenAmountFormatted) * wethUsdPrice
-        setInputTokenAmountUsd(inputUsd.toFixed(2))
-        setOutputTokenAmountUsd(inputUsd.toFixed(2)) // Same as input USD
-      } else if (sellToken.symbol === DCA.symbol && indexPrice > 0) {
-        // We are redeeming DCA tokens for WETH
-        const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
-        const outputAmount = amountInput.mul(priceInWei).div(ethers.constants.WeiPerEther)
-        const outputAmountFormatted = parseFloat(ethers.utils.formatUnits(outputAmount, buyToken.decimals)).toFixed(5)
-        setOutputTokenAmountFormatted(outputAmountFormatted)
-
-        // Calculate USD amounts
-        const equivalentWethAmount = parseFloat(outputAmountFormatted)
-        const usdValue = equivalentWethAmount * wethUsdPrice
-        setInputTokenAmountUsd(usdValue.toFixed(2))
-        setOutputTokenAmountUsd(usdValue.toFixed(2)) // Same as input USD
-      } else {
-        setOutputTokenAmountFormatted('0')
-        setInputTokenAmountUsd('0')
-        setOutputTokenAmountUsd('0')
-      }
+  const calculateAmountsFromInput = () => {
+    if (
+      !inputTokenAmountFormatted ||
+      inputTokenAmountFormatted === '0' ||
+      indexPrice === null ||
+      wethUsdPrice === null
+    ) {
+      setOutputTokenAmountFormatted('0')
+      setOutputTokenAmount('')
+      setInputTokenAmountUsd('0')
+      setOutputTokenAmountUsd('0')
+      return
     }
 
-    calculateOutputAndUsdAmount()
-  }, [
-    inputTokenAmountFormatted,
-    sellToken,
-    buyToken,
-    indexPrice,
-    wethUsdPrice,
-  ])
+    const amountInput = ethers.utils.parseUnits(
+      inputTokenAmountFormatted,
+      sellToken.decimals
+    )
+
+    if (sellToken.symbol === WETH.symbol && indexPrice > 0) {
+      // We are issuing DCA tokens with WETH
+      const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
+      const outputAmount = amountInput.mul(ethers.constants.WeiPerEther).div(priceInWei)
+      const outputAmountFormatted = parseFloat(
+        ethers.utils.formatUnits(outputAmount, buyToken.decimals)
+      ).toFixed(3)
+      setOutputTokenAmountFormatted(outputAmountFormatted)
+      setOutputTokenAmount(outputAmountFormatted)
+
+      // Calculate USD amounts
+      const inputUsd = parseFloat(inputTokenAmountFormatted) * wethUsdPrice
+      setInputTokenAmountUsd(inputUsd.toFixed(2))
+      setOutputTokenAmountUsd(inputUsd.toFixed(2)) // Same as input USD
+    } else if (sellToken.symbol === DCA.symbol && indexPrice > 0) {
+      // We are redeeming DCA tokens for WETH
+      const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
+      const outputAmount = amountInput.mul(priceInWei).div(ethers.constants.WeiPerEther)
+      const outputAmountFormatted = parseFloat(
+        ethers.utils.formatUnits(outputAmount, buyToken.decimals)
+      ).toFixed(5)
+      setOutputTokenAmountFormatted(outputAmountFormatted)
+      setOutputTokenAmount(outputAmountFormatted)
+
+      // Calculate USD amounts
+      const equivalentWethAmount = parseFloat(outputAmountFormatted)
+      const usdValue = equivalentWethAmount * wethUsdPrice
+      setInputTokenAmountUsd(usdValue.toFixed(2))
+      setOutputTokenAmountUsd(usdValue.toFixed(2)) // Same as input USD
+    } else {
+      setOutputTokenAmountFormatted('0')
+      setOutputTokenAmount('')
+      setInputTokenAmountUsd('0')
+      setOutputTokenAmountUsd('0')
+    }
+  }
+
+  const calculateAmountsFromOutput = () => {
+    if (
+      !outputTokenAmountFormatted ||
+      outputTokenAmountFormatted === '0' ||
+      indexPrice === null ||
+      wethUsdPrice === null
+    ) {
+      setInputTokenAmountFormatted('0')
+      setInputTokenAmount('')
+      setInputTokenAmountUsd('0')
+      setOutputTokenAmountUsd('0')
+      return
+    }
+
+    const amountOutput = ethers.utils.parseUnits(
+      outputTokenAmountFormatted,
+      buyToken.decimals
+    )
+
+    if (buyToken.symbol === DCA.symbol && indexPrice > 0) {
+      // We are issuing DCA tokens with WETH
+      // Input WETH amount = Output DCA amount * indexPrice
+      const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
+      const inputAmount = amountOutput.mul(priceInWei).div(ethers.constants.WeiPerEther)
+      const inputAmountFormatted = parseFloat(
+        ethers.utils.formatUnits(inputAmount, sellToken.decimals)
+      ).toFixed(5)
+      setInputTokenAmountFormatted(inputAmountFormatted)
+      setInputTokenAmount(inputAmountFormatted)
+
+      // Calculate USD amounts
+      const inputUsd = parseFloat(inputAmountFormatted) * wethUsdPrice
+      setInputTokenAmountUsd(inputUsd.toFixed(2))
+      setOutputTokenAmountUsd(inputUsd.toFixed(2)) // Same as input USD
+    } else if (buyToken.symbol === WETH.symbol && indexPrice > 0) {
+      // We are redeeming DCA tokens for WETH
+      // Input DCA amount = Output WETH amount / indexPrice
+      const priceInWei = ethers.utils.parseUnits(indexPrice.toString(), WETH.decimals)
+      const inputAmount = amountOutput
+        .mul(ethers.constants.WeiPerEther)
+        .div(priceInWei)
+      const inputAmountFormatted = parseFloat(
+        ethers.utils.formatUnits(inputAmount, sellToken.decimals)
+      ).toFixed(3)
+      setInputTokenAmountFormatted(inputAmountFormatted)
+      setInputTokenAmount(inputAmountFormatted)
+
+      // Calculate USD amounts
+      const equivalentWethAmount = parseFloat(outputTokenAmountFormatted)
+      const usdValue = equivalentWethAmount * wethUsdPrice
+      setInputTokenAmountUsd(usdValue.toFixed(2))
+      setOutputTokenAmountUsd(usdValue.toFixed(2)) // Same as input USD
+    } else {
+      setInputTokenAmountFormatted('0')
+      setInputTokenAmount('')
+      setInputTokenAmountUsd('0')
+      setOutputTokenAmountUsd('0')
+    }
+  }
+
+  useEffect(() => {
+    if (isInputAmountChanging) {
+      calculateAmountsFromInput()
+      setIsInputAmountChanging(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputTokenAmountFormatted, isInputAmountChanging, sellToken, buyToken, indexPrice, wethUsdPrice])
+
+  useEffect(() => {
+    if (isOutputAmountChanging) {
+      calculateAmountsFromOutput()
+      setIsOutputAmountChanging(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [outputTokenAmountFormatted, isOutputAmountChanging, sellToken, buyToken, indexPrice, wethUsdPrice])
 
   const onChangeInputTokenAmount = (token: Token, value: string) => {
     if (/^\d*\.?\d*$/.test(value)) {
       // Allow only numbers and decimal points
       setInputTokenAmount(value)
       setInputTokenAmountFormatted(value === '' ? '0' : value)
+      setIsInputAmountChanging(true)
+      setIsOutputAmountChanging(false)
     }
     setSellTokenAmount(value || '')
+  }
+
+  const onChangeOutputTokenAmount = (token: Token, value: string) => {
+    if (/^\d*\.?\d*$/.test(value)) {
+      // Allow only numbers and decimal points
+      setOutputTokenAmount(value)
+      setOutputTokenAmountFormatted(value === '' ? '0' : value)
+      setIsOutputAmountChanging(true)
+      setIsInputAmountChanging(false)
+    }
   }
 
   const setMaxBalance = () => {
     setInputTokenAmount(inputTokenBalanceFormatted)
     setInputTokenAmountFormatted(inputTokenBalanceFormatted)
+    setIsInputAmountChanging(true)
+    setIsOutputAmountChanging(false)
   }
 
   const onClickTradeButton = useCallback(async () => {
@@ -286,9 +380,13 @@ export const Swap = (props: QuickTradeProps) => {
 
     if (buttonState === TradeButtonState.default) {
       if (sellToken.symbol === WETH.symbol) {
-        await executeNavIssue(ethers.utils.parseUnits(inputTokenAmountFormatted, WETH.decimals))
+        await executeNavIssue(
+          ethers.utils.parseUnits(inputTokenAmountFormatted, WETH.decimals)
+        )
       } else if (sellToken.symbol === DCA.symbol) {
-        await executeRedeem(ethers.utils.parseUnits(inputTokenAmountFormatted, DCA.decimals))
+        await executeRedeem(
+          ethers.utils.parseUnits(inputTokenAmountFormatted, DCA.decimals)
+        )
       }
       resetTradeData()
     }
@@ -338,16 +436,17 @@ export const Swap = (props: QuickTradeProps) => {
         </Box>
         <TradeInputSelector
           config={{
-            isInputDisabled: true,
+            isReadOnly: false, // Make it editable
+            isInputDisabled: false,
             isSelectorDisabled: false,
-            isReadOnly: true,
           }}
           caption={'You receive'}
           selectedToken={buyToken}
-          selectedTokenAmount={outputTokenAmountFormatted}
+          selectedTokenAmount={outputTokenAmount}
           balance={outputTokenBalanceFormatted}
           formattedFiat={`$${outputTokenAmountUsd}`} // Display output USD amount
           onSelectToken={() => { }}
+          onChangeInput={onChangeOutputTokenAmount}
         />
       </Flex>
       <>
