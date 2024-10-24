@@ -25,12 +25,12 @@ const Footer = () => {
         flexWrap="wrap"
       >
         <VStack>
-          <Image alt='Index Coop Logo' src={logo} height={16} width={"auto"} />
-          <Flex justifyContent='center' w={['100%', '100%', 'auto']}>
+          <Image alt='Index Coop Logo' src={logo} height={16} width={"auto"}/>
+          <Flex  justifyContent='left' w={['100%', '100%', 'auto']}>
             <IconButton
               aria-label='Twitter'
               as='a'
-              href='#'
+              href='https://twitter.com/codeforfinance'
               icon={<FaTwitter />}
               fontSize='24px'
               bg='none'
@@ -45,7 +45,7 @@ const Footer = () => {
             <IconButton
               aria-label='GitHub'
               as='a'
-              href='#'
+              href='https://github.com/SetProtocol/set-protocol-v2'
               icon={<FaGithub />}
               fontSize='24px'
               bg='transparent'
@@ -60,7 +60,7 @@ const Footer = () => {
             <IconButton
               aria-label='Research'
               as='a'
-              href='#'
+              href='https://dcgen.finance/'
               icon={<FaBook />}
               fontSize='24px'
               bg='transparent'
@@ -85,18 +85,19 @@ const Footer = () => {
         >
           <Flex direction='column' alignItems='flex-start' mr={[0, 16]} color={"white"} textAlign={'left'}>
             <Text fontWeight='bold' mb={2} color={'white'}>Community</Text>
-            <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
+            <Link href='https://twitter.com/codeforfinance' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
               textDecoration='none'>X (Twitter)</Link>
-            <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
+              {/* mail to contact@dcgen.finance */}
+            <Link href='mailto:contact@dcgen.finance' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
               textDecoration='none'>Contact Us</Link>
           </Flex>
           <Flex direction='column' alignItems='flex-start' color={"white"} textAlign={'left'}>
             <Text fontWeight='bold' mb={2} color={"white"}>Resources</Text>
             <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
               textDecoration='none'>Documentation</Link>
-            <Link href='#' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
+            <Link href='https://github.com/SetProtocol/set-protocol-v2' textDecor='underline' mb={1} _hover={{ textDecoration: 'underline' }}
               textDecoration='none'>GitHub</Link>
-            <Link href='#' textDecor='underline' _hover={{ textDecoration: 'underline' }}
+            <Link href='https://dcgen.finance/' textDecor='underline' _hover={{ textDecoration: 'underline' }}
               textDecoration='none'>Research</Link>
           </Flex>
         </Flex>
