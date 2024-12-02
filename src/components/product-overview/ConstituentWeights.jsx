@@ -20,6 +20,7 @@ const ConstituentWeights = () => {
         const fetchTokens = async () => {
             try {
                 const response = await axios.get('https://api.dcgen.finance/constituents');
+                console.log(response);
                 const sortedTokens = response.data.sort((a, b) => b['Allocation %'] - a['Allocation %']);
                 setAllTokens(sortedTokens);
                 setTokens(sortedTokens.slice(0, 5));

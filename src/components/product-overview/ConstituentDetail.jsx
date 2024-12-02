@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 
 const ConstituentDetail = ({ name, percentage }) => {
     const progressColor = '#3751FF';
-    const progressWidth = `${10 + percentage * 5}%`;
+    const progressWidth = `${13 + percentage * 1.7}%`;
 
     return (
         <Box position="relative" borderRadius="md" height="40px" width="100%" bg="#F7F7F7" overflow="hidden">
