@@ -31,6 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider
             chains={[arbitrum]}
+            initialChain={arbitrum}
             theme={rainbowkitTheme}
             appInfo={rainbowKitAppInfo}
           >
