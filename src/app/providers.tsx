@@ -9,6 +9,8 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 
 import theme, { rainbowkitTheme } from '@/lib/styles/theme'
 import { chains, wagmiConfig } from '@/lib/utils/wagmi'
+import { arbitrum } from 'wagmi/chains'
+
 
 import '@rainbow-me/rainbowkit/styles.css'
 import '@/lib/styles/fonts'
@@ -28,7 +30,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider
-            chains={chains}
+            chains={[arbitrum]}
             theme={rainbowkitTheme}
             appInfo={rainbowKitAppInfo}
           >
