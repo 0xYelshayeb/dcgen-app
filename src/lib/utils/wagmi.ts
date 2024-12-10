@@ -1,5 +1,5 @@
 import { configureChains, createConfig } from 'wagmi'
-import { mainnet, arbitrum } from 'wagmi/chains'
+import { arbitrum } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
@@ -20,7 +20,7 @@ import {
 import { AlchemyApiKey } from '../../constants/server'
 
 export const { chains, publicClient } = configureChains(
-  [mainnet, arbitrum],
+  [arbitrum],
   [alchemyProvider({ apiKey: AlchemyApiKey }), publicProvider()]
 )
 
