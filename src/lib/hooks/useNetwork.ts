@@ -18,6 +18,8 @@ function getNetworkName(chainId: number | undefined): string | null {
       return 'Optimism'
     case 137:
       return 'Polygon'
+    case 8453:
+      return 'Base'
     case 11155111:
       return 'Sepolia';
     case 42161:

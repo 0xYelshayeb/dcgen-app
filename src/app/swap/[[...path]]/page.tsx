@@ -62,7 +62,7 @@ export default function SwapPage() {
                 onChange={(e) => setSelectedProduct(e.target.value)}
                 fontWeight={600}
               >
-                <option value="DCGen Governance Core">DCgen Governance Core</option>
+                <option value="DCgen Governance Core">DCgen Governance Core</option>
                 <option value="DCgen Meme">DCgen Meme</option>
               </Select>
             </Box>
