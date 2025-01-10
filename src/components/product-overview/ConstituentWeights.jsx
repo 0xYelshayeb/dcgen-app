@@ -28,7 +28,7 @@ const ConstituentWeights = ({ product }) => {
             }
         };
         fetchTokens();
-    }, []);
+    }, [product]);
 
     const controls = useAnimation();
     const { inView } = useInView({ threshold: 0.8 });
