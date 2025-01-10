@@ -11,7 +11,7 @@ import { useInView } from 'react-intersection-observer';
 import ConstituentDetail from './ConstituentDetail';
 import '../../lib/styles/icons/MingCute.css';
 
-const ConstituentWeights = () => {
+const ConstituentWeights = ({ product }) => {
     const [tokens, setTokens] = useState([]);
     const [allTokens, setAllTokens] = useState([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -19,9 +19,8 @@ const ConstituentWeights = () => {
     useEffect(() => {
         const fetchTokens = async () => {
             try {
-                const response = await axios.get('https://api.dcgen.finance/constituents');
-                console.log(response);
-                const sortedTokens = response.data.sort((a, b) => b['Allocation %'] - a['Allocation %']);
+                const response = await axios.get(`https://api.dcgen.finance/constituents?name=${product}`);
+                const sortedTokens = response.data.sort((a, b) => b['allocation_percentage'] - a['allocation_percentage']);
                 setAllTokens(sortedTokens);
                 setTokens(sortedTokens.slice(0, 5));
             } catch (error) {
@@ -48,8 +47,8 @@ const ConstituentWeights = () => {
                     {tokens.map((token, index) => (
                         <ConstituentDetail
                             key={index}
-                            name={token.Name}
-                            percentage={token['Allocation %'].toFixed(2)}
+                            name={token.token_name}
+                            percentage={token['allocation_percentage'].toFixed(2)}
                         />
                     ))}
                 </VStack>
@@ -67,8 +66,8 @@ const ConstituentWeights = () => {
                             {allTokens.map((token, index) => (
                                 <ConstituentDetail
                                     key={index}
-                                    name={token.Name}
-                                    percentage={token['Allocation %'].toFixed(2)}
+                                    name={token.token_name}
+                                    percentage={token['allocation_percentage'].toFixed(2)}
                                 />
                             ))}
                         </VStack>

@@ -5,14 +5,14 @@ import ConstituentWeights from './ConstituentWeights';
 import { setTokenAddress } from '@/constants/contracts';
 import { blueLogo } from '@/lib/utils/assets';
 
-const InfoSection = () => {
+const InfoSection = ({ product }) => {
 
     const contractAddress = setTokenAddress;
     const { onCopy } = useClipboard(contractAddress);
 
     return (
         <VStack mt='20' spacing={20} align="stretch">
-            <ConstituentWeights />
+            <ConstituentWeights product={product}/>
 
             <Box>
                 <Heading size="sm" mb={6}>Index Characteristics</Heading>

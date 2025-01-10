@@ -37,9 +37,7 @@ const QuickTradeContainer = (props: QuickTradeProps) => {
         onSelect={onSelectType}
         selectedType={selectedType}
       />
-      {selectedType === TradeType.swap && <Swap {...props} />}
-      {selectedType === TradeType.issue && <Issue />}
-      {selectedType === TradeType.redeem && <Redeem />}
+      <Swap {...props} />
     </Flex>
   )
 }
@@ -72,19 +70,10 @@ type NavigationProps = {
 const Navigation = (props: NavigationProps) => {
 
   const { isDarkMode } = useICColorMode()
-  const {
-    auto: autoSlippage,
-    isAuto: isAutoSlippage,
-    set: setSlippage,
-    slippage,
-  } = useSlippage()
 
   const { onSelect, selectedType } = props
 
   const swapIsSelected = selectedType === TradeType.swap;
-  const issueIsSelected = selectedType === TradeType.issue;
-  const redeemIsSelected = selectedType === TradeType.redeem;
-
   return (
     <Flex align='center' justify='space-between' pl={'16px'}>
       <Flex gap={'24px'}>

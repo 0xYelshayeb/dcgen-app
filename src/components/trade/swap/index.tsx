@@ -34,6 +34,7 @@ export type QuickTradeProps = {
   onOverrideSupplyCap?: (overrides: RethSupplyCapOverrides | undefined) => void
   onShowSupplyCap?: (show: boolean) => void
   switchTabs?: () => void
+  product: string
 }
 
 export const Swap = (props: QuickTradeProps) => {

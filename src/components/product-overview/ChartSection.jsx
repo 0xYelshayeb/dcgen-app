@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import MyChart from "./MyChart";
 import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
@@ -26,7 +26,7 @@ const TimeFrameButton = ({ text, isSelected, onClick }) => {
   );
 };
 
-const ChartSection = () => {
+const ChartSection = ({ product }) => {
 
   const chartRef = useRef(null);
   const [currentIndexValue, setCurrentIndexValue] = useState(null);
@@ -62,7 +62,7 @@ const ChartSection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://api.dcgen.finance/timeSeries?timeframe=${timeFrame}`);
+        const response = await axios.get(`https://api.dcgen.finance/timeSeries?timeframe=${timeFrame}&name=${product}`);
         setChartData(response.data);
         if (response.data && response.data.length > 0) {
           const firstValue = response.data[0][1];
