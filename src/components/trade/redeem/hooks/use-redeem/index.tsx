@@ -6,6 +6,7 @@ import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useTokenPrice } from '@/lib/hooks/use-token-price'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { toWei } from '@/lib/utils'
+import { PublicClient } from 'wagmi'
 
 import {
   formattedFiat,
@@ -15,6 +16,7 @@ import {
 import { useFormattedBalance } from './use-formatted-balance'
 
 export function useRedeem(
+  publicClient: PublicClient,
   inputToken: Token,
   inputTokenAmount: string,
 ) {
@@ -23,7 +25,7 @@ export function useRedeem(
     balance,
     balanceFormatted: inputTokenBalanceFormatted,
     balanceWei: inputTokenBalance,
-  } = useFormattedBalance(inputToken, address ?? '')
+  } = useFormattedBalance(publicClient, inputToken, address ?? '')
 
   const inputTokenPrice = useTokenPrice(inputToken)
   const { chainId } = useNetwork()

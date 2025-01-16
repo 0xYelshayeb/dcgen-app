@@ -7,6 +7,8 @@ import { useTokenPrice } from '@/lib/hooks/use-token-price'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { toWei } from '@/lib/utils'
 
+import { PublicClient } from 'wagmi';
+
 import {
   formattedFiat,
   getHasInsufficientFunds,
@@ -15,18 +17,19 @@ import {
 import { useFormattedBalance } from './use-formatted-balance'
 
 export function useNavIssue(
+  publicClient: PublicClient,
   inputToken: Token,
   inputTokenAmount: string,
 ) {
   const { address } = useWallet()
+
   const {
     balance,
     balanceFormatted: inputTokenBalanceFormatted,
     balanceWei: inputTokenBalance,
-  } = useFormattedBalance(inputToken, address ?? '')
+  } = useFormattedBalance(publicClient, inputToken, address ?? '')
 
   const inputTokenPrice = useTokenPrice(inputToken)
-  const { chainId } = useNetwork()
 
   const inputTokenAmountUsd = useMemo(
     () => formattedFiat(parseFloat(inputTokenAmount), inputTokenPrice),

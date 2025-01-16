@@ -2,7 +2,7 @@ import { BigNumber, Contract } from 'ethers'
 
 import { JsonRpcProvider } from '@ethersproject/providers'
 
-import { ETH, MATIC, Token } from '../../../constants/tokens'
+import { ETH, Token } from '../../../constants/tokens'
 import { ERC20Interface } from '../../utils/abi/interfaces'
 
 import { BalanceValues } from '.'
@@ -29,17 +29,8 @@ export class BalancesProvider {
       price: 0,
     }
 
-    const matic: BalanceValues = {
-      token: MATIC,
-      mainnetBalance: null,
-      optimismBalance: null,
-      polygonBalance: maticBalance,
-      price: 0,
-    }
-
     return {
       eth,
-      matic,
     }
   }
 

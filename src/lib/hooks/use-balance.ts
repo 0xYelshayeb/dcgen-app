@@ -5,10 +5,10 @@ import { ETH } from '@/constants/tokens'
 import { ERC20_ABI } from '@/lib/utils/abi/interfaces'
 
 class BalanceProvider {
-  constructor(readonly publicClient: PublicClient) {}
+  constructor(readonly publicClient: PublicClient) { }
 
-  async getErc20Balance(address: string, token: string): Promise<bigint> {
-    return await this.publicClient.readContract({
+  async getErc20Balance(publicClient: PublicClient, address: string, token: string): Promise<bigint> {
+    return await publicClient.readContract({
       address: token as Address,
       abi: ERC20_ABI,
       functionName: 'balanceOf',
@@ -23,28 +23,23 @@ class BalanceProvider {
   }
 }
 
-export function useBalance(address?: string, token?: string) {
-  const publicClient = usePublicClient()
-  const [balance, setBalance] = useState<bigint>(BigInt(0))
-
+export function useBalance(publicClient: PublicClient, address?: string, token?: string) {
+  const [balance, setBalance] = useState<bigint>(BigInt(0));
   useEffect(() => {
     async function fetchBalance() {
-      if (!address || !token) return
-      const balanceProvider = new BalanceProvider(publicClient)
-      const isETH = token.toLowerCase() === ETH.address!.toLowerCase()
-      console.log('fetching', token, isETH)
+      if (!address || !token) return;
+      const balanceProvider = new BalanceProvider(publicClient);
+      const isETH = token.toLowerCase() === ETH.address!.toLowerCase();
       const balance = isETH
         ? await balanceProvider.getNativeBalance(address)
-        : await balanceProvider.getErc20Balance(address, token)
-      setBalance(balance)
+        : await balanceProvider.getErc20Balance(publicClient, address, token);
+      setBalance(balance);
+      console.log("balance found", balance);
     }
-    fetchBalance()
-  }, [address, token, publicClient])
+    fetchBalance();
+  }, [address, token, publicClient]);
 
-  return useMemo(() => {
-    if (address && token) return balance
-    return BigInt(0)
-  }, [address, balance, token])
+  return balance;
 }
 
 interface TokenBalance {
@@ -64,7 +59,7 @@ export function useBalances(address?: string, tokens?: string[]) {
         const isETH = token.toLowerCase() === ETH.address!.toLowerCase()
         const balance = isETH
           ? balanceProvider.getNativeBalance(address)
-          : balanceProvider.getErc20Balance(address, token)
+          : balanceProvider.getErc20Balance(publicClient, address, token)
         return balance
       })
       const results = await Promise.all(promises)

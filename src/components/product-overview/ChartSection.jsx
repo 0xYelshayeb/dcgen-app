@@ -77,7 +77,7 @@ const ChartSection = ({ product }) => {
     };
 
     fetchData();
-  }, [timeFrame]);
+  }, [timeFrame, product]);
 
   const firstValue = chartData.length > 0 ? chartData[0][1] : 0;
   const lastValue = chartData.length > 0 ? chartData[chartData.length - 1][1] : 0;

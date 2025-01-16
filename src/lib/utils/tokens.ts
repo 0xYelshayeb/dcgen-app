@@ -5,7 +5,6 @@ import {
   ETH,
   Token,
   WETH,
-  MATIC
 } from '@/constants/tokens'
 
 export function getAddressForToken(
@@ -67,8 +66,6 @@ export function getNativeToken(chainId: number | undefined): Token | null {
       return ETH
     case OPTIMISM.chainId:
       return ETH
-    case POLYGON.chainId:
-      return MATIC
     case SEPOLIA.chainId:
       return ETH
     case ARBITRUM.chainId:

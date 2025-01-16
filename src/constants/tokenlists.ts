@@ -2,17 +2,6 @@ import {
   ETH,
   WETH,
   DCA,
-  COMPONENT,
-  COMPONENT1,
-  COMPONENT2,
-  COMPONENT3,
-  COMPONENT4,
-  COMPONENT5,
-  COMPONENT6,
-  COMPONENT7,
-  COMPONENT8,
-  COMPONENT9,
-  COMPONENT10,
 } from '@/constants/tokens'
 
 /**
@@ -38,28 +27,12 @@ const isDevEnv =
 const indexNames = isDevEnv
   ? [
       DCA,
-      COMPONENT
     ]
   : [
       DCA,
-      COMPONENT
     ]
 
-const components = [
-  COMPONENT,
-  COMPONENT1,
-  COMPONENT2,
-  COMPONENT3,
-  COMPONENT4,
-  COMPONENT5,
-  COMPONENT6,
-  COMPONENT7,
-  COMPONENT8,
-  COMPONENT9,
-  COMPONENT10,
-]
-
-export const componentTokens = components;
+export const componentTokens = [];
 
 export const indexNamesMainnet = indexNames;
 

@@ -87,3 +87,18 @@ export const ARBITRUM: ChainData = {
     decimals: 18,
   },
 }
+
+export const BASE: ChainData = {
+  name: 'Base',
+  chainId: 8453,
+  chainId0x: '0x2105',
+  rpcUrl: 'https://mainnet.base.org/',
+  icon: 'https://raw.githubusercontent.com/sushiswap/icons/master/network/arbitrum.jpg',
+  coingeckoId: 'base',
+  blockExplorerUrl: 'https://basescan.org/',
+  nativeCurrency: {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18,
+  },
+}

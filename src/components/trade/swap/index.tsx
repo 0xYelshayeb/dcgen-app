@@ -8,7 +8,7 @@ import { Box, Flex, IconButton } from '@chakra-ui/react'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 
 import { TradeButton } from '@/components/trade-button'
-import { Token, DCA, WETH } from '@/constants/tokens'
+import { Token, DCA, WETH, MEME } from '@/constants/tokens'
 import { useApproval } from '@/lib/hooks/useApproval'
 import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useTradeButton } from './hooks/use-trade-button'
@@ -19,6 +19,11 @@ import { useRedeem } from '../redeem/hooks/use-redeem'
 import { useNavIssuance } from '@/lib/hooks/useNavIssuance'
 import { navIssuanceModuleAddres } from '@/constants/contracts'
 import { getNativeToken } from '@/lib/utils/tokens'
+import { configureChains, PublicClient } from 'wagmi'
+import { FallbackTransport } from 'viem'
+import { arbitrum, base, mainnet, Chain } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
 
 import { RethSupplyCapOverrides } from '@/components/supply'
 import { TradeInputSelector } from './components/trade-input-selector'
@@ -28,6 +33,11 @@ import {
 } from './hooks/use-trade-button-state'
 
 import axios from 'axios' // Import axios for API calls
+
+const { publicClient: defaultPublicClient } = configureChains([arbitrum], [
+  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID! }),
+  publicProvider(),
+]);
 
 // TODO: remove with new navigation
 export type QuickTradeProps = {
@@ -40,11 +50,34 @@ export type QuickTradeProps = {
 export const Swap = (props: QuickTradeProps) => {
   const { openConnectModal } = useConnectModal()
   const { isDarkMode } = useICColorMode()
-  const { chainId } = useNetwork()
   const { address } = useWallet()
 
+  const chainMap: Record<number, Chain> = {
+    [mainnet.id]: mainnet,
+    [arbitrum.id]: arbitrum,
+    [base.id]: base,
+  };
+
   const [sellToken, setSellToken] = useState<Token>(WETH)
+  const [setToken, setSetToken] = useState<Token>(DCA)
   const [buyToken, setBuyToken] = useState<Token>(DCA)
+  const [publicClient, setPublicClient] = useState(defaultPublicClient({chainId: setToken.defaultChain??1}));
+
+  useEffect(() => {
+    const chain = chainMap[setToken.defaultChain??1] || mainnet;
+
+    // Configure the chain and set the public client
+    const { publicClient: getPublicClient } = configureChains([chain], [
+      alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID! }),
+      publicProvider(),
+    ]);
+
+    console.log("chaning chain to ", setToken.defaultChain??1);
+    console.log(publicClient.chain)
+
+    // Call the function to get the actual PublicClient instance
+    setPublicClient(getPublicClient({ chainId: setToken.defaultChain??1 }));
+  }, [setToken]);
 
   const { executeRedeem, isTransacting: isRedeeming } = useRedemption()
   const { executeNavIssue, isNavTransacting: isIssuing } = useNavIssuance()
@@ -73,14 +106,14 @@ export const Swap = (props: QuickTradeProps) => {
     hasInsufficientFunds: hasInsufficientFundsWeth,
     inputTokenBalanceFormatted: inputTokenBalanceFormattedWeth,
     inputTokenAmountWei: inputTokenAmountWeiWeth,
-  } = useNavIssue(WETH, inputTokenAmountFormatted)
+  } = useNavIssue(publicClient, WETH, inputTokenAmountFormatted)
 
-  // Fetch data for DCA
+  // Fetch data for SET
   const {
-    hasInsufficientFunds: hasInsufficientFundsDca,
-    inputTokenBalanceFormatted: inputTokenBalanceFormattedDca,
-    inputTokenAmountWei: inputTokenAmountWeiDca,
-  } = useRedeem(DCA, inputTokenAmountFormatted)
+    hasInsufficientFunds: hasInsufficientFundsSet,
+    inputTokenBalanceFormatted: inputTokenBalanceFormattedSet,
+    inputTokenAmountWei: inputTokenAmountWeiSet,
+  } = useRedeem(publicClient, setToken, inputTokenAmountFormatted)
 
   // Approval hooks
   const {
@@ -90,16 +123,16 @@ export const Swap = (props: QuickTradeProps) => {
   } = useApproval(WETH, navIssuanceModuleAddres, inputTokenAmountWeiWeth)
 
   const {
-    isApproved: isApprovedDca,
-    isApproving: isApprovingDca,
-    approve: onApproveDca,
-  } = useApproval(DCA, navIssuanceModuleAddres, inputTokenAmountWeiDca)
+    isApproved: isApprovedSet,
+    isApproving: isApprovingSet,
+    approve: onApproveSet,
+  } = useApproval(setToken, navIssuanceModuleAddres, inputTokenAmountWeiSet)
 
   const shouldApprove = useMemo(() => {
-    const nativeToken = getNativeToken(chainId)
+    const nativeToken = getNativeToken(setToken.defaultChain??1)
     const isNativeToken = nativeToken?.symbol === sellToken.symbol
     return !isNativeToken
-  }, [chainId, sellToken])
+  }, [setToken.defaultChain??1, sellToken])
 
   const buttonState = useTradeButtonState(
     false,
@@ -133,13 +166,13 @@ export const Swap = (props: QuickTradeProps) => {
       setIsApproving(isApprovingWeth)
       setHasInsufficientFunds(hasInsufficientFundsWeth)
       setInputTokenBalanceFormatted(inputTokenBalanceFormattedWeth)
-      setOutputTokenBalanceFormatted(inputTokenBalanceFormattedDca)
+      setOutputTokenBalanceFormatted(inputTokenBalanceFormattedSet)
     } else if (sellToken.symbol === DCA.symbol) {
       // We are selling DCA to buy WETH
-      setIsApproved(isApprovedDca)
-      setIsApproving(isApprovingDca)
-      setHasInsufficientFunds(hasInsufficientFundsDca)
-      setInputTokenBalanceFormatted(inputTokenBalanceFormattedDca)
+      setIsApproved(isApprovedSet)
+      setIsApproving(isApprovingSet)
+      setHasInsufficientFunds(hasInsufficientFundsSet)
+      setInputTokenBalanceFormatted(inputTokenBalanceFormattedSet)
       setOutputTokenBalanceFormatted(inputTokenBalanceFormattedWeth)
     }
     // Update sellTokenAmount
@@ -152,10 +185,11 @@ export const Swap = (props: QuickTradeProps) => {
     isApprovingWeth,
     hasInsufficientFundsWeth,
     inputTokenBalanceFormattedWeth,
-    isApprovedDca,
-    isApprovingDca,
-    hasInsufficientFundsDca,
-    inputTokenBalanceFormattedDca,
+    isApprovedSet,
+    isApprovingSet,
+    hasInsufficientFundsSet,
+    inputTokenBalanceFormattedSet,
+    setToken,
   ])
 
   useEffect(() => {
@@ -199,6 +233,20 @@ export const Swap = (props: QuickTradeProps) => {
     // const intervalId = setInterval(fetchPrices, 60000) // Refresh every 60 seconds
     // return () => clearInterval(intervalId)
   }, [])
+
+  useEffect(() => {
+    // change the settoken to dca/meme based on the selected product
+    if (props.product === 'DCgen Governance Core') {
+      setBuyToken(DCA)
+      setSetToken(DCA)
+    } else if (props.product === 'DCgen Meme') {
+      setSetToken(MEME)
+      setBuyToken(MEME)
+    }
+    setSellToken(WETH)
+    resetTradeData()
+  }
+    , [props.product])
 
   const calculateAmountsFromInput = () => {
     if (
@@ -373,8 +421,8 @@ export const Swap = (props: QuickTradeProps) => {
     if (!isApproved && shouldApprove) {
       if (sellToken.symbol === WETH.symbol) {
         await onApproveWeth()
-      } else if (sellToken.symbol === DCA.symbol) {
-        await onApproveDca()
+      } else if (sellToken.symbol === setToken.symbol) {
+        await onApproveSet()
       }
       return
     }
@@ -384,9 +432,9 @@ export const Swap = (props: QuickTradeProps) => {
         await executeNavIssue(
           ethers.utils.parseUnits(inputTokenAmountFormatted, WETH.decimals)
         )
-      } else if (sellToken.symbol === DCA.symbol) {
+      } else if (sellToken.symbol === setToken.symbol) {
         await executeRedeem(
-          ethers.utils.parseUnits(inputTokenAmountFormatted, DCA.decimals)
+          ethers.utils.parseUnits(inputTokenAmountFormatted, setToken.decimals)
         )
       }
       resetTradeData()
@@ -395,7 +443,7 @@ export const Swap = (props: QuickTradeProps) => {
     buttonState,
     isApproved,
     onApproveWeth,
-    onApproveDca,
+    onApproveSet,
     shouldApprove,
     sellToken,
     executeNavIssue,
