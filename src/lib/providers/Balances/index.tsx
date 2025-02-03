@@ -123,10 +123,9 @@ export const BalanceProvider = (props: { children: any }) => {
       optimism: optimismReadOnlyProvider,
       polygon: polygonReadOnlyProvider,
     })
-    const { eth, matic } = await provider.fetchNativeBalances()
+    const { eth } = await provider.fetchNativeBalances()
     let balances: Balances = {}
     balances['ETH'] = eth
-    balances['MATIC'] = matic
     return balances
   }
 

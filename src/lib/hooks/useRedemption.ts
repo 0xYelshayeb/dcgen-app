@@ -14,7 +14,7 @@ const contractABI = navIssuanceModule.abi
 
 export const useRedemption = (publicClient: PublicClient, token: Token) => {
   const { address } = useWallet()
-  let wethAddress;
+  let wethAddress : String | undefined;
   let navIssuanceModuleAddress:`0x${string}`;
   switch (publicClient.chain.id) {
     case 8453:

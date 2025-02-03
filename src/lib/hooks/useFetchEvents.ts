@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import MultiSigAbi from '../utils/abi/MultiSigOperator.json';
 import { useWallet } from './useWallet';
-import { multiSigOperatorAddress } from '@/constants/contracts';
+import { arbMultiSigOperatorAddress } from '@/constants/contracts';
 
 const contractABI = MultiSigAbi.abi;
 
@@ -16,7 +16,7 @@ export const useFetchEvents = () => {
             return; // Do not proceed if provider is not available
         }
 
-        const contract = new ethers.Contract(multiSigOperatorAddress, contractABI, provider);
+        const contract = new ethers.Contract(arbMultiSigOperatorAddress, contractABI, provider);
 
         const fetchEvents = async () => {
             const latestBlock = await provider.getBlockNumber();

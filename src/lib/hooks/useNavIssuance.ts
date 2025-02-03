@@ -16,7 +16,7 @@ export const useNavIssuance = (publicClient: PublicClient, token: Token) => {
   const { address } = useWallet()
 
   const [isNavTransacting, setIsTransacting] = useState(false)
-  let wethAddress;
+  let wethAddress: String | undefined;
   let navIssuanceModuleAddress:`0x${string}`;
   switch (publicClient.chain.id) {
     case 8453:

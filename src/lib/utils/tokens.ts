@@ -1,4 +1,4 @@
-import { ARBITRUM, MAINNET, OPTIMISM, POLYGON, SEPOLIA } from '@/constants/chains'
+import { ARBITRUM, BASE, MAINNET, OPTIMISM, POLYGON, SEPOLIA } from '@/constants/chains'
 import { CurrencyTokens } from '@/constants/tokenlists'
 import {
   DCA,
@@ -22,6 +22,8 @@ export function getAddressForToken(
       return token.sepoliaAddress
     case ARBITRUM.chainId:
       return token.arbitrumAddress
+    case BASE.chainId:
+      return token.baseAddress
     default:
       return undefined
   }

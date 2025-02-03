@@ -16,10 +16,10 @@ export const useApproval = (
   amount: BigNumber = constants.MaxUint256
 ) => {
   const { address, provider, signer } = useWallet()
-  const { chainId } = useNetwork()
 
   const [isApproved, setIsApproved] = useState(false)
   const [isApproving, setIsApproving] = useState(false)
+  const chainId = token.defaultChain;
 
   const isNative = isNativeCurrency(token, chainId ?? 1)
   const tokenAddress = isNative

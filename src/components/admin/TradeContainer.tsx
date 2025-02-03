@@ -4,8 +4,8 @@ import { ethers } from 'ethers';
 import SetTokenAbi from '../../lib/utils/abi/SetToken.json';
 import IndexModuleAbI from '../../lib/utils/abi/GeneralIndexModule.json';
 import { useWallet } from '../../lib/hooks/useWallet';
-import { setTokenAddress } from '@/constants/contracts';
-import { indexModuleAddress } from '@/constants/contracts';
+import { DCA } from '@/constants/tokens';
+import { arbIndexModuleAddress } from '@/constants/contracts';
 import { maxUint256 } from 'viem';
 
 const TradeContainer = () => {
@@ -37,7 +37,7 @@ const TradeContainer = () => {
     const indexModuleAbI = IndexModuleAbI.abi;
 
     const fetchComponents = async () => {
-        const contract = new ethers.Contract(setTokenAddress, setTokenAbi, provider);
+        const contract = new ethers.Contract(DCA.address ?? "", setTokenAbi, provider);
         try {
             const components = await contract.getComponents();
             setComponents(components);
@@ -48,7 +48,7 @@ const TradeContainer = () => {
 
     useEffect(() => {
         fetchComponents();
-    }, [provider]);
+    }, [provider, fetchComponents]);
 
     const handleCheckboxChange = (component: string) => {
         setSelectedComponents({
@@ -62,8 +62,8 @@ const TradeContainer = () => {
         // Assuming a 'trade' function exists on your SetToken contract
         for (const address of selectedAddresses) {
             try {
-                const contract = new ethers.Contract(indexModuleAddress, indexModuleAbI, signer);
-                const tx = await contract.trade(setTokenAddress, address, maxUint256);
+                const contract = new ethers.Contract(arbIndexModuleAddress, indexModuleAbI, signer);
+                const tx = await contract.trade(DCA.address, address, maxUint256);
                 await tx.wait();
                 console.log(`Trade executed for ${address}`);
             } catch (error) {

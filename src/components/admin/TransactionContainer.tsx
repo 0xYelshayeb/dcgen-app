@@ -4,7 +4,7 @@ import { useFetchEvents } from '@/lib/hooks/useFetchEvents';
 import { ethers } from 'ethers';
 import { useWallet } from '@/lib/hooks/useWallet';
 import MultiSigAbi from '../../lib/utils/abi/MultiSigOperator.json';
-import { multiSigOperatorAddress } from '@/constants/contracts';
+import { arbMultiSigOperatorAddress } from '@/constants/contracts';
 
 
 const TransactionContainer = () => {
@@ -20,7 +20,7 @@ const TransactionContainer = () => {
     const { provider, signer } = useWallet();
 
     const contractABI = MultiSigAbi.abi;
-    const contractAddress = multiSigOperatorAddress;
+    const contractAddress = arbMultiSigOperatorAddress;
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
     const fetchRebalanceConfirmations = async () => {
