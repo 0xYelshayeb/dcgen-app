@@ -7,8 +7,6 @@ import { Flex, Text } from '@chakra-ui/react'
 import { Settings } from '@/components/settings'
 import { useSlippage } from '@/lib/providers/slippage'
 
-import { Issue } from './issue'
-import { Redeem } from './redeem'
 import { Swap, QuickTradeProps } from './swap'
 
 enum TradeType {

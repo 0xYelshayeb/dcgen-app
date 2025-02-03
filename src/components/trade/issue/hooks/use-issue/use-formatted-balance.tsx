@@ -8,25 +8,11 @@ import { formattedBalance } from '../../../_shared/QuickTradeFormatter'
 import { PublicClient } from 'wagmi'
 
 export function useFormattedBalance(publicClient: PublicClient, token: Token, address?: string) {
-  // get right address of token for right chain according to publicClient.chain
-  const chain = publicClient.chain;
-  switch (chain.id) {
-    case 1:
-      token.address = token.address;
-      break;
-    case 42161:
-      token.address = token.arbitrumAddress;
-      break;
-    case 8453:
-      token.address = token.baseAddress;
-      break;
-  }
-
-  const balance = useBalance(publicClient, address ?? '', token.address);
+  const balance = useBalance(publicClient, address ?? '', token.address)
   const balanceFormatted = formattedBalance(
     token,
     BigNumber.from(balance.toString())
-  );
-  const balanceWei = formatUnits(balance, token.decimals);
-  return { balance, balanceWei, balanceFormatted };
+  )
+  const balanceWei = formatUnits(balance, token.decimals)
+  return { balance, balanceWei, balanceFormatted }
 }

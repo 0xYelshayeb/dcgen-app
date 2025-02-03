@@ -17,10 +17,9 @@ import { useRedemption } from '@/lib/hooks/useRedemption'
 import { useNavIssue } from '../issue/hooks/use-issue'
 import { useRedeem } from '../redeem/hooks/use-redeem'
 import { useNavIssuance } from '@/lib/hooks/useNavIssuance'
-import { navIssuanceModuleAddres } from '@/constants/contracts'
+import { arbNavIssuanceModuleAddres, baseNavIssuanceModuleAddres } from '@/constants/contracts'
 import { getNativeToken } from '@/lib/utils/tokens'
 import { configureChains, PublicClient } from 'wagmi'
-import { FallbackTransport } from 'viem'
 import { arbitrum, base, mainnet, Chain } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -62,6 +61,7 @@ export const Swap = (props: QuickTradeProps) => {
   const [setToken, setSetToken] = useState<Token>(DCA)
   const [buyToken, setBuyToken] = useState<Token>(DCA)
   const [publicClient, setPublicClient] = useState(defaultPublicClient({chainId: setToken.defaultChain??1}));
+  const [navIssuanceModuleAddres, setNavIssuanceModuleAddres] = useState(arbNavIssuanceModuleAddres)
 
   useEffect(() => {
     const chain = chainMap[setToken.defaultChain??1] || mainnet;
@@ -77,10 +77,11 @@ export const Swap = (props: QuickTradeProps) => {
 
     // Call the function to get the actual PublicClient instance
     setPublicClient(getPublicClient({ chainId: setToken.defaultChain??1 }));
+    setNavIssuanceModuleAddres(chain.id === base.id ? baseNavIssuanceModuleAddres : arbNavIssuanceModuleAddres);
   }, [setToken]);
 
-  const { executeRedeem, isTransacting: isRedeeming } = useRedemption()
-  const { executeNavIssue, isNavTransacting: isIssuing } = useNavIssuance()
+  const { executeRedeem, isTransacting: isRedeeming } = useRedemption(publicClient, setToken)
+  const { executeNavIssue, isNavTransacting: isIssuing } = useNavIssuance(publicClient, setToken)
 
   const [isTransacting, setIsTransacting] = useState(false)
   const [inputTokenAmount, setInputTokenAmount] = useState('')

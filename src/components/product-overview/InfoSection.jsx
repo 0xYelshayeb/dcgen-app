@@ -2,12 +2,11 @@ import React from 'react';
 import { Box, Flex, Heading, VStack, Text, Icon, IconButton, useClipboard } from '@chakra-ui/react';
 import { MdOutlineAccessTime, MdOutlineAccountBalanceWallet, MdOutlineInsertLink, MdOutlineSecurity, MdOutlineSwapHorizontalCircle, MdOutlineCalendarToday, MdContentCopy } from 'react-icons/md'; // New icons from Material Design Icons
 import ConstituentWeights from './ConstituentWeights';
-import { setTokenAddress } from '@/constants/contracts';
-import { blueLogo } from '@/lib/utils/assets';
+import { MEME, DCA } from '@/constants/tokens';
 
 const InfoSection = ({ product }) => {
 
-    const contractAddress = setTokenAddress;
+    const contractAddress = DCA.address;
     const { onCopy } = useClipboard(contractAddress);
 
     return (

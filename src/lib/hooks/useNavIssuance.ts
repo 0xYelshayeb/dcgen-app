@@ -1,24 +1,35 @@
 import { useCallback, useState } from 'react'
 
-import { prepareWriteContract, writeContract} from '@wagmi/core'
+import { prepareWriteContract, writeContract } from '@wagmi/core'
 
-import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
 import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
-import { DCA, MEME } from '@/constants/tokens';
+import { arbNavIssuanceModuleAddres, baseNavIssuanceModuleAddres } from '@/constants/contracts';
 import { WETH } from '@/constants/tokens';
-import { navIssuanceModuleAddres } from '@/constants/contracts';
+import { Token } from '@/constants/tokens';
+import { PublicClient } from 'wagmi';
 
 const contractABI = navIssuanceModule.abi
-const setTokenAddress = DCA.address
-const weth = WETH.address
 
-export const useNavIssuance = () => {
+export const useNavIssuance = (publicClient: PublicClient, token: Token) => {
   const { address } = useWallet()
-  const { chainId } = useNetwork()
 
   const [isNavTransacting, setIsTransacting] = useState(false)
+  let wethAddress;
+  let navIssuanceModuleAddress:`0x${string}`;
+  switch (publicClient.chain.id) {
+    case 8453:
+      wethAddress = WETH.baseAddress
+      navIssuanceModuleAddress = baseNavIssuanceModuleAddres
+      break;
+    case 42161:
+      wethAddress = WETH.arbitrumAddress
+      navIssuanceModuleAddress = arbNavIssuanceModuleAddres
+      break;
+    default:
+      wethAddress = WETH.address
+  }
 
   const executeNavIssue = useCallback(
     async (amount: BigNumber) => {
@@ -32,10 +43,10 @@ export const useNavIssuance = () => {
         // Prepare the contract write operation
         const prepared = await prepareWriteContract({
           abi: contractABI,
-          address: navIssuanceModuleAddres,
+          address: navIssuanceModuleAddress,
           functionName: 'issue',
-          args: [setTokenAddress, weth, amount, 0, address],
-          chainId: chainId,
+          args: [token.address, wethAddress, amount, 0, address],
+          chainId: publicClient.chain.id,
         });
 
         console.log("prepared", prepared);
@@ -49,7 +60,7 @@ export const useNavIssuance = () => {
         setIsTransacting(false);
       }
     },
-    [address, chainId]
+    [address, publicClient]
   );
 
   return { executeNavIssue, isNavTransacting };

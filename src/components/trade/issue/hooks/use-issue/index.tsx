@@ -6,8 +6,7 @@ import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useTokenPrice } from '@/lib/hooks/use-token-price'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { toWei } from '@/lib/utils'
-
-import { PublicClient } from 'wagmi';
+import { PublicClient } from 'wagmi'
 
 import {
   formattedFiat,
@@ -22,7 +21,6 @@ export function useNavIssue(
   inputTokenAmount: string,
 ) {
   const { address } = useWallet()
-
   const {
     balance,
     balanceFormatted: inputTokenBalanceFormatted,
@@ -30,6 +28,7 @@ export function useNavIssue(
   } = useFormattedBalance(publicClient, inputToken, address ?? '')
 
   const inputTokenPrice = useTokenPrice(inputToken)
+  const { chainId } = useNetwork()
 
   const inputTokenAmountUsd = useMemo(
     () => formattedFiat(parseFloat(inputTokenAmount), inputTokenPrice),

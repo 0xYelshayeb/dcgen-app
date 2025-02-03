@@ -2,21 +2,32 @@ import { useCallback, useState } from 'react'
 
 import { prepareWriteContract, writeContract } from '@wagmi/core'
 
-import { useNetwork } from '@/lib/hooks/useNetwork'
 import { useWallet } from '@/lib/hooks/useWallet'
 import { BigNumber, ethers } from 'ethers';
-import basicIssuanceModule from "../utils/abi/BasicIssuanceModule.json"
 import navIssuanceModule from "../utils/abi/CustomOracleNavIssuanceModule.json"
-import { DCA } from '@/constants/tokens';
-import { navIssuanceModuleAddres } from '@/constants/contracts';
+import { arbNavIssuanceModuleAddres, baseNavIssuanceModuleAddres } from '@/constants/contracts';
 import { WETH } from '@/constants/tokens';
+import { Token } from '@/constants/tokens';
+import { PublicClient } from 'wagmi';
 
 const contractABI = navIssuanceModule.abi
-const setTokenAddress = DCA.address
 
-export const useRedemption = () => {
+export const useRedemption = (publicClient: PublicClient, token: Token) => {
   const { address } = useWallet()
-  const { chainId } = useNetwork()
+  let wethAddress;
+  let navIssuanceModuleAddress:`0x${string}`;
+  switch (publicClient.chain.id) {
+    case 8453:
+      wethAddress = WETH.baseAddress
+      navIssuanceModuleAddress = baseNavIssuanceModuleAddres
+      break;
+    case 42161:
+      wethAddress = WETH.arbitrumAddress
+      navIssuanceModuleAddress = arbNavIssuanceModuleAddres
+      break;
+    default:
+      wethAddress = WETH.address
+  }
 
   const [isTransacting, setIsTransacting] = useState(false)
 
@@ -30,10 +41,10 @@ export const useRedemption = () => {
         // Prepare the contract write operation
         const prepared = await prepareWriteContract({
           abi: contractABI,
-          address: navIssuanceModuleAddres,
+          address: navIssuanceModuleAddress,
           functionName: 'redeem',
-          args: [setTokenAddress, WETH.address, amount, 0, address],
-          chainId: chainId,
+          args: [token.address, wethAddress, amount, 0, address],
+          chainId: publicClient.chain.id
         });
 
         // Execute the contract write
@@ -45,7 +56,7 @@ export const useRedemption = () => {
         setIsTransacting(false);
       }
     },
-    [address, chainId]
+    [address, publicClient]
   );
 
   return { executeRedeem, isTransacting };
